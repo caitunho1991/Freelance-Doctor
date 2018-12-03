@@ -1,0 +1,231 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="gModelStoreContainer" CdmEntityContainer="FL_DoctorEntities">
+    <EntitySetMapping Name="Accounts">
+      <EntityTypeMapping TypeName="gModel.Account">
+        <MappingFragment StoreEntitySet="Accounts">
+          <ScalarProperty Name="Balance" ColumnName="Balance" />
+          <ScalarProperty Name="OrderCount" ColumnName="OrderCount" />
+          <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+          <ScalarProperty Name="GroupId" ColumnName="GroupId" />
+          <ScalarProperty Name="VerifyEmail" ColumnName="VerifyEmail" />
+          <ScalarProperty Name="VerifyPhone" ColumnName="VerifyPhone" />
+          <ScalarProperty Name="Lng" ColumnName="Lng" />
+          <ScalarProperty Name="Lat" ColumnName="Lat" />
+          <ScalarProperty Name="ExpireTokenRegister" ColumnName="ExpireTokenRegister" />
+          <ScalarProperty Name="TokenRegister" ColumnName="TokenRegister" />
+          <ScalarProperty Name="DeviceToken" ColumnName="DeviceToken" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="DateCreate" ColumnName="DateCreate" />
+          <ScalarProperty Name="ExpireTokenLogin" ColumnName="ExpireTokenLogin" />
+          <ScalarProperty Name="TokenLogin" ColumnName="TokenLogin" />
+          <ScalarProperty Name="IsApprove" ColumnName="IsApprove" />
+          <ScalarProperty Name="TokenFacebook" ColumnName="TokenFacebook" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="ThumbnailLicense" ColumnName="ThumbnailLicense" />
+          <ScalarProperty Name="ThumbnailIDCard" ColumnName="ThumbnailIDCard" />
+          <ScalarProperty Name="Thumbnail" ColumnName="Thumbnail" />
+          <ScalarProperty Name="BirthDay" ColumnName="BirthDay" />
+          <ScalarProperty Name="VerifyCode" ColumnName="VerifyCode" />
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+          <ScalarProperty Name="IDCard" ColumnName="IDCard" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Sex" ColumnName="Sex" />
+          <ScalarProperty Name="FullName" ColumnName="FullName" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="GUID" ColumnName="GUID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CategoryProds">
+      <EntityTypeMapping TypeName="gModel.CategoryProd">
+        <MappingFragment StoreEntitySet="CategoryProd">
+          <ScalarProperty Name="isActive" ColumnName="isActive" />
+          <ScalarProperty Name="dateCreate" ColumnName="dateCreate" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="shortDesc" ColumnName="shortDesc" />
+          <ScalarProperty Name="thumbnail" ColumnName="thumbnail" />
+          <ScalarProperty Name="code" ColumnName="code" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Coupons">
+      <EntityTypeMapping TypeName="gModel.Coupon">
+        <MappingFragment StoreEntitySet="Coupons">
+          <ScalarProperty Name="Percent" ColumnName="Percent" />
+          <ScalarProperty Name="Value" ColumnName="Value" />
+          <ScalarProperty Name="DateCreate" ColumnName="DateCreate" />
+          <ScalarProperty Name="DateEnd" ColumnName="DateEnd" />
+          <ScalarProperty Name="DateStart" ColumnName="DateStart" />
+          <ScalarProperty Name="Count" ColumnName="Count" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Groups">
+      <EntityTypeMapping TypeName="gModel.Group">
+        <MappingFragment StoreEntitySet="Groups">
+          <ScalarProperty Name="IsParent" ColumnName="IsParent" />
+          <ScalarProperty Name="IDLang" ColumnName="IDLang" />
+          <ScalarProperty Name="DateCreate" ColumnName="DateCreate" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Languages">
+      <EntityTypeMapping TypeName="gModel.Language">
+        <MappingFragment StoreEntitySet="Languages">
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="Icon" ColumnName="Icon" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Orders">
+      <EntityTypeMapping TypeName="gModel.Order">
+        <MappingFragment StoreEntitySet="Order">
+          <ScalarProperty Name="note" ColumnName="note" />
+          <ScalarProperty Name="card_bank" ColumnName="card_bank" />
+          <ScalarProperty Name="card_number" ColumnName="card_number" />
+          <ScalarProperty Name="card_fullname" ColumnName="card_fullname" />
+          <ScalarProperty Name="idProduct" ColumnName="idProduct" />
+          <ScalarProperty Name="idReceive" ColumnName="idReceive" />
+          <ScalarProperty Name="idBuyer" ColumnName="idBuyer" />
+          <ScalarProperty Name="dateCreate" ColumnName="dateCreate" />
+          <ScalarProperty Name="receiveEndingBalance" ColumnName="receiveEndingBalance" />
+          <ScalarProperty Name="buyerEndingBalance" ColumnName="buyerEndingBalance" />
+          <ScalarProperty Name="totalPay" ColumnName="totalPay" />
+          <ScalarProperty Name="discount" ColumnName="discount" />
+          <ScalarProperty Name="total" ColumnName="total" />
+          <ScalarProperty Name="idOrderStatus" ColumnName="idOrderStatus" />
+          <ScalarProperty Name="idOrderType" ColumnName="idOrderType" />
+          <ScalarProperty Name="code" ColumnName="code" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="OrderCouponAccounts">
+      <EntityTypeMapping TypeName="gModel.OrderCouponAccount">
+        <MappingFragment StoreEntitySet="OrderCouponAccount">
+          <ScalarProperty Name="DateCreate" ColumnName="DateCreate" />
+          <ScalarProperty Name="CouponID" ColumnName="CouponID" />
+          <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+          <ScalarProperty Name="AccountID" ColumnName="AccountID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="OrderStatus">
+      <EntityTypeMapping TypeName="gModel.OrderStatu">
+        <MappingFragment StoreEntitySet="OrderStatus">
+          <ScalarProperty Name="isActive" ColumnName="isActive" />
+          <ScalarProperty Name="dateUpdate" ColumnName="dateUpdate" />
+          <ScalarProperty Name="dateCreate" ColumnName="dateCreate" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="code" ColumnName="code" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="OrderTypes">
+      <EntityTypeMapping TypeName="gModel.OrderType">
+        <MappingFragment StoreEntitySet="OrderType">
+          <ScalarProperty Name="DateCreate" ColumnName="DateCreate" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Products">
+      <EntityTypeMapping TypeName="gModel.Product">
+        <MappingFragment StoreEntitySet="Product">
+          <ScalarProperty Name="idCatProd" ColumnName="idCatProd" />
+          <ScalarProperty Name="isDelete" ColumnName="isDelete" />
+          <ScalarProperty Name="dateDelete" ColumnName="dateDelete" />
+          <ScalarProperty Name="isActive" ColumnName="isActive" />
+          <ScalarProperty Name="dateCreate" ColumnName="dateCreate" />
+          <ScalarProperty Name="price" ColumnName="price" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="shortDesc" ColumnName="shortDesc" />
+          <ScalarProperty Name="thumbnail" ColumnName="thumbnail" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="code" ColumnName="code" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Resources">
+      <EntityTypeMapping TypeName="gModel.Resource">
+        <MappingFragment StoreEntitySet="Resources">
+          <ScalarProperty Name="IsParent" ColumnName="IsParent" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="IDLang" ColumnName="IDLang" />
+          <ScalarProperty Name="Value" ColumnName="Value" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Roles">
+      <EntityTypeMapping TypeName="gModel.Role">
+        <MappingFragment StoreEntitySet="Roles">
+          <ScalarProperty Name="IsParent" ColumnName="IsParent" />
+          <ScalarProperty Name="IDLang" ColumnName="IDLang" />
+          <ScalarProperty Name="DateCreate" ColumnName="DateCreate" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="gModel.sysdiagram">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="definition" ColumnName="definition" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="AccountRole" TypeName="gModel.AccountRole" StoreEntitySet="AccountRole">
+      <EndProperty Name="Role">
+        <ScalarProperty Name="ID" ColumnName="IDRole" />
+      </EndProperty>
+      <EndProperty Name="Account">
+        <ScalarProperty Name="ID" ColumnName="IDAccount" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="GroupRole" TypeName="gModel.GroupRole" StoreEntitySet="GroupRole">
+      <EndProperty Name="Role">
+        <ScalarProperty Name="ID" ColumnName="IDRole" />
+      </EndProperty>
+      <EndProperty Name="Group">
+        <ScalarProperty Name="ID" ColumnName="IDGroup" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="Order_OrderStatus" TypeName="gModel.Order_OrderStatus" StoreEntitySet="Order_OrderStatus">
+      <EndProperty Name="OrderStatu">
+        <ScalarProperty Name="id" ColumnName="idOrderStatus" />
+      </EndProperty>
+      <EndProperty Name="Order">
+        <ScalarProperty Name="id" ColumnName="idOrder" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping>

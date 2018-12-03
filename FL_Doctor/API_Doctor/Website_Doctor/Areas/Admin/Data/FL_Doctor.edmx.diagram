@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="09389efe9ec64b7ea5af0cd14fb00fa1" Name="Diagram1">
+        <EntityTypeShape EntityType="gModel.Account" Width="1.5" PointX="3" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="gModel.CategoryProd" Width="1.5" PointX="1.5" PointY="15.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="gModel.Coupon" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="gModel.Group" Width="1.5" PointX="0.75" PointY="8.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="gModel.Language" Width="1.5" PointX="7.75" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="gModel.Order" Width="1.5" PointX="8.25" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="gModel.OrderCouponAccount" Width="1.5" PointX="5.25" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="gModel.OrderStatu" Width="1.5" PointX="10.5" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="gModel.OrderType" Width="1.5" PointX="6" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="gModel.Product" Width="1.5" PointX="0.75" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="gModel.Resource" Width="1.5" PointX="9.75" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="gModel.Role" Width="1.5" PointX="5.25" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="gModel.sysdiagram" Width="1.5" PointX="10.75" PointY="12" IsExpanded="true" />
+        <AssociationConnector Association="gModel.FK_Account_Group" ManuallyRouted="false" />
+        <AssociationConnector Association="gModel.FK_Account_OrderCouponAccount" ManuallyRouted="false" />
+        <AssociationConnector Association="gModel.FK_Account_Product" ManuallyRouted="false" />
+        <AssociationConnector Association="gModel.FK_Order_Buyer" ManuallyRouted="false" />
+        <AssociationConnector Association="gModel.FK_Order_Receive" ManuallyRouted="false" />
+        <AssociationConnector Association="gModel.FK_Product_Cat" ManuallyRouted="false" />
+        <AssociationConnector Association="gModel.FK_Coupon_OrderCouponAccount" ManuallyRouted="false" />
+        <AssociationConnector Association="gModel.FK_Order_OrderCouponAccount" ManuallyRouted="false" />
+        <AssociationConnector Association="gModel.FK_Order_OrderType" ManuallyRouted="false" />
+        <AssociationConnector Association="gModel.FK_Order_Product" ManuallyRouted="false" />
+        <AssociationConnector Association="gModel.AccountRole" ManuallyRouted="false" />
+        <AssociationConnector Association="gModel.GroupRole" ManuallyRouted="false" />
+        <AssociationConnector Association="gModel.Order_OrderStatus" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

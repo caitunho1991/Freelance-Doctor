@@ -1,0 +1,12 @@
+git add .
+git commit -m "Ghi chú"
+git push -u origin <nhánh>
+
+t?o nhánh
+git checkout -b <tên nhánh>
+
+chuy?n nhánh
+git checkout <tên nhánh>
+
+xóa nhánh
+git branch -d <tên nhánh>
