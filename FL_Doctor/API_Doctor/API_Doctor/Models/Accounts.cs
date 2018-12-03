@@ -71,6 +71,10 @@ namespace API_Doctor.Models
         public int MajorCode { get; set; }
         public double Radius { get; set; }
     }
+    public class VM_Req_GetDoctor : VM_Req_Status_Doctor
+    {
+        public int MajorCode { get; set; }
+    }
     public class VM_Req_Status_Doctor
     {
         [Required(ErrorMessage = "Vui lòng cung cấp vị trí hiện tại của bạn")]

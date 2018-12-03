@@ -523,14 +523,7 @@
             <param name="token"></param>
             <returns></returns>
         </member>
-        <member name="M:API_Doctor.Controllers.AccountsController.GetListAccount(System.String)">
-            <summary>
-            Lấy danh sách bác sỹ
-            </summary>
-            <param name="token"></param>
-            <returns></returns>
-        </member>
-        <member name="M:API_Doctor.Controllers.AccountsController.GetListAccountWithType(System.Int32,System.String)">
+        <member name="M:API_Doctor.Controllers.AccountsController.GetListAccountWithType(API_Doctor.Models.VM_Req_GetDoctor,System.String)">
             <summary>
             Lấy danh sách bác sỹ theo loại bệnh
             </summary>

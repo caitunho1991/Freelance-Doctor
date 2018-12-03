@@ -281,72 +281,72 @@ namespace API_Doctor.Controllers
             }
         }
 
-        /// <summary>
-        /// Lấy danh sách bác sỹ
-        /// </summary>
-        /// <param name="token"></param>
-        /// <returns></returns>
-        [HttpGet]
-        [Route("API/GetListDoctor/{token}")]
-        public IHttpActionResult GetListAccount(string token)
-        {
-            try
-            {
-                if (!checkAuth(token))
-                {
-                    return Ok(response.NoAuth("Tài khoản không đúng hoặc không có quyền truy cập. Vui lòng kiểm tra lại."));
-                }
-                #region Get list doctor with radius
-                double condition_radius = 0;
-                decimal global_min_fee_doctor = 0;
-                decimal.TryParse(CMS_Lib.Resource("global_min_fee_doctor"), out global_min_fee_doctor);
-                double.TryParse(CMS_Lib.Resource("global_condition_radius"), out condition_radius);
-                var patient = _context.Accounts.SingleOrDefault(x=>x.TokenLogin.Equals(token));
-                var lstDoctor = _context.Accounts.Where(x=>x.GroupId == 1 && x.Balance > global_min_fee_doctor && x.IsActive == true && x.IsApprove == true).ToList();
-                List<Account> tmp = new List<Account>();
-                var radius = 0.0;
-                foreach(var item in lstDoctor)
-                {
-                    //radius = CMS_Lib.Radius(patient.Lat, patient.Lng, item.Lat, item.Lng) * 0.621371192;
-                    radius = CMS_Lib.DistanceTo(double.Parse(patient.Lat), double.Parse(patient.Lng), double.Parse(item.Lat), double.Parse(item.Lng));
+        ///// <summary>
+        ///// Lấy danh sách bác sỹ
+        ///// </summary>
+        ///// <param name="token"></param>
+        ///// <returns></returns>
+        //[HttpGet]
+        //[Route("API/GetListDoctor/{token}")]
+        //public IHttpActionResult GetListAccount(string token)
+        //{
+        //    try
+        //    {
+        //        if (!checkAuth(token))
+        //        {
+        //            return Ok(response.NoAuth("Tài khoản không đúng hoặc không có quyền truy cập. Vui lòng kiểm tra lại."));
+        //        }
+        //        #region Get list doctor with radius
+        //        double condition_radius = 0;
+        //        decimal global_min_fee_doctor = 0;
+        //        decimal.TryParse(CMS_Lib.Resource("global_min_fee_doctor"), out global_min_fee_doctor);
+        //        double.TryParse(CMS_Lib.Resource("global_condition_radius"), out condition_radius);
+        //        var patient = _context.Accounts.SingleOrDefault(x=>x.TokenLogin.Equals(token));
+        //        var lstDoctor = _context.Accounts.Where(x=>x.GroupId == 1 && x.Balance > global_min_fee_doctor && x.IsActive == true && x.IsApprove == true).ToList();
+        //        List<Account> tmp = new List<Account>();
+        //        var radius = 0.0;
+        //        foreach(var item in lstDoctor)
+        //        {
+        //            //radius = CMS_Lib.Radius(patient.Lat, patient.Lng, item.Lat, item.Lng) * 0.621371192;
+        //            radius = CMS_Lib.DistanceTo(double.Parse(patient.Lat), double.Parse(patient.Lng), double.Parse(item.Lat), double.Parse(item.Lng));
 
-                    if (radius <= condition_radius)
-                    {
-                        tmp.Add(item);
-                    }
-                }
-                #endregion
+        //            if (radius <= condition_radius)
+        //            {
+        //                tmp.Add(item);
+        //            }
+        //        }
+        //        #endregion
 
-                var list = tmp.Select(x=> new VM_Res_Account {
-                    FullName = x.FullName,
-                    MajorName = x.Product.name,
-                    Fee = x.Product.price.ToString(),
-                    Lat = x.Lat,
-                    Lng = x.Lng,
-                    ThumbnailUrl = string.IsNullOrEmpty(x.Thumbnail) == true ? "" : "http://" + HttpContext.Current.Request.Url.Host + "/Uploads/" + x.Thumbnail,
-                    OrderCount = (int)x.OrderCount,
-                    GUID = x.GUID,
-                    MajorCode = x.Product.id,
-                    ThumbnailIDCard = string.IsNullOrEmpty(x.ThumbnailIDCard) == true ? "" : "http://" + HttpContext.Current.Request.Url.Host + "/Uploads/" + x.ThumbnailIDCard,
-                    ThumbnailLicense = string.IsNullOrEmpty(x.ThumbnailLicense) == true ? "" : "http://" + HttpContext.Current.Request.Url.Host + "/Uploads/" + x.ThumbnailLicense,
-                    Radius = condition_radius
-                }).ToList();
-                return Ok(responseAccount.Ok(list, "Lấy danh sách bác sỹ thành công."));
-            }
-            catch (Exception e)
-            {
-                return Ok(response.BadRequest("Có lỗi trong quá trình xử lý."));
-            }
-        }
+        //        var list = tmp.Select(x=> new VM_Res_Account {
+        //            FullName = x.FullName,
+        //            MajorName = x.Product.name,
+        //            Fee = x.Product.price.ToString(),
+        //            Lat = x.Lat,
+        //            Lng = x.Lng,
+        //            ThumbnailUrl = string.IsNullOrEmpty(x.Thumbnail) == true ? "" : "http://" + HttpContext.Current.Request.Url.Host + "/Uploads/" + x.Thumbnail,
+        //            OrderCount = (int)x.OrderCount,
+        //            GUID = x.GUID,
+        //            MajorCode = x.Product.id,
+        //            ThumbnailIDCard = string.IsNullOrEmpty(x.ThumbnailIDCard) == true ? "" : "http://" + HttpContext.Current.Request.Url.Host + "/Uploads/" + x.ThumbnailIDCard,
+        //            ThumbnailLicense = string.IsNullOrEmpty(x.ThumbnailLicense) == true ? "" : "http://" + HttpContext.Current.Request.Url.Host + "/Uploads/" + x.ThumbnailLicense,
+        //            Radius = condition_radius
+        //        }).ToList();
+        //        return Ok(responseAccount.Ok(list, "Lấy danh sách bác sỹ thành công."));
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        return Ok(response.BadRequest("Có lỗi trong quá trình xử lý."));
+        //    }
+        //}
 
         /// <summary>
         /// Lấy danh sách bác sỹ theo loại bệnh
         /// </summary>
         /// <param name="token"></param>
         /// <returns></returns>
-        [HttpGet]
-        [Route("API/GetListDoctor/{MajorCode}/{token}")]
-        public IHttpActionResult GetListAccountWithType(int MajorCode, string token)
+        [HttpPost]
+        [Route("API/GetListDoctor/{token}")]
+        public IHttpActionResult GetListAccountWithType(VM_Req_GetDoctor req, string token)
         {
             try
             {
@@ -360,7 +360,20 @@ namespace API_Doctor.Controllers
                 decimal.TryParse(CMS_Lib.Resource("global_min_fee_doctor"), out global_min_fee_doctor);
                 double.TryParse(CMS_Lib.Resource("global_condition_radius"), out condition_radius);
                 var patient = _context.Accounts.SingleOrDefault(x => x.TokenLogin.Equals(token));
-                var lstDoctor = _context.Accounts.Where(x => x.ProductId==MajorCode && x.GroupId == 1 && x.Balance > global_min_fee_doctor && x.IsActive == true && x.IsApprove == true).ToList();
+                //update lat lng patient
+                patient.Lat = req.Lat;
+                patient.Lng = req.Lng;
+                _context.SaveChanges();
+
+                List<Account> lstDoctor;
+                if (req.MajorCode != null || req.MajorCode > 0)
+                {
+                    lstDoctor = _context.Accounts.Where(x => x.ProductId == req.MajorCode && x.GroupId == 1 && x.Balance > global_min_fee_doctor && x.IsActive == true && x.IsApprove == true).ToList();
+                }
+                else
+                {
+                    lstDoctor = _context.Accounts.Where(x => x.GroupId == 1 && x.Balance > global_min_fee_doctor && x.IsActive == true && x.IsApprove == true).ToList();
+                }
                 List<Account> tmp = new List<Account>();
                 var radius = 0.0;
                 foreach (var item in lstDoctor)
