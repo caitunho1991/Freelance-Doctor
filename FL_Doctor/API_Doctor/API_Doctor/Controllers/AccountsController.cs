@@ -112,7 +112,7 @@ namespace API_Doctor.Controllers
                 {
                     if (acc.ExpireTokenLogin == null || DateTime.Compare((DateTime)acc.ExpireTokenLogin, DateTime.Now) <= 0)
                     {
-                        acc.TokenLogin = CMS_Security.Base64Encode(req.TokenDevice + " - " + req.Password + " - " + req.Username);
+                        acc.TokenLogin = CMS_Security.GenerateGUID().ToString();
                         acc.ExpireTokenLogin = DateTime.Now.AddMinutes(10);
                         acc.IsActive = true;
                         acc.Lat = req.Lat != null ? req.Lat : "0";
@@ -138,6 +138,7 @@ namespace API_Doctor.Controllers
                     var email1 = JsonConvert.SerializeObject(req);
                     email.SendEmail("FL_Doctor Log Server" + DateTime.Now.ToString(), email1);
                     #endregion
+                    var tmpToken = CMS_Security.Base64Encode(req.TokenDevice + " - " + req.Password + " - " + req.Username);
                     var res = _context.Accounts.Where(x => (x.Email.ToUpper().Equals(req.Username.ToUpper()) && x.VerifyEmail == true) || (x.PhoneNumber.Equals(req.Username) && x.VerifyPhone == true)).Where(x => x.Password.Equals(req.Password) && x.GroupId == GroupId).Select(x => new VM_Res_Account_Short
                     {
                         FullName = x.FullName,
@@ -154,7 +155,8 @@ namespace API_Doctor.Controllers
                         ImgLicenseId = string.IsNullOrEmpty(x.ThumbnailLicense) == true ? "" : "http://" + HttpContext.Current.Request.Url.Host + "/Uploads/" + x.ThumbnailLicense,
                         ImgAvatar = string.IsNullOrEmpty(x.Thumbnail) == true ? "" : "http://" + HttpContext.Current.Request.Url.Host + "/Uploads/" + x.Thumbnail,
                         MajorCode = x.ProductId,
-                        MajorName = x.Product.name
+                        MajorName = x.Product.name,
+                        TokenAutoLogin = tmpToken
                     }).SingleOrDefault();
                     return Ok(response.Ok(res, "Đăng nhập thành công."));
                 }                
@@ -196,6 +198,17 @@ namespace API_Doctor.Controllers
                 _context.Accounts.Add(acc);
                 _context.SaveChanges();
                 var DateOfBirth = ((DateTime)acc.BirthDay).ToString("dd/MM/yyyy");
+
+                string tmpToken = "";
+                if (acc.VerifyEmail == true )
+                {
+                    tmpToken = CMS_Security.Base64Encode(req.TokenDevice + " - " + req.Password + " - " + req.Email);
+                }
+                if (acc.VerifyPhone == true)
+                {
+                    tmpToken = CMS_Security.Base64Encode(req.TokenDevice + " - " + req.Password + " - " + req.PhoneNumber);
+                }
+                
                 var dataResponse = _context.Accounts.Where(x => x.Email.ToUpper().Equals(req.Email.ToUpper()) || x.PhoneNumber.Equals(req.PhoneNumber)).Select(x => new VM_Res_Account_Short
                 {
                     FullName = x.FullName,
@@ -212,7 +225,8 @@ namespace API_Doctor.Controllers
                     ImgLicenseId = string.IsNullOrEmpty(x.ThumbnailLicense) == true ? "" : "http://" + HttpContext.Current.Request.Url.Host + "/Uploads/" + x.ThumbnailLicense,
                     ImgAvatar = string.IsNullOrEmpty(x.Thumbnail) == true ? "" : "http://" + HttpContext.Current.Request.Url.Host + "/Uploads/" + x.Thumbnail,
                     MajorCode = (int)x.ProductId,
-                    MajorName = x.Product.name
+                    MajorName = x.Product.name,
+                    TokenAutoLogin = tmpToken
                 }).SingleOrDefault();
                 return Ok(response.Ok(dataResponse, "Đăng ký tài khoản thành công."));
             }

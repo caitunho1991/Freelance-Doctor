@@ -35,7 +35,7 @@
           <Property Name="IsActive" Type="bit" />
           <Property Name="TokenFacebook" Type="text" />
           <Property Name="IsApprove" Type="bit" />
-          <Property Name="TokenLogin" Type="text" />
+          <Property Name="TokenLogin" Type="varchar" MaxLength="100" />
           <Property Name="ExpireTokenLogin" Type="datetime" />
           <Property Name="DateCreate" Type="datetime" />
           <Property Name="Password" Type="varchar" MaxLength="100" />
@@ -587,7 +587,7 @@
           <Property Name="IsActive" Type="Boolean" />
           <Property Name="TokenFacebook" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="IsApprove" Type="Boolean" />
-          <Property Name="TokenLogin" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="TokenLogin" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="ExpireTokenLogin" Type="DateTime" Precision="3" />
           <Property Name="DateCreate" Type="DateTime" Precision="3" />
           <Property Name="Password" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />

@@ -408,7 +408,7 @@ namespace API_Doctor.Controllers
                 }
                 //check time ko cho hủy đơn hàng
                 int timeout_cancel_order = 0 - int.Parse(CMS_Lib.Resource("global_timeout_cancel_order"));
-                if (DateTime.Compare(DateTime.Now.AddMinutes(timeout_cancel_order), (DateTime)order.dateCreate)<=0)
+                if (DateTime.Compare(DateTime.Now.AddMinutes(timeout_cancel_order), (DateTime)order.dateCreate) >= 0)
                 {
                     return Ok(responseSingle.Ok(res, "Hủy đơn hàng không thành công. Quá thời gia hủy đơn hàng.", false));
                 }

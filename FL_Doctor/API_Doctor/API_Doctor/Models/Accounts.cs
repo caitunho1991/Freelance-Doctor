@@ -51,6 +51,7 @@ namespace API_Doctor.Models
         public bool Active { get; set; }
         public int? MajorCode { get; set; }
         public string MajorName { get; set; }
+        public string TokenAutoLogin { get; set; }
     }
     public class VM_Res_Account_Balance : VM_Res_Account_Short{
         public decimal Balance { get; set; }
@@ -152,7 +153,7 @@ namespace API_Doctor.Models
             acc.TokenFacebook = this.TokenFacebook;
             acc.Lat = this.Lat;
             acc.Lng = this.Lng;
-            acc.Password = CMS_Security.MD5(this.Password);
+            acc.Password = this.Password;
 
             PhoneNumberUtil phoneUtil = PhoneNumberUtil.GetInstance();
             var a = phoneUtil.Parse(this.PhoneNumber, "VN");
@@ -187,13 +188,13 @@ namespace API_Doctor.Models
             {
                 //register by email
                 acc.VerifyEmail = true;
-                acc.TokenLogin = CMS_Security.Base64Encode(acc.DeviceToken + " - " + acc.Password + " - " + acc.Email);
+                acc.TokenLogin = acc.TokenLogin = CMS_Security.GenerateGUID().ToString(); ;
             }
             else
             {
                 //register by phone
                 acc.VerifyPhone = true;
-                acc.TokenLogin = CMS_Security.Base64Encode(acc.DeviceToken + " - " + acc.Password + " - " + acc.PhoneNumber);
+                acc.TokenLogin = acc.TokenLogin = CMS_Security.GenerateGUID().ToString(); ;
             }
             acc.Balance = 0;
             acc.OrderCount = 0;
