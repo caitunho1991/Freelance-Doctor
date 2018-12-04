@@ -1,0 +1,519 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>FirebaseAdmin</name>
+    </assembly>
+    <members>
+        <member name="T:FirebaseAdmin.AppOptions">
+            <summary>
+            Configurable options that can be specified when creating a <see cref="T:FirebaseAdmin.FirebaseApp"/>.
+            See <a href="https://firebase.google.com/docs/admin/setup#initialize_the_sdk">
+            Initialize the SDK</a> for code samples and detailed documentation.
+            </summary>
+        </member>
+        <member name="P:FirebaseAdmin.AppOptions.Credential">
+            <summary>
+            <see cref="T:Google.Apis.Auth.OAuth2.GoogleCredential"/> used to authorize an app. All service calls made by
+            the app will be authorized using this.
+            </summary>
+        </member>
+        <member name="P:FirebaseAdmin.AppOptions.ProjectId">
+            <summary>
+            The Google Cloud Platform project ID that should be associated with an app.
+            </summary>
+        </member>
+        <member name="P:FirebaseAdmin.AppOptions.ServiceAccountId">
+            <summary>
+            The unique ID of the service account that should be associated with an app.
+            <para>This is used to <a href="https://firebase.google.com/docs/auth/admin/create-custom-tokens">
+            create custom auth tokens</a> when service account credentials are not available. The
+            service account ID can be found in the <c>client_email</c> field of the service account
+            JSON.</para>
+            </summary>
+        </member>
+        <member name="M:FirebaseAdmin.AppOptions.#ctor">
+            <summary>
+            Creates a new <see cref="T:FirebaseAdmin.AppOptions"/> instance.
+            </summary>
+        </member>
+        <member name="T:FirebaseAdmin.Auth.FirebaseAuth">
+            <summary>
+            This is the entry point to all server-side Firebase Authentication operations. You can
+            get an instance of this class via <c>FirebaseAuth.DefaultInstance</c>.
+            </summary>
+        </member>
+        <member name="M:FirebaseAdmin.Auth.FirebaseAuth.CreateCustomTokenAsync(System.String)">
+            <summary>
+            Creates a Firebase custom token for the given user ID. This token can then be sent
+            back to a client application to be used with the
+            <a href="https://firebase.google.com/docs/auth/admin/create-custom-tokens#sign_in_using_custom_tokens_on_clients">
+            signInWithCustomToken</a> authentication API.
+            <para>
+            This method attempts to generate a token using:
+            <list type="number">
+            <item>
+            <description>the private key of <see cref="T:FirebaseAdmin.FirebaseApp"/>'s service account
+            credentials, if provided at initialization.</description>
+            </item>
+            <item>
+            <description>the IAM service if a service accound ID was specified via
+            <see cref="T:FirebaseAdmin.AppOptions"/></description>
+            </item>
+            <item>
+            <description>the local metadata server if the code is deployed in a GCP-managed
+            environment.</description>
+            </item>
+            </list>
+            </para>
+            </summary>
+            <returns>A task that completes with a Firebase custom token.</returns>
+            <exception cref="T:System.ArgumentException">If <paramref name="uid"/> is null, empty or longer
+            than 128 characters.</exception>
+            <exception cref="T:FirebaseAdmin.FirebaseException">If an error occurs while creating a custom
+            token.</exception>
+            <param name="uid">The UID to store in the token. This identifies the user to other
+            Firebase services (Realtime Database, Firebase Auth, etc.). Must not be longer than
+            128 characters.</param>
+        </member>
+        <member name="M:FirebaseAdmin.Auth.FirebaseAuth.CreateCustomTokenAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Creates a Firebase custom token for the given user ID. This token can then be sent
+            back to a client application to be used with the
+            <a href="https://firebase.google.com/docs/auth/admin/create-custom-tokens#sign_in_using_custom_tokens_on_clients">
+            signInWithCustomToken</a> authentication API.
+            <para>
+            This method attempts to generate a token using:
+            <list type="number">
+            <item>
+            <description>the private key of <see cref="T:FirebaseAdmin.FirebaseApp"/>'s service account
+            credentials, if provided at initialization.</description>
+            </item>
+            <item>
+            <description>the IAM service if a service accound ID was specified via
+            <see cref="T:FirebaseAdmin.AppOptions"/></description>
+            </item>
+            <item>
+            <description>the local metadata server if the code is deployed in a GCP-managed
+            environment.</description>
+            </item>
+            </list>
+            </para>
+            </summary>
+            <returns>A task that completes with a Firebase custom token.</returns>
+            <exception cref="T:System.ArgumentException">If <paramref name="uid"/> is null, empty or longer
+            than 128 characters.</exception>
+            <exception cref="T:FirebaseAdmin.FirebaseException">If an error occurs while creating a custom
+            token.</exception>
+            <param name="uid">The UID to store in the token. This identifies the user to other
+            Firebase services (Realtime Database, Firebase Auth, etc.). Must not be longer than
+            128 characters.</param>
+            <param name="cancellationToken">A cancellation token to monitor the asynchronous
+            operation.</param>
+        </member>
+        <member name="M:FirebaseAdmin.Auth.FirebaseAuth.CreateCustomTokenAsync(System.String,System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary>
+            Creates a Firebase custom token for the given user ID containing the specified
+            additional claims. This token can then be sent back to a client application to be used
+            with the
+            <a href="https://firebase.google.com/docs/auth/admin/create-custom-tokens#sign_in_using_custom_tokens_on_clients">
+            signInWithCustomToken</a> authentication API.
+            <para>This method uses the same mechanisms as
+            <see cref="M:FirebaseAdmin.Auth.FirebaseAuth.CreateCustomTokenAsync(System.String)"/> to sign custom tokens.</para>
+            </summary>
+            <returns>A task that completes with a Firebase custom token.</returns>
+            <exception cref="T:System.ArgumentException">If <paramref name="uid"/> is null, empty or longer
+            than 128 characters. Or, if <paramref name="developerClaims"/> contains any standard
+            JWT claims.</exception>
+            <exception cref="T:FirebaseAdmin.FirebaseException">If an error occurs while creating a custom
+            token.</exception>
+            <param name="uid">The UID to store in the token. This identifies the user to other
+            Firebase services (Realtime Database, Firebase Auth, etc.). Must not be longer than
+            128 characters.</param>
+            <param name="developerClaims">Additional claims to be stored in the token, and made
+            available to Firebase security rules. These must be serializable to JSON, and must not
+            contain any standard JWT claims.</param>
+        </member>
+        <member name="M:FirebaseAdmin.Auth.FirebaseAuth.CreateCustomTokenAsync(System.String,System.Collections.Generic.IDictionary{System.String,System.Object},System.Threading.CancellationToken)">
+            <summary>
+            Creates a Firebase custom token for the given user ID containing the specified
+            additional claims. This token can then be sent back to a client application to be used
+            with the
+            <a href="https://firebase.google.com/docs/auth/admin/create-custom-tokens#sign_in_using_custom_tokens_on_clients">
+            signInWithCustomToken</a> authentication API.
+            <para>This method uses the same mechanisms as
+            <see cref="M:FirebaseAdmin.Auth.FirebaseAuth.CreateCustomTokenAsync(System.String)"/> to sign custom tokens.</para>
+            </summary>
+            <returns>A task that completes with a Firebase custom token.</returns>
+            <exception cref="T:System.ArgumentException">If <paramref name="uid"/> is null, empty or longer
+            than 128 characters. Or, if <paramref name="developerClaims"/> contains any standard
+            JWT claims.</exception>
+            <exception cref="T:FirebaseAdmin.FirebaseException">If an error occurs while creating a custom
+            token.</exception>
+            <param name="uid">The UID to store in the token. This identifies the user to other
+            Firebase services (Realtime Database, Firebase Auth, etc.). Must not be longer than
+            128 characters.</param>
+            <param name="developerClaims">Additional claims to be stored in the token, and made
+            available to Firebase security rules. These must be serializable to JSON, and must not
+            contain any standard JWT claims.</param>
+            <param name="cancellationToken">A cancellation token to monitor the asynchronous
+            operation.</param>
+        </member>
+        <member name="M:FirebaseAdmin.Auth.FirebaseAuth.VerifyIdTokenAsync(System.String)">
+            <summary>
+            Parses and verifies a Firebase ID token.
+            <para>A Firebase client app can identify itself to a trusted back-end server by sending
+            its Firebase ID Token (accessible via the <c>getIdToken()</c> API in the Firebase
+            client SDK) with its requests. The back-end server can then use this method
+            to verify that the token is valid. This method ensures that the token is correctly
+            signed, has not expired, and it was issued against the Firebase project associated with
+            this <c>FirebaseAuth</c> instance.</para>
+            <para>See <a href="https://firebase.google.com/docs/auth/admin/verify-id-tokens">Verify
+            ID Tokens</a> for code samples and detailed documentation.</para>
+            </summary>
+            <returns>A task that completes with a <see cref="T:FirebaseAdmin.Auth.FirebaseToken"/> representing
+            the verified and decoded ID token.</returns>
+            <exception cref="T:System.ArgumentException">If ID token argument is null or empty.</exception>
+            <exception cref="T:FirebaseAdmin.FirebaseException">If the ID token fails to verify.</exception>
+            <param name="idToken">A Firebase ID token string to parse and verify.</param>
+        </member>
+        <member name="M:FirebaseAdmin.Auth.FirebaseAuth.VerifyIdTokenAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Parses and verifies a Firebase ID token.
+            <para>A Firebase client app can identify itself to a trusted back-end server by sending
+            its Firebase ID Token (accessible via the <c>getIdToken()</c> API in the Firebase
+            client SDK) with its requests. The back-end server can then use this method
+            to verify that the token is valid. This method ensures that the token is correctly
+            signed, has not expired, and it was issued against the Firebase project associated with
+            this <c>FirebaseAuth</c> instance.</para>
+            <para>See <a href="https://firebase.google.com/docs/auth/admin/verify-id-tokens">Verify
+            ID Tokens</a> for code samples and detailed documentation.</para>
+            </summary>
+            <returns>A task that completes with a <see cref="T:FirebaseAdmin.Auth.FirebaseToken"/> representing
+            the verified and decoded ID token.</returns>
+            <exception cref="T:System.ArgumentException">If ID token argument is null or empty.</exception>
+            <exception cref="T:FirebaseAdmin.FirebaseException">If the ID token fails to verify.</exception>
+            <param name="idToken">A Firebase ID token string to parse and verify.</param>
+            <param name="cancellationToken">A cancellation token to monitor the asynchronous
+            operation.</param>
+        </member>
+        <member name="P:FirebaseAdmin.Auth.FirebaseAuth.DefaultInstance">
+            <summary>
+            The auth instance associated with the default Firebase app. This property is
+            <c>null</c> if the default app doesn't yet exist.
+            </summary>
+        </member>
+        <member name="M:FirebaseAdmin.Auth.FirebaseAuth.GetAuth(FirebaseAdmin.FirebaseApp)">
+            <summary>
+            Returns the auth instance for the specified app.
+            </summary>
+            <returns>The <see cref="T:FirebaseAdmin.Auth.FirebaseAuth"/> instance associated with the specified
+            app.</returns>
+            <exception cref="T:System.ArgumentNullException">If the app argument is null.</exception>
+            <param name="app">An app instance.</param>
+        </member>
+        <member name="T:FirebaseAdmin.Auth.FirebaseToken">
+            <summary>
+            Represents a valid, decoded Firebase ID token. It can be used to get the <c>Uid</c> and
+            other claims available in the token.
+            </summary>
+        </member>
+        <member name="P:FirebaseAdmin.Auth.FirebaseToken.Issuer">
+            <summary>
+            The issuer claim that identifies the principal that issued the JWT.
+            </summary>
+        </member>
+        <member name="P:FirebaseAdmin.Auth.FirebaseToken.Subject">
+            <summary>
+            The subject claim identifying the principal that is the subject of the JWT.
+            </summary>
+        </member>
+        <member name="P:FirebaseAdmin.Auth.FirebaseToken.Audience">
+            <summary>
+            The audience claim that identifies the audience that the JWT is intended for.
+            </summary>
+        </member>
+        <member name="P:FirebaseAdmin.Auth.FirebaseToken.ExpirationTimeSeconds">
+            <summary>
+            The expiration time claim that identifies the expiration time (in seconds)
+            on or after which the token MUST NOT be accepted for processing.
+            </summary>
+        </member>
+        <member name="P:FirebaseAdmin.Auth.FirebaseToken.IssuedAtTimeSeconds">
+            <summary>
+            The issued at claim that identifies the time (in seconds) at which the JWT was issued.
+            </summary>
+        </member>
+        <member name="P:FirebaseAdmin.Auth.FirebaseToken.Uid">
+            <summary>
+            User ID of the user to which this ID token belongs. This is same as <c>Subject</c>.
+            </summary>
+        </member>
+        <member name="P:FirebaseAdmin.Auth.FirebaseToken.Claims">
+            <summary>
+            A read-only dictionary of all other claims present in the JWT. This can be used to
+            access custom claims of the token.
+            </summary>
+        </member>
+        <member name="T:FirebaseAdmin.Auth.FirebaseTokenFactory">
+            <summary>
+            A helper class that creates Firebase custom tokens.
+            </summary>
+        </member>
+        <member name="T:FirebaseAdmin.Auth.FirebaseTokenVerifier">
+            <summary>
+            A helper class that can be used to verify signed Firebase tokens (e.g. ID tokens).
+            </summary>
+        </member>
+        <member name="M:FirebaseAdmin.Auth.FirebaseTokenVerifier.VerifySignatureAsync(System.String[],System.String,System.Threading.CancellationToken)">
+            <summary>
+            Verifies the integrity of a JWT by validating its signature. The JWT must be specified
+            as an array of three segments (header, body and signature).
+            </summary>
+        </member>
+        <member name="T:FirebaseAdmin.Auth.HttpPublicKeySource">
+            <summary>
+            An <see cref="T:FirebaseAdmin.Auth.IPublicKeySource"/> implementation that retrieves public keys from a remote
+            HTTP server. Retrieved keys are cached in memory according to the HTTP cache-control
+            directive.
+            </summary>
+        </member>
+        <member name="T:FirebaseAdmin.Auth.IAMSigner">
+            <summary>
+            An <see cref="T:FirebaseAdmin.Auth.ISigner"/> implementation that uses the
+            <a href="https://cloud.google.com/iam/reference/rest/v1/projects.serviceAccounts/signBlob">IAM
+            service</a> to sign data. The IAM
+            service must be called with a service account ID, and this class attempts to auto
+            discover a service account ID by contacting the local metadata service present in
+            Google-managed runtimes.
+            </summary>
+        </member>
+        <member name="T:FirebaseAdmin.Auth.SignBlobRequest">
+            <summary>
+            Represents the sign request sent to the remote IAM service.
+            </summary>
+        </member>
+        <member name="T:FirebaseAdmin.Auth.SignBlobResponse">
+            <summary>
+            Represents the sign response sent by the remote IAM service.
+            </summary>
+        </member>
+        <member name="T:FirebaseAdmin.Auth.SignBlobError">
+            <summary>
+            Represents an error response sent by the remote IAM service.
+            </summary>
+        </member>
+        <member name="T:FirebaseAdmin.Auth.SignBlobErrorDetail">
+            <summary>
+            Represents the error details embedded in an IAM error response.
+            </summary>
+        </member>
+        <member name="T:FirebaseAdmin.Auth.FixedAccountIAMSigner">
+            <summary>
+            An <see cref="T:FirebaseAdmin.Auth.ISigner"/> implementation that uses the IAM service to sign data. Unlike
+            <see cref="T:FirebaseAdmin.Auth.IAMSigner"/> this class does not attempt to auto discover a service account ID.
+            Insterad it must be initialized with a fixed service account ID string.
+            </summary>
+        </member>
+        <member name="T:FirebaseAdmin.Auth.IPublicKeySource">
+            <summary>
+            An object that can be used to retrieve a set of RSA public keys for verifying signatures.
+            </summary>
+        </member>
+        <member name="M:FirebaseAdmin.Auth.IPublicKeySource.GetPublicKeysAsync(System.Threading.CancellationToken)">
+            <summary>
+            Returns a set of public keys.
+            </summary>
+            <returns>A task that completes with a list of public keys.</returns>
+            <param name="cancellationToken">A cancellation token to monitor the asynchronous
+            operation.</param>
+        </member>
+        <member name="T:FirebaseAdmin.Auth.ISigner">
+            <summary>
+            Represents an object can be used to cryptographically sign data. Mainly used for signing
+            custom JWT tokens issued to Firebase users.
+            </summary>
+        </member>
+        <member name="M:FirebaseAdmin.Auth.ISigner.GetKeyIdAsync(System.Threading.CancellationToken)">
+            <summary>
+            Returns the ID (client email) of the service account used to sign payloads.
+            </summary>
+            <returns>A task that completes with the key ID string.</returns>
+            <param name="cancellationToken">A cancellation token to monitor the asynchronous
+            operation.</param>
+        </member>
+        <member name="M:FirebaseAdmin.Auth.ISigner.SignDataAsync(System.Byte[],System.Threading.CancellationToken)">
+            <summary>
+            Signs the given data payload.
+            </summary>
+            <returns>A task that completes with the crypto signature.</returns>
+            <param name="data">A byte array of data to be signed.</param>
+            <param name="cancellationToken">A cancellation token to monitor the asynchronous
+            operation.</param>
+        </member>
+        <member name="T:FirebaseAdmin.Auth.JwtUtils">
+            <summary>
+            A collection of utilities for encoding and decoding JWTs.
+            </summary>
+        </member>
+        <member name="M:FirebaseAdmin.Auth.JwtUtils.Decode``1(System.String)">
+            <summary>
+            Decodes a single JWT segment, and deserializes it into a value of type
+            <typeparamref name="T"/>.
+            </summary>
+            <typeparam name="T">The type of the decoded result.</typeparam>
+            <returns>Decoded JWT segment as a value of type <typeparamref name="T"/>.</returns>
+            <param name="value">JWT segment to be decoded.</param>
+        </member>
+        <member name="T:FirebaseAdmin.Auth.PublicKey">
+            <summary>
+            Represents an RSA public key, which can be used to verify signatures.
+            </summary>
+        </member>
+        <member name="P:FirebaseAdmin.Auth.PublicKey.Id">
+            <summary>
+            The unique identifier of this key.
+            </summary>
+        </member>
+        <member name="P:FirebaseAdmin.Auth.PublicKey.RSA">
+            <summary>
+            A <see cref="T:System.Security.Cryptography.RSA"/> instance containing the contents of
+            the public key.
+            </summary>
+        </member>
+        <member name="T:FirebaseAdmin.Auth.ServiceAccountSigner">
+            <summary>
+            An <see cref="T:FirebaseAdmin.Auth.ISigner"/> implementation that uses service account credentials to sign
+            data. Uses the private key present in the credential to produce signatures.
+            </summary>
+        </member>
+        <member name="T:FirebaseAdmin.Extensions">
+            <summary>
+            A collection of extension methods for internal use in the SDK.
+            </summary>
+        </member>
+        <member name="M:FirebaseAdmin.Extensions.ToServiceAccountCredential(Google.Apis.Auth.OAuth2.GoogleCredential)">
+            <summary>
+            Extracts and returns the underlying <see cref="T:Google.Apis.Auth.OAuth2.ServiceAccountCredential"/> from a
+            <see cref="T:Google.Apis.Auth.OAuth2.GoogleCredential"/>. Returns null if the <c>GoogleCredential</c> is not
+            based on a service account.
+            </summary>
+        </member>
+        <member name="M:FirebaseAdmin.Extensions.CreateDefaultHttpClient(Google.Apis.Http.HttpClientFactory)">
+            <summary>
+            Creates a default (unauthenticated) <see cref="T:Google.Apis.Http.ConfigurableHttpClient"/> from the
+            factory.
+            </summary> 
+        </member>
+        <member name="M:FirebaseAdmin.Extensions.CreateAuthorizedHttpClient(Google.Apis.Http.HttpClientFactory,Google.Apis.Auth.OAuth2.GoogleCredential)">
+            <summary>
+            Creates an authenticated <see cref="T:Google.Apis.Http.ConfigurableHttpClient"/> from the
+            factory.
+            </summary>
+        </member>
+        <member name="M:FirebaseAdmin.Extensions.PostJsonAsync``1(System.Net.Http.HttpClient,System.String,``0,System.Threading.CancellationToken)">
+            <summary>
+            Makes a JSON POST request using the given parameters.
+            </summary>
+        </member>
+        <member name="M:FirebaseAdmin.Extensions.UnixTimestamp(Google.Apis.Util.IClock)">
+            <summary>
+            Returns a Unix-styled timestamp (seconds from epoch) from the <see cref="T:Google.Apis.Util.IClock"/>.
+            </summary>
+        </member>
+        <member name="T:FirebaseAdmin.FirebaseApp">
+            <summary>
+            This is the entry point to the Firebase Admin SDK. It holds configuration and state common
+            to all APIs exposed from the SDK.
+            <para>Use one of the provided <c>Create()</c> methods to obtain a new instance.
+            See <a href="https://firebase.google.com/docs/admin/setup#initialize_the_sdk">
+            Initialize the SDK</a> for code samples and detailed documentation.</para>
+            </summary>
+        </member>
+        <member name="P:FirebaseAdmin.FirebaseApp.Options">
+            <summary>
+            A copy of the <see cref="T:FirebaseAdmin.AppOptions"/> this app was created with.
+            </summary>
+        </member>
+        <member name="P:FirebaseAdmin.FirebaseApp.Name">
+            <summary>
+            Name of this app.
+            </summary>
+        </member>
+        <member name="M:FirebaseAdmin.FirebaseApp.Delete">
+            <summary>
+            Deletes this app instance and cleans up any state associated with it. Once an app has
+            been deleted, accessing any services related to it will result in an exception.
+            If the app is already deleted, this method is a no-op.
+            </summary>
+        </member>
+        <member name="M:FirebaseAdmin.FirebaseApp.Create">
+            <summary>
+            Creates the default app instance with Google Application Default Credentials.
+            </summary>
+            <returns>The newly created <see cref="T:FirebaseAdmin.FirebaseApp"/> instance.</returns>
+            <exception cref="T:System.ArgumentException">If the default app instance already
+            exists.</exception>
+        </member>
+        <member name="M:FirebaseAdmin.FirebaseApp.Create(System.String)">
+            <summary>
+            Creates an app with the specified name, and Google Application Default Credentials.
+            </summary>
+            <returns>The newly created <see cref="T:FirebaseAdmin.FirebaseApp"/> instance.</returns>
+            <exception cref="T:System.ArgumentException">If the default app instance already
+            exists.</exception>
+            <param name="name">Name of the app.</param>
+        </member>
+        <member name="M:FirebaseAdmin.FirebaseApp.Create(FirebaseAdmin.AppOptions)">
+            <summary>
+            Creates the default app instance with the specified options.
+            </summary>
+            <returns>The newly created <see cref="T:FirebaseAdmin.FirebaseApp"/> instance.</returns>
+            <exception cref="T:System.ArgumentException">If the default app instance already
+            exists.</exception>
+            <param name="options">Options to create the app with. Must at least contain the
+            <c>Credential</c>.</param>
+        </member>
+        <member name="M:FirebaseAdmin.FirebaseApp.Create(FirebaseAdmin.AppOptions,System.String)">
+            <summary>
+            Creates an app with the specified name and options.
+            </summary>
+            <returns>The newly created <see cref="T:FirebaseAdmin.FirebaseApp"/> instance.</returns>
+            <exception cref="T:System.ArgumentException">If the default app instance already
+            exists.</exception>
+            <param name="options">Options to create the app with. Must at least contain the
+            <c>Credential</c>.</param>
+            <param name="name">Name of the app.</param>
+        </member>
+        <member name="P:FirebaseAdmin.FirebaseApp.DefaultInstance">
+            <summary>
+            The default app instance. This property is <c>null</c> if the default app instance
+            doesn't yet exist.
+            </summary>
+        </member>
+        <member name="M:FirebaseAdmin.FirebaseApp.GetInstance(System.String)">
+            <summary>
+            Returns the app instance identified by the given name.
+            </summary>
+            <returns>The <see cref="T:FirebaseAdmin.FirebaseApp"/> instance with the specified name or null if it
+            doesn't exist.</returns>
+            <exception cref="T:System.ArgumentException">If the name argument is null or empty.</exception>
+            <param name="name">Name of the app to retrieve.</param>
+        </member>
+        <member name="M:FirebaseAdmin.FirebaseApp.DeleteAll">
+            <summary>
+            Deleted all the apps created so far. Used for unit testing.
+            </summary>
+        </member>
+        <member name="T:FirebaseAdmin.FirebaseException">
+            <summary>
+            Common error type for all exceptions raised by Firebase APIs.
+            </summary>
+        </member>
+        <member name="T:FirebaseAdmin.IFirebaseService">
+            <summary>
+            A stateful service that can be associated with an <see cref="T:FirebaseAdmin.FirebaseApp"/>. This
+            interface enables tearing down the service when the parent app instance is deleted.
+            </summary>
+        </member>
+    </members>
+</doc>

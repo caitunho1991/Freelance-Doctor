@@ -366,7 +366,7 @@ namespace API_Doctor.Controllers
                 _context.SaveChanges();
 
                 List<Account> lstDoctor;
-                if (req.MajorCode != null || req.MajorCode > 0)
+                if (req.MajorCode != null || req.MajorCode >= 0)
                 {
                     lstDoctor = _context.Accounts.Where(x => x.ProductId == req.MajorCode && x.GroupId == 1 && x.Balance > global_min_fee_doctor && x.IsActive == true && x.IsApprove == true).ToList();
                 }

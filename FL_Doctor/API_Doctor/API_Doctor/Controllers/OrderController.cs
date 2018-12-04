@@ -238,7 +238,7 @@ namespace API_Doctor.Controllers
                 }
                 var doctor = _context.Accounts.SingleOrDefault(x => x.GUID.Equals(req.GuidDoctor));
                 var patient = _context.Accounts.SingleOrDefault(x=>x.TokenLogin.Equals(token));
-                var coupon = _context.Coupons.SingleOrDefault(x=>x.Code.Equals(req.Coupon) && x.Count > 0);
+                var coupon = _context.Coupons.SingleOrDefault(x=>x.Code.ToUpper().Equals(req.Coupon.ToUpper()) && x.Count > 0);
                 decimal global_min_fee_doctor = 0;
                 decimal.TryParse(CMS_Lib.Resource("global_min_fee_doctor"), out global_min_fee_doctor);
                 if (doctor.Balance > global_min_fee_doctor)

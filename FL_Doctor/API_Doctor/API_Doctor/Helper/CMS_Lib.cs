@@ -1,4 +1,6 @@
 ﻿using API_Doctor.Data;
+using FirebaseAdmin;
+using Google.Apis.Auth.OAuth2;
 using PhoneNumbers;
 using System;
 using System.Collections.Generic;
@@ -92,6 +94,16 @@ namespace API_Doctor.Helper
             {
                 return false;
             }
+        }
+
+
+        public static bool PushNotify()
+        {
+            FirebaseApp.Create(new AppOptions()
+            {
+                Credential = GoogleCredential.FromFile("~/App_Start/Firebase.json"),
+            });
+            return true;
         }
     }
 }

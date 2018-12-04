@@ -1,0 +1,8 @@
+﻿admin.initializeApp( {
+  "apiKey": "AIzaSyCIp80WTmAjJXIGXIVhlF1A9tetZyd_YOg",
+  "authDomain": "pcare-api.firebaseapp.com",
+  "databaseURL": "https://pcare-api.firebaseio.com",
+  "projectId": "pcare-api",
+  "storageBucket": "pcare-api.appspot.com",
+  "messagingSenderId": "1088323146355"
+});

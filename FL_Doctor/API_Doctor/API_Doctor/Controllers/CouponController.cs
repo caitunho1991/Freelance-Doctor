@@ -31,7 +31,7 @@ namespace API_Doctor.Controllers
                 {
                     return Ok(response.NoAuth("Tài khoản không đúng hoặc không có quyền truy cập. Vui lòng kiểm tra lại."));
                 }
-                var coupon = _context.Coupons.SingleOrDefault(x => x.Code.Equals(CouponCode));
+                var coupon = _context.Coupons.SingleOrDefault(x => x.Code.ToUpper().Equals(CouponCode.ToUpper()));
                 var acc = _context.Accounts.SingleOrDefault(x=>x.TokenLogin.Equals(token));
                 if (coupon != null)
                 {
