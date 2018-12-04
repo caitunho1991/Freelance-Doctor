@@ -87,13 +87,13 @@
     <Property Name="ThumbnailLicense" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
     <Property Name="Address" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
     <Property Name="IsActive" Type="Boolean" />
-    <Property Name="TokenFacebook" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="TokenFacebook" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
     <Property Name="IsApprove" Type="Boolean" />
-    <Property Name="TokenLogin" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="TokenLogin" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
     <Property Name="ExpireTokenLogin" Type="DateTime" Precision="3" />
     <Property Name="DateCreate" Type="DateTime" Precision="3" />
     <Property Name="Password" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-    <Property Name="DeviceToken" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="DeviceToken" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
     <Property Name="TokenRegister" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
     <Property Name="ExpireTokenRegister" Type="DateTime" Precision="3" />
     <Property Name="Lat" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />

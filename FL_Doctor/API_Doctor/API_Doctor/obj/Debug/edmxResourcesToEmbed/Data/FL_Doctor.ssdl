@@ -28,13 +28,13 @@
     <Property Name="ThumbnailLicense" Type="varchar" MaxLength="100" />
     <Property Name="Address" Type="nvarchar" MaxLength="100" />
     <Property Name="IsActive" Type="bit" />
-    <Property Name="TokenFacebook" Type="varchar" MaxLength="100" />
+    <Property Name="TokenFacebook" Type="text" />
     <Property Name="IsApprove" Type="bit" />
-    <Property Name="TokenLogin" Type="varchar" MaxLength="100" />
+    <Property Name="TokenLogin" Type="text" />
     <Property Name="ExpireTokenLogin" Type="datetime" />
     <Property Name="DateCreate" Type="datetime" />
     <Property Name="Password" Type="varchar" MaxLength="100" />
-    <Property Name="DeviceToken" Type="varchar" MaxLength="100" />
+    <Property Name="DeviceToken" Type="text" />
     <Property Name="TokenRegister" Type="varchar" MaxLength="100" />
     <Property Name="ExpireTokenRegister" Type="datetime" />
     <Property Name="Lat" Type="varchar" MaxLength="100" />

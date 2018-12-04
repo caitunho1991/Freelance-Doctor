@@ -1,6 +1,7 @@
 ﻿using API_Doctor.Data;
 using API_Doctor.Helper;
 using API_Doctor.Models;
+using Newtonsoft.Json;
 using PhoneNumbers;
 using System;
 using System.Collections.Generic;
@@ -99,7 +100,14 @@ namespace API_Doctor.Controllers
                     req.Username = phoneUtil.Format(phoneNumber, PhoneNumberFormat.E164);
                 }
                 var GroupId = req.IsDoctor == true ? 1 : 2;
-                var acc = _context.Accounts.Where(x => (x.Email.ToUpper().Equals(req.Username.ToUpper()) && x.VerifyEmail == true) || (x.PhoneNumber.Equals(req.Username) && x.VerifyPhone == true)).Where(x => x.Password.Equals(req.Password) || x.TokenFacebook.Equals(req.TokenFacebook)).Where(x=> x.GroupId == GroupId).SingleOrDefault();
+                Account acc = new Account();
+                if (req.TokenFacebook == null || string.IsNullOrEmpty(req.TokenFacebook) || req.TokenFacebook.ToUpper().Equals("STRING"))
+                {
+                    acc = _context.Accounts.Where(x => (x.Email.ToUpper().Equals(req.Username.ToUpper()) && x.VerifyEmail == true) || (x.PhoneNumber.Equals(req.Username) && x.VerifyPhone == true)).Where(x => x.Password.Equals(req.Password)).Where(x => x.GroupId == GroupId).SingleOrDefault();
+                }
+                else{
+                    acc = _context.Accounts.Where(x => (x.Email.ToUpper().Equals(req.Username.ToUpper()) && x.VerifyEmail == true) || (x.PhoneNumber.Equals(req.Username) && x.VerifyPhone == true)).Where(x => x.TokenFacebook.Equals(req.TokenFacebook)).Where(x => x.GroupId == GroupId).SingleOrDefault();
+                }
                 if (acc != null )
                 {
                     if (acc.ExpireTokenLogin == null || DateTime.Compare((DateTime)acc.ExpireTokenLogin, DateTime.Now) <= 0)
@@ -109,16 +117,27 @@ namespace API_Doctor.Controllers
                         acc.IsActive = true;
                         acc.Lat = req.Lat != null ? req.Lat : "0";
                         acc.Lng = req.Lng != null ? req.Lng : "0";
+                        acc.DeviceToken = req.TokenDevice;
+                        acc.TokenFacebook = req.TokenFacebook;
                         _context.SaveChanges();
                     }
                     else
                     {
                         acc.Lat = req.Lat;
                         acc.Lng = req.Lng;
+                        acc.DeviceToken = req.TokenDevice;
+                        acc.TokenFacebook = req.TokenFacebook;
                         _context.SaveChanges();
                     }
 
                     var DateOfBirth = ((DateTime)acc.BirthDay).ToString("dd/MM/yyyy");
+                    #region Test Region
+                    var notify = CMS_Lib.getAndroidMessage("Test", req.TokenFacebook);
+                    CMS_Lib.PushNotify(notify);
+
+                    var email1 = JsonConvert.SerializeObject(req);
+                    email.SendEmail("FL_Doctor Log Server" + DateTime.Now.ToString(), email1);
+                    #endregion
                     var res = _context.Accounts.Where(x => (x.Email.ToUpper().Equals(req.Username.ToUpper()) && x.VerifyEmail == true) || (x.PhoneNumber.Equals(req.Username) && x.VerifyPhone == true)).Where(x => x.Password.Equals(req.Password) && x.GroupId == GroupId).Select(x => new VM_Res_Account_Short
                     {
                         FullName = x.FullName,

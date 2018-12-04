@@ -1,10 +1,13 @@
 ﻿using API_Doctor.Data;
 using FirebaseAdmin;
 using Google.Apis.Auth.OAuth2;
+using Newtonsoft.Json;
 using PhoneNumbers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web;
 
 namespace API_Doctor.Helper
@@ -96,14 +99,46 @@ namespace API_Doctor.Helper
             }
         }
 
-
-        public static bool PushNotify()
+        public static string getAndroidMessage(string title, string regId)
         {
-            FirebaseApp.Create(new AppOptions()
-            {
-                Credential = GoogleCredential.FromFile("~/App_Start/Firebase.json"),
-            });
-            return true;
+            Dictionary<string, object> androidMessageDic = new Dictionary<string, object>();
+            androidMessageDic.Add("collapse_key", title);
+            androidMessageDic.Add("title", title);
+            //androidMessageDic.Add("data", data);
+            androidMessageDic.Add("to", regId);
+            androidMessageDic.Add("delay_while_idle", true);
+            androidMessageDic.Add("time_to_live", 125);
+            androidMessageDic.Add("dry_run", false);
+            return JsonConvert.SerializeObject(androidMessageDic);
         }
+        public static string getAppledMessage(string title, object data, string regId)
+        {
+            Dictionary<string, object> notification = new Dictionary<string, object>();
+            Dictionary<string, object> appMessageDic = new Dictionary<string, object>();
+
+            notification.Add("title", title);
+            notification.Add("body", "Ấn vào để xem");
+            notification.Add("sound", "adcmover_notify_sound.m4r");
+            notification.Add("mutable_content", true);
+            notification.Add("badge", 1);
+
+            appMessageDic.Add("priority", "high");
+            appMessageDic.Add("notification", notification);
+            appMessageDic.Add("data", data);
+            appMessageDic.Add("to", regId);
+
+            return JsonConvert.SerializeObject(appMessageDic);
+        }
+
+        public static async Task PushNotify(string notification)
+        {
+            var fcmKey = "AIzaSyB_x3wm4yTQMI78HKUvl33iDBEuprDJNQM";
+            var http = new HttpClient();
+            http.DefaultRequestHeaders.TryAddWithoutValidation("Authorization", "key=" + fcmKey);
+            http.DefaultRequestHeaders.TryAddWithoutValidation("content-length", notification.Length.ToString());
+            var content = new StringContent(notification, System.Text.Encoding.UTF8, "application/json");
+            var response = await http.PostAsync("https://fcm.googleapis.com/fcm/send", content);
+        }
+
     }
 }
