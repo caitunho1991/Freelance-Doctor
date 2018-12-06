@@ -562,7 +562,7 @@
             <param name="token"></param>
             <returns></returns>
         </member>
-        <member name="M:API_Doctor.Controllers.AccountsController.CheckPhone(API_Doctor.Models.VM_Account_Phone)">
+        <member name="M:API_Doctor.Controllers.AccountsController.VerifyAccount(API_Doctor.Models.VM_Account_Req_Verify)">
             <summary>
             Kiểm tra số điện thoại trong hệ thống
             </summary>

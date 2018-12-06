@@ -259,6 +259,9 @@
     <Compile Include="Data\Language.cs">
       <DependentUpon>FL_Doctor.tt</DependentUpon>
     </Compile>
+    <Compile Include="Data\Log.cs">
+      <DependentUpon>FL_Doctor.tt</DependentUpon>
+    </Compile>
     <Compile Include="Data\Order.cs">
       <DependentUpon>FL_Doctor.tt</DependentUpon>
     </Compile>

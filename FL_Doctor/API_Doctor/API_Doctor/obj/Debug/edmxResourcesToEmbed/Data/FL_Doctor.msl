@@ -4,6 +4,7 @@
     <EntitySetMapping Name="Accounts">
       <EntityTypeMapping TypeName="gModel.Account">
         <MappingFragment StoreEntitySet="Accounts">
+          <ScalarProperty Name="TokenAutoLogin" ColumnName="TokenAutoLogin" />
           <ScalarProperty Name="Balance" ColumnName="Balance" />
           <ScalarProperty Name="OrderCount" ColumnName="OrderCount" />
           <ScalarProperty Name="ProductId" ColumnName="ProductId" />
@@ -89,6 +90,17 @@
           <ScalarProperty Name="Icon" ColumnName="Icon" />
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Logs">
+      <EntityTypeMapping TypeName="gModel.Log">
+        <MappingFragment StoreEntitySet="Logs">
+          <ScalarProperty Name="APIRequest" ColumnName="APIRequest" />
+          <ScalarProperty Name="UserRequest" ColumnName="UserRequest" />
+          <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+          <ScalarProperty Name="ContentRequest" ColumnName="ContentRequest" />
           <ScalarProperty Name="ID" ColumnName="ID" />
         </MappingFragment>
       </EntityTypeMapping>

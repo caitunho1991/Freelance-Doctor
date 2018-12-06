@@ -86,19 +86,17 @@ namespace API_Doctor.Controllers
         public IHttpActionResult Login(VM_Account_Login req)
         {
             try
-            {                
+            {
+                if (!string.IsNullOrEmpty(req.TokenFacebook))
+                {
+                    ModelState["req.Username"].Errors.Clear();
+                    ModelState["req.Password"].Errors.Clear();
+                }
                 if (!ModelState.IsValid)
                 {
                     return Ok(response.BadRequest(string.Join(" | ", ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage))));
                 }
                 
-                if (CMS_Lib.CheckPhoneNumber(req.Username) == true)
-                {
-                    PhoneNumberUtil phoneUtil = PhoneNumberUtil.GetInstance();
-                    var a = phoneUtil.Parse(req.Username, "VN");
-                    PhoneNumber phoneNumber = phoneUtil.ParseAndKeepRawInput(req.Username, "VN");
-                    req.Username = phoneUtil.Format(phoneNumber, PhoneNumberFormat.E164);
-                }
                 var GroupId = req.IsDoctor == true ? 1 : 2;
                 Account acc = new Account();
                 if (req.TokenFacebook == null || string.IsNullOrEmpty(req.TokenFacebook) || req.TokenFacebook.ToUpper().Equals("STRING"))
@@ -106,7 +104,7 @@ namespace API_Doctor.Controllers
                     acc = _context.Accounts.Where(x => (x.Email.ToUpper().Equals(req.Username.ToUpper()) && x.VerifyEmail == true) || (x.PhoneNumber.Equals(req.Username) && x.VerifyPhone == true)).Where(x => x.Password.Equals(req.Password)).Where(x => x.GroupId == GroupId).SingleOrDefault();
                 }
                 else{
-                    acc = _context.Accounts.Where(x => (x.Email.ToUpper().Equals(req.Username.ToUpper()) && x.VerifyEmail == true) || (x.PhoneNumber.Equals(req.Username) && x.VerifyPhone == true)).Where(x => x.TokenFacebook.Equals(req.TokenFacebook)).Where(x => x.GroupId == GroupId).SingleOrDefault();
+                    acc = _context.Accounts.Where(x => x.TokenFacebook.Contains(req.TokenFacebook)).Where(x => x.GroupId == GroupId).SingleOrDefault();
                 }
                 if (acc != null )
                 {
@@ -119,7 +117,6 @@ namespace API_Doctor.Controllers
                         acc.Lng = req.Lng != null ? req.Lng : "0";
                         acc.DeviceToken = req.TokenDevice;
                         acc.TokenFacebook = req.TokenFacebook;
-                        _context.SaveChanges();
                     }
                     else
                     {
@@ -127,11 +124,12 @@ namespace API_Doctor.Controllers
                         acc.Lng = req.Lng;
                         acc.DeviceToken = req.TokenDevice;
                         acc.TokenFacebook = req.TokenFacebook;
-                        _context.SaveChanges();
                     }
+                    var tmpToken = CMS_Security.Base64Encode(req.TokenDevice + " - " + req.Password + " - " + req.Username);
+                    acc.TokenAutoLogin = tmpToken;
+                    _context.SaveChanges();
 
                     var DateOfBirth = ((DateTime)acc.BirthDay).ToString("dd/MM/yyyy");
-                    var tmpToken = CMS_Security.Base64Encode(req.TokenDevice + " - " + req.Password + " - " + req.Username);
                     var res = _context.Accounts.Where(x => (x.Email.ToUpper().Equals(req.Username.ToUpper()) && x.VerifyEmail == true) || (x.PhoneNumber.Equals(req.Username) && x.VerifyPhone == true)).Where(x => x.Password.Equals(req.Password) && x.GroupId == GroupId).Select(x => new VM_Res_Account_Short
                     {
                         FullName = x.FullName,
@@ -172,24 +170,37 @@ namespace API_Doctor.Controllers
         {
             try
             {
+                if (!string.IsNullOrEmpty(req.TokenFacebook))
+                {
+                    ModelState["req.Email"].Errors.Clear();
+                    ModelState["req.PhoneNumber"].Errors.Clear();
+                    ModelState["req.Password"].Errors.Clear();
+                }
                 if (!ModelState.IsValid)
                 {
                     return Ok(response.BadRequest(string.Join(" | ", ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage))));
                 }
-                if (_context.Accounts.Any(x=>x.Email.ToUpper().Equals(req.Email.ToUpper()) || x.PhoneNumber.Equals(req.PhoneNumber))) {
-                    return Ok(response.Ok(null,"Tài khoản đã tồn tại trong hệ thống. Vui lòng kiểm tra lại email hoặc số điện thoại ",false));
-                }
-                if (CMS_Lib.CheckPhoneNumber(req.PhoneNumber) != true)
+                if (!string.IsNullOrEmpty(req.TokenFacebook))
                 {
-                    return Ok(response.BadRequest("Số điện thoại không hợp lệ. Vui lòng kiểm tra lại"));
+                    if (_context.Accounts.Any(x => x.TokenFacebook.Contains(req.TokenFacebook)))
+                    {
+                        return Ok(response.Ok(null, "Tài khoản đã tồn tại trong hệ thống. Vui lòng kiểm tra lại email hoặc số điện thoại ", false));
+                    }
                 }
+                else
+                {
+                    if (_context.Accounts.Any(x => x.Email.ToUpper().Equals(req.Email.ToUpper()) || x.PhoneNumber.Equals(req.PhoneNumber)))
+                    {
+                        return Ok(response.Ok(null, "Tài khoản đã tồn tại trong hệ thống. Vui lòng kiểm tra lại email hoặc số điện thoại ", false));
+                    }
+                }
+                
+                
                 var acc = req.convertModelToData();
                 if (req.IsDoctor==false || ( CMS_Lib.Resource("accept_register")!="1") && req.IsDoctor==true)
                 {
                     acc.IsApprove = true;//just for doctor
                 }
-                _context.Accounts.Add(acc);
-                _context.SaveChanges();
                 var DateOfBirth = ((DateTime)acc.BirthDay).ToString("dd/MM/yyyy");
 
                 string tmpToken = "";
@@ -201,27 +212,57 @@ namespace API_Doctor.Controllers
                 {
                     tmpToken = CMS_Security.Base64Encode(req.TokenDevice + " - " + req.Password + " - " + req.PhoneNumber);
                 }
-                
-                var dataResponse = _context.Accounts.Where(x => x.Email.ToUpper().Equals(req.Email.ToUpper()) || x.PhoneNumber.Equals(req.PhoneNumber)).Select(x => new VM_Res_Account_Short
+
+                acc.TokenAutoLogin = tmpToken;
+                _context.Accounts.Add(acc);
+                _context.SaveChanges();
+                if (!string.IsNullOrEmpty(req.TokenFacebook))
                 {
-                    FullName = x.FullName,
-                    Token = x.TokenLogin,
-                    IsDoctor = x.GroupId == 1 ? true : false,
-                    FirstName = x.FirstName,
-                    LastName = x.LastName,
-                    IDCardNumber = x.IDCard,
-                    DateOfBirth = DateOfBirth,
-                    Sex = (int)x.Sex,
-                    UserName = string.IsNullOrEmpty(req.Email) == true ? req.PhoneNumber : req.Email,
-                    Active = (bool)x.IsActive,
-                    ImgIdCard = string.IsNullOrEmpty(x.ThumbnailIDCard) == true ? "" : "http://" + HttpContext.Current.Request.Url.Host + "/Uploads/" + x.ThumbnailIDCard,
-                    ImgLicenseId = string.IsNullOrEmpty(x.ThumbnailLicense) == true ? "" : "http://" + HttpContext.Current.Request.Url.Host + "/Uploads/" + x.ThumbnailLicense,
-                    ImgAvatar = string.IsNullOrEmpty(x.Thumbnail) == true ? "" : "http://" + HttpContext.Current.Request.Url.Host + "/Uploads/" + x.Thumbnail,
-                    MajorCode = (int)x.ProductId,
-                    MajorName = x.Product.name,
-                    TokenAutoLogin = tmpToken
-                }).SingleOrDefault();
-                return Ok(response.Ok(dataResponse, "Đăng ký tài khoản thành công."));
+                    var dataResponse = _context.Accounts.Where(x => x.TokenFacebook.Contains(req.TokenFacebook)).Select(x => new VM_Res_Account_Short
+                    {
+                        FullName = x.FullName,
+                        Token = x.TokenLogin,
+                        IsDoctor = x.GroupId == 1 ? true : false,
+                        FirstName = x.FirstName,
+                        LastName = x.LastName,
+                        IDCardNumber = x.IDCard,
+                        DateOfBirth = DateOfBirth,
+                        Sex = (int)x.Sex,
+                        UserName = string.IsNullOrEmpty(req.Email) == true ? req.PhoneNumber : req.Email,
+                        Active = (bool)x.IsActive,
+                        ImgIdCard = string.IsNullOrEmpty(x.ThumbnailIDCard) == true ? "" : "http://" + HttpContext.Current.Request.Url.Host + "/Uploads/" + x.ThumbnailIDCard,
+                        ImgLicenseId = string.IsNullOrEmpty(x.ThumbnailLicense) == true ? "" : "http://" + HttpContext.Current.Request.Url.Host + "/Uploads/" + x.ThumbnailLicense,
+                        ImgAvatar = string.IsNullOrEmpty(x.Thumbnail) == true ? "" : "http://" + HttpContext.Current.Request.Url.Host + "/Uploads/" + x.Thumbnail,
+                        MajorCode = (int)x.ProductId,
+                        MajorName = x.Product.name,
+                        TokenAutoLogin = tmpToken
+                    }).SingleOrDefault();
+                    return Ok(response.Ok(dataResponse, "Đăng ký tài khoản thành công."));
+                }
+                else
+                {
+                    var dataResponse = _context.Accounts.Where(x => x.Email.ToUpper().Equals(req.Email.ToUpper()) || x.PhoneNumber.Equals(req.PhoneNumber)).Select(x => new VM_Res_Account_Short
+                    {
+                        FullName = x.FullName,
+                        Token = x.TokenLogin,
+                        IsDoctor = x.GroupId == 1 ? true : false,
+                        FirstName = x.FirstName,
+                        LastName = x.LastName,
+                        IDCardNumber = x.IDCard,
+                        DateOfBirth = DateOfBirth,
+                        Sex = (int)x.Sex,
+                        UserName = string.IsNullOrEmpty(req.Email) == true ? req.PhoneNumber : req.Email,
+                        Active = (bool)x.IsActive,
+                        ImgIdCard = string.IsNullOrEmpty(x.ThumbnailIDCard) == true ? "" : "http://" + HttpContext.Current.Request.Url.Host + "/Uploads/" + x.ThumbnailIDCard,
+                        ImgLicenseId = string.IsNullOrEmpty(x.ThumbnailLicense) == true ? "" : "http://" + HttpContext.Current.Request.Url.Host + "/Uploads/" + x.ThumbnailLicense,
+                        ImgAvatar = string.IsNullOrEmpty(x.Thumbnail) == true ? "" : "http://" + HttpContext.Current.Request.Url.Host + "/Uploads/" + x.Thumbnail,
+                        MajorCode = (int)x.ProductId,
+                        MajorName = x.Product.name,
+                        TokenAutoLogin = tmpToken
+                    }).SingleOrDefault();
+                    return Ok(response.Ok(dataResponse, "Đăng ký tài khoản thành công."));
+                }
+                
             }
             catch (Exception e)
             {
@@ -391,9 +432,9 @@ namespace API_Doctor.Controllers
                 _context.SaveChanges();
 
                 List<Account> lstDoctor;
-                if (req.MajorCode != null || req.MajorCode >= 0)
+                if (req.MajorCode != null || req.MajorCode > 0)
                 {
-                    lstDoctor = _context.Accounts.Where(x => x.ProductId == req.MajorCode && x.GroupId == 1 && x.Balance > global_min_fee_doctor && x.IsActive == true && x.IsApprove == true).ToList();
+                    lstDoctor = _context.Accounts.Where(x => x.ProductId == req.MajorCode && x.GroupId == 1 && x.Balance >= global_min_fee_doctor && x.IsActive == true && x.IsApprove == true).ToList();
                 }
                 else
                 {
@@ -623,38 +664,32 @@ namespace API_Doctor.Controllers
         /// </summary>
         /// <param name="req"></param>
         /// <returns></returns>
-        [Route("API/Accounts/CheckPhone")]
+        [Route("API/Accounts/VerifyAccount")]
         [HttpPost]
-        public IHttpActionResult CheckPhone(VM_Account_Phone req)
+        public IHttpActionResult VerifyAccount(VM_Account_Req_Verify req)
         {
             try
             {
-                Response<string> response = new Response<string>();
-                if (string.IsNullOrEmpty(req.PhoneNumber))
+                Response<VM_Account_Res_Verify> response = new Response<VM_Account_Res_Verify>();
+                if (string.IsNullOrEmpty(req.Username))
                 {
-                    return Ok(response.BadRequest("Số điện thoại không hợp lệ. Vui lòng kiểm tra lại"));
+                    return Ok(response.BadRequest("Số điện thoại hoặc email không hợp lệ. Vui lòng kiểm tra lại"));
                 }
-                PhoneNumberUtil phoneUtil = PhoneNumberUtil.GetInstance();
-                PhoneNumber phoneNumber = phoneUtil.ParseAndKeepRawInput(req.PhoneNumber, "VN");
-                var checkPhone = phoneUtil.IsValidNumber(phoneNumber);
-                if (checkPhone == true)
+                if (_context.Accounts.Any(x => x.PhoneNumber.Equals(req.Username) || x.Email.ToUpper().Equals(req.Username.ToUpper())))
                 {
-                    req.PhoneNumber = phoneUtil.Format(phoneNumber, PhoneNumberFormat.E164);
-                }
-                if (_context.Accounts.Any(x => x.PhoneNumber.Equals(req.PhoneNumber)))
-                {
-                    var acc = _context.Accounts.SingleOrDefault(x => x.PhoneNumber.Equals(req.PhoneNumber));
+                    var acc = _context.Accounts.SingleOrDefault(x => x.PhoneNumber.Equals(req.Username) || x.Email.ToUpper().Equals(req.Username.ToUpper()));
                     if (acc != null)
                     {
-                        acc.TokenLogin = CMS_Security.SHA1(acc.DeviceToken + "-" + acc.Password + "-" + acc.PhoneNumber);
+                        acc.TokenAutoLogin = CMS_Security.SHA1(acc.DeviceToken + "-" + acc.Password + "-" + acc.PhoneNumber);
+                        acc.TokenLogin = CMS_Security.GenerateGUID().ToString();
                         acc.ExpireTokenLogin = DateTime.Now.AddMinutes(10);
-                        acc.IsActive = true;
-                        acc.Lat = req.Lat != null ? req.Lat : "0";
-                        acc.Lng = req.Lng != null ? req.Lng : "0";
                         _context.SaveChanges();
                         
                     }
-                    return Ok(response.Ok(acc.TokenLogin, "Xác thực số điện thoại thành công."));
+                    var res = _context.Accounts.Where(x => x.PhoneNumber.Equals(req.Username) || x.Email.ToUpper().Equals(req.Username.ToUpper())).Select(x=> new VM_Account_Res_Verify {
+                        Token = x.TokenLogin
+                    }).SingleOrDefault();
+                    return Ok(response.Ok(res, "Xác thực tài khoản thành công."));
                 }
                 return Ok(response.Ok(null, "Tài khoản không tồn tại trong hệ thống.", false));
             }

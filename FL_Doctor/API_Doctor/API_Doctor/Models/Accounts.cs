@@ -10,12 +10,15 @@ using System.Web;
 
 namespace API_Doctor.Models
 {
-    public class VM_Account_Phone
+    public class VM_Account_Req_Verify
     {
-        public string PhoneNumber { get; set; }
-        public string Lat { get; set; }
-        public string Lng { get; set; }
+        public string Username { get; set; }
     }
+    public class VM_Account_Res_Verify
+    {
+        public string Token { get; set; }
+    }
+
     public class VM_Account_Thumb
     {
         public string ImageAvatar { get; set; }
@@ -155,11 +158,12 @@ namespace API_Doctor.Models
             acc.Lng = this.Lng;
             acc.Password = this.Password;
 
-            PhoneNumberUtil phoneUtil = PhoneNumberUtil.GetInstance();
-            var a = phoneUtil.Parse(this.PhoneNumber, "VN");
-            PhoneNumber phoneNumber = phoneUtil.ParseAndKeepRawInput(this.PhoneNumber, "VN");
-            acc.PhoneNumber = phoneUtil.Format(phoneNumber, PhoneNumberFormat.E164);
+            //PhoneNumberUtil phoneUtil = PhoneNumberUtil.GetInstance();
+            //var a = phoneUtil.Parse(this.PhoneNumber, "VN");
+            //PhoneNumber phoneNumber = phoneUtil.ParseAndKeepRawInput(this.PhoneNumber, "VN");
+            //acc.PhoneNumber = phoneUtil.Format(phoneNumber, PhoneNumberFormat.E164);
 
+            acc.PhoneNumber = this.PhoneNumber;
             acc.Sex = this.Sex;
             acc.Thumbnail = null;
             acc.ThumbnailIDCard = string.IsNullOrEmpty(this.IdCard) == true ? null : CMS_Image.ConvertBase64ToImage(this.IdCard, "CardID-" + this.PhoneNumber);

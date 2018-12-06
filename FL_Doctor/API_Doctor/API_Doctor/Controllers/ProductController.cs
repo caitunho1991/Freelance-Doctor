@@ -72,7 +72,7 @@ namespace API_Doctor.Controllers
 
             try
             {
-                var a = CMS_Lib.PushNotify(deviceToken, "PCare Title", "PCare Body");
+                var a = CMS_Lib.PushNotify(deviceToken, "PCare Title", "PCare Body", "patient");
                 return BadRequest(a);
             }
             catch (Exception e)

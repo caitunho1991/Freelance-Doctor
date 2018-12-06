@@ -241,7 +241,7 @@ namespace API_Doctor.Controllers
                 var coupon = _context.Coupons.SingleOrDefault(x=>x.Code.ToUpper().Equals(req.Coupon.ToUpper()) && x.Count > 0);
                 decimal global_min_fee_doctor = 0;
                 decimal.TryParse(CMS_Lib.Resource("global_min_fee_doctor"), out global_min_fee_doctor);
-                if (doctor.Balance > global_min_fee_doctor)
+                if (doctor.Balance >= doctor.Product.price)
                 {
                     Order o = new Order();
                     //tạo đơn hàng
@@ -289,8 +289,8 @@ namespace API_Doctor.Controllers
                     o.code = CMS_Security.createTransactionIDString(o.id);
                     o.idOrderStatus = orderStatus.id;
                     _context.SaveChanges();
-                    CMS_Lib.PushNotify(patient.DeviceToken, "PCare", "Lịch hẹn đã được gửi đến bác sỹ.");
-                    CMS_Lib.PushNotify(doctor.DeviceToken, "PCare", "Bạn vừa nhận được một lịch hẹn.");
+                    CMS_Lib.PushNotify(patient.DeviceToken, "PCare", "Lịch hẹn đã được gửi đến bác sỹ.", "patient");
+                    CMS_Lib.PushNotify(doctor.DeviceToken, "PCare", "Bạn vừa nhận được một lịch hẹn.", "doctor");
                     var tmp_dateofbirth = ((DateTime)o.dateCreate).ToString("dd/MM/yyyy");
                     var tmp_datecreate = ((DateTime)o.Account.BirthDay).ToString("dd/MM/yyyy");
                     var res = _context.Orders.Where(x => x.code.Contains(o.code)).Select(x => new VM_Order_Respone
@@ -358,8 +358,8 @@ namespace API_Doctor.Controllers
 
                 var tokenPatient = _context.Accounts.SingleOrDefault(x=>x.ID == order.idBuyer).DeviceToken;
                 var tokenDoctor = _context.Accounts.SingleOrDefault(x => x.ID == order.idReceive).DeviceToken;
-                CMS_Lib.PushNotify(tokenPatient, "PCare", "Lịch hẹn "+order.code+" đã được xác nhận thành công.");
-                CMS_Lib.PushNotify(tokenDoctor, "PCare", "Lịch hẹn " + order.code + " đã được xác nhận thành công.");
+                CMS_Lib.PushNotify(tokenPatient, "PCare", "Lịch hẹn "+order.code+" đã được xác nhận thành công.", "patient");
+                CMS_Lib.PushNotify(tokenDoctor, "PCare", "Lịch hẹn " + order.code + " đã được xác nhận thành công.", "doctor");
                 return Ok(responseSingle.Ok(res, "Xác nhận đơn hàng thành công."));
             }
             catch (Exception e)
@@ -428,8 +428,8 @@ namespace API_Doctor.Controllers
                 _context.SaveChanges();
                 var tokenPatient = _context.Accounts.SingleOrDefault(x => x.ID == order.idBuyer).DeviceToken;
                 var tokenDoctor = _context.Accounts.SingleOrDefault(x => x.ID == order.idReceive).DeviceToken;
-                CMS_Lib.PushNotify(tokenPatient, "PCare", "Lịch hẹn " + order.code + " đã được hủy");
-                CMS_Lib.PushNotify(tokenDoctor, "PCare", "Lịch hẹn " + order.code + " đã được hủy");
+                CMS_Lib.PushNotify(tokenPatient, "PCare", "Lịch hẹn " + order.code + " đã được hủy", "patient");
+                CMS_Lib.PushNotify(tokenDoctor, "PCare", "Lịch hẹn " + order.code + " đã được hủy", "doctor");
                 return Ok(responseSingle.Ok(res, "Hủy đơn hàng thành công."));
             }
             catch (Exception e)

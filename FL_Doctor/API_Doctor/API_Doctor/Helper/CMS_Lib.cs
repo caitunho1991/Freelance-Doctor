@@ -22,9 +22,10 @@ namespace API_Doctor.Helper
         {
             try
             {
-                if (_context.Resources.Any(x=>x.Code.ToLower().Contains(key.ToLower())))
+                if (_context.Resources.Any(x=>x.Code.Equals(key)))
                 {
-                    return _context.Resources.SingleOrDefault(x=>x.Code.ToLower().Contains(key.ToLower())).Value;
+                    var tmp = _context.Resources.FirstOrDefault(x => x.Code.Equals(key));
+                    return _context.Resources.FirstOrDefault(x=>x.Code.ToLower().Equals(key.ToLower())).Value;
                 }
                 return "";
             }
@@ -102,7 +103,7 @@ namespace API_Doctor.Helper
             }
         }
 
-        public static string PushNotify(string token, string title, string body)
+        public static string PushNotify(string token, string title, string body, string type)
         {
             var result = "";
             WebRequest tRequest = WebRequest.Create("https://fcm.googleapis.com/fcm/send");
@@ -121,8 +122,9 @@ namespace API_Doctor.Helper
                 {
                     body = body,
                     title = title,
-                    badge = 1
-                },
+                    badge = 1,
+                    type = type
+                }
             };
 
             string postbody = JsonConvert.SerializeObject(payload).ToString();
