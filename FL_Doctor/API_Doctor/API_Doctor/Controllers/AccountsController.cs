@@ -131,13 +131,6 @@ namespace API_Doctor.Controllers
                     }
 
                     var DateOfBirth = ((DateTime)acc.BirthDay).ToString("dd/MM/yyyy");
-                    #region Test Region
-                    var notify = CMS_Lib.getAndroidMessage("Test", req.TokenFacebook);
-                    CMS_Lib.PushNotify(notify);
-
-                    var email1 = JsonConvert.SerializeObject(req);
-                    email.SendEmail("FL_Doctor Log Server" + DateTime.Now.ToString(), email1);
-                    #endregion
                     var tmpToken = CMS_Security.Base64Encode(req.TokenDevice + " - " + req.Password + " - " + req.Username);
                     var res = _context.Accounts.Where(x => (x.Email.ToUpper().Equals(req.Username.ToUpper()) && x.VerifyEmail == true) || (x.PhoneNumber.Equals(req.Username) && x.VerifyPhone == true)).Where(x => x.Password.Equals(req.Password) && x.GroupId == GroupId).Select(x => new VM_Res_Account_Short
                     {
@@ -256,7 +249,6 @@ namespace API_Doctor.Controllers
                 {
                     acc.TokenLogin = "";
                     acc.ExpireTokenLogin = DateTime.Now;
-                    acc.IsActive = false;
                     _context.SaveChanges();
                     return Ok(response.Ok(null, "Đăng xuất tài khoản thành công."));
                 }

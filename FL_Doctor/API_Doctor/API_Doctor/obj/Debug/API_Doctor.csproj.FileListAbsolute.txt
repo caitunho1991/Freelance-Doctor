@@ -424,7 +424,6 @@ F:\Work\Freelance\Freelance-Doctor\FL_Doctor\API_Doctor\API_Doctor\bin\Google.Ap
 F:\Work\Freelance\Freelance-Doctor\FL_Doctor\API_Doctor\API_Doctor\bin\Google.Apis.Core.pdb
 F:\Work\Freelance\Freelance-Doctor\FL_Doctor\API_Doctor\API_Doctor\bin\Google.Apis.Core.xml
 F:\Work\Freelance\Freelance-Doctor\FL_Doctor\API_Doctor\API_Doctor\bin\System.Collections.Immutable.xml
-C:\Data\Work\Freelance\Freelance-Doctor\FL_Doctor\API_Doctor\API_Doctor\obj\Debug\API_Doctor.csproj.CoreCompileInputs.cache
 C:\Data\Work\Freelance\Freelance-Doctor\FL_Doctor\API_Doctor\API_Doctor\bin\ApplicationInsights.config
 C:\Data\Work\Freelance\Freelance-Doctor\FL_Doctor\API_Doctor\API_Doctor\bin\API_Doctor.dll.config
 C:\Data\Work\Freelance\Freelance-Doctor\FL_Doctor\API_Doctor\API_Doctor\bin\API_Doctor.xml
@@ -638,6 +637,7 @@ C:\Data\Work\Freelance\Freelance-Doctor\FL_Doctor\API_Doctor\API_Doctor\bin\Micr
 C:\Data\Work\Freelance\Freelance-Doctor\FL_Doctor\API_Doctor\API_Doctor\bin\Microsoft.AI.Web.xml
 C:\Data\Work\Freelance\Freelance-Doctor\FL_Doctor\API_Doctor\API_Doctor\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
 C:\Data\Work\Freelance\Freelance-Doctor\FL_Doctor\API_Doctor\API_Doctor\obj\Debug\API_Doctor.csprojResolveAssemblyReference.cache
+C:\Data\Work\Freelance\Freelance-Doctor\FL_Doctor\API_Doctor\API_Doctor\obj\Debug\API_Doctor.csproj.CoreCompileInputs.cache
 C:\Data\Work\Freelance\Freelance-Doctor\FL_Doctor\API_Doctor\API_Doctor\obj\Debug\API_Doctor.csproj.CopyComplete
 C:\Data\Work\Freelance\Freelance-Doctor\FL_Doctor\API_Doctor\API_Doctor\obj\Debug\API_Doctor.dll
 C:\Data\Work\Freelance\Freelance-Doctor\FL_Doctor\API_Doctor\API_Doctor\obj\Debug\API_Doctor.pdb

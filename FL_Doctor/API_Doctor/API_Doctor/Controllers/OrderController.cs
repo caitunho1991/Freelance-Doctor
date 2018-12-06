@@ -289,6 +289,8 @@ namespace API_Doctor.Controllers
                     o.code = CMS_Security.createTransactionIDString(o.id);
                     o.idOrderStatus = orderStatus.id;
                     _context.SaveChanges();
+                    CMS_Lib.PushNotify(patient.DeviceToken, "PCare", "Lịch hẹn đã được gửi đến bác sỹ.");
+                    CMS_Lib.PushNotify(doctor.DeviceToken, "PCare", "Bạn vừa nhận được một lịch hẹn.");
                     var tmp_dateofbirth = ((DateTime)o.dateCreate).ToString("dd/MM/yyyy");
                     var tmp_datecreate = ((DateTime)o.Account.BirthDay).ToString("dd/MM/yyyy");
                     var res = _context.Orders.Where(x => x.code.Contains(o.code)).Select(x => new VM_Order_Respone
@@ -353,6 +355,11 @@ namespace API_Doctor.Controllers
                 order.OrderStatus.Add(order_status);
                 order.idOrderStatus = order_status.id;
                 _context.SaveChanges();
+
+                var tokenPatient = _context.Accounts.SingleOrDefault(x=>x.ID == order.idBuyer).DeviceToken;
+                var tokenDoctor = _context.Accounts.SingleOrDefault(x => x.ID == order.idReceive).DeviceToken;
+                CMS_Lib.PushNotify(tokenPatient, "PCare", "Lịch hẹn "+order.code+" đã được xác nhận thành công.");
+                CMS_Lib.PushNotify(tokenDoctor, "PCare", "Lịch hẹn " + order.code + " đã được xác nhận thành công.");
                 return Ok(responseSingle.Ok(res, "Xác nhận đơn hàng thành công."));
             }
             catch (Exception e)
@@ -419,6 +426,10 @@ namespace API_Doctor.Controllers
                 var account = _context.Accounts.SingleOrDefault(x=>x.ID == order.idReceive);
                 account.Balance = account.Balance + order.totalPay;
                 _context.SaveChanges();
+                var tokenPatient = _context.Accounts.SingleOrDefault(x => x.ID == order.idBuyer).DeviceToken;
+                var tokenDoctor = _context.Accounts.SingleOrDefault(x => x.ID == order.idReceive).DeviceToken;
+                CMS_Lib.PushNotify(tokenPatient, "PCare", "Lịch hẹn " + order.code + " đã được hủy");
+                CMS_Lib.PushNotify(tokenDoctor, "PCare", "Lịch hẹn " + order.code + " đã được hủy");
                 return Ok(responseSingle.Ok(res, "Hủy đơn hàng thành công."));
             }
             catch (Exception e)

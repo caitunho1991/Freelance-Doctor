@@ -1,4 +1,5 @@
-﻿using API_Doctor.Models;
+﻿using API_Doctor.Helper;
+using API_Doctor.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -60,6 +61,23 @@ namespace API_Doctor.Controllers
             catch (Exception e)
             {
                 return Ok(response.BadRequest("Có lỗi trong quá trình xử lý."));
+            }
+        }
+
+
+        [HttpPost]
+        [Route("API/Test")]
+        public IHttpActionResult Test(string deviceToken)
+        {
+
+            try
+            {
+                var a = CMS_Lib.PushNotify(deviceToken, "PCare Title", "PCare Body");
+                return BadRequest(a);
+            }
+            catch (Exception e)
+            {
+                return BadRequest("! Ok");
             }
         }
     }

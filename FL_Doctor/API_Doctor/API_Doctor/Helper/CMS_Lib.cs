@@ -5,8 +5,11 @@ using Newtonsoft.Json;
 using PhoneNumbers;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 
@@ -99,46 +102,48 @@ namespace API_Doctor.Helper
             }
         }
 
-        public static string getAndroidMessage(string title, string regId)
+        public static string PushNotify(string token, string title, string body)
         {
-            Dictionary<string, object> androidMessageDic = new Dictionary<string, object>();
-            androidMessageDic.Add("collapse_key", title);
-            androidMessageDic.Add("title", title);
-            //androidMessageDic.Add("data", data);
-            androidMessageDic.Add("to", regId);
-            androidMessageDic.Add("delay_while_idle", true);
-            androidMessageDic.Add("time_to_live", 125);
-            androidMessageDic.Add("dry_run", false);
-            return JsonConvert.SerializeObject(androidMessageDic);
+            var result = "";
+            WebRequest tRequest = WebRequest.Create("https://fcm.googleapis.com/fcm/send");
+            tRequest.Method = "post";
+            //serverKey - Key from Firebase cloud messaging server  
+            tRequest.Headers.Add(string.Format("Authorization: key={0}", "AAAAqIZmlqY:APA91bFKPRc35wwrZ4WgD7y1fxaqp-hvi_nfIHGuVBoZTVRRGHx_yHIzkybu3dknn23MpfffA__K_Ldn-tGxTKePIFu1F14hQGi1dgCWL4Rf2T_hce5NE2S0x3yoVDNiSgmjtB0dhMoe"));
+            //Sender Id - From firebase project setting  
+            tRequest.Headers.Add(string.Format("Sender: id={0}", "723809375910"));
+            tRequest.ContentType = "application/json";
+            var payload = new
+            {
+                to = token,
+                priority = "high",
+                content_available = true,
+                notification = new
+                {
+                    body = body,
+                    title = title,
+                    badge = 1
+                },
+            };
+
+            string postbody = JsonConvert.SerializeObject(payload).ToString();
+            Byte[] byteArray = Encoding.UTF8.GetBytes(postbody);
+            tRequest.ContentLength = byteArray.Length;
+            using (Stream dataStream = tRequest.GetRequestStream())
+            {
+                dataStream.Write(byteArray, 0, byteArray.Length);
+                using (WebResponse tResponse = tRequest.GetResponse())
+                {
+                    using (Stream dataStreamResponse = tResponse.GetResponseStream())
+                    {
+                        if (dataStreamResponse != null) using (StreamReader tReader = new StreamReader(dataStreamResponse))
+                            {
+                                String sResponseFromServer = tReader.ReadToEnd();
+                                result = sResponseFromServer;
+                            }
+                    }
+                }
+            }
+            return result;
         }
-        public static string getAppledMessage(string title, object data, string regId)
-        {
-            Dictionary<string, object> notification = new Dictionary<string, object>();
-            Dictionary<string, object> appMessageDic = new Dictionary<string, object>();
-
-            notification.Add("title", title);
-            notification.Add("body", "Ấn vào để xem");
-            notification.Add("sound", "adcmover_notify_sound.m4r");
-            notification.Add("mutable_content", true);
-            notification.Add("badge", 1);
-
-            appMessageDic.Add("priority", "high");
-            appMessageDic.Add("notification", notification);
-            appMessageDic.Add("data", data);
-            appMessageDic.Add("to", regId);
-
-            return JsonConvert.SerializeObject(appMessageDic);
-        }
-
-        public static async Task PushNotify(string notification)
-        {
-            var fcmKey = "AIzaSyB_x3wm4yTQMI78HKUvl33iDBEuprDJNQM";
-            var http = new HttpClient();
-            http.DefaultRequestHeaders.TryAddWithoutValidation("Authorization", "key=" + fcmKey);
-            http.DefaultRequestHeaders.TryAddWithoutValidation("content-length", notification.Length.ToString());
-            var content = new StringContent(notification, System.Text.Encoding.UTF8, "application/json");
-            var response = await http.PostAsync("https://fcm.googleapis.com/fcm/send", content);
-        }
-
     }
 }

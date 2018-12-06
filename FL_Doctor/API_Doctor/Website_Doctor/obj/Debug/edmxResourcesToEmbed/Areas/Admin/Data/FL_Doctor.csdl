@@ -1,5 +1,72 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="gModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="FL_DoctorEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Accounts" EntityType="gModel.Account" />
+    <EntitySet Name="CategoryProds" EntityType="gModel.CategoryProd" />
+    <EntitySet Name="Coupons" EntityType="gModel.Coupon" />
+    <EntitySet Name="Groups" EntityType="gModel.Group" />
+    <EntitySet Name="Languages" EntityType="gModel.Language" />
+    <EntitySet Name="Orders" EntityType="gModel.Order" />
+    <EntitySet Name="OrderCouponAccounts" EntityType="gModel.OrderCouponAccount" />
+    <EntitySet Name="OrderStatus" EntityType="gModel.OrderStatu" />
+    <EntitySet Name="OrderTypes" EntityType="gModel.OrderType" />
+    <EntitySet Name="Products" EntityType="gModel.Product" />
+    <EntitySet Name="Resources" EntityType="gModel.Resource" />
+    <EntitySet Name="Roles" EntityType="gModel.Role" />
+    <EntitySet Name="sysdiagrams" EntityType="gModel.sysdiagram" />
+    <AssociationSet Name="FK_Account_Group" Association="gModel.FK_Account_Group">
+      <End Role="Group" EntitySet="Groups" />
+      <End Role="Account" EntitySet="Accounts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Account_OrderCouponAccount" Association="gModel.FK_Account_OrderCouponAccount">
+      <End Role="Account" EntitySet="Accounts" />
+      <End Role="OrderCouponAccount" EntitySet="OrderCouponAccounts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Account_Product" Association="gModel.FK_Account_Product">
+      <End Role="Product" EntitySet="Products" />
+      <End Role="Account" EntitySet="Accounts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Order_Buyer" Association="gModel.FK_Order_Buyer">
+      <End Role="Account" EntitySet="Accounts" />
+      <End Role="Order" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Order_Receive" Association="gModel.FK_Order_Receive">
+      <End Role="Account" EntitySet="Accounts" />
+      <End Role="Order" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Product_Cat" Association="gModel.FK_Product_Cat">
+      <End Role="CategoryProd" EntitySet="CategoryProds" />
+      <End Role="Product" EntitySet="Products" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Coupon_OrderCouponAccount" Association="gModel.FK_Coupon_OrderCouponAccount">
+      <End Role="Coupon" EntitySet="Coupons" />
+      <End Role="OrderCouponAccount" EntitySet="OrderCouponAccounts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Order_OrderCouponAccount" Association="gModel.FK_Order_OrderCouponAccount">
+      <End Role="Order" EntitySet="Orders" />
+      <End Role="OrderCouponAccount" EntitySet="OrderCouponAccounts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Order_OrderType" Association="gModel.FK_Order_OrderType">
+      <End Role="OrderType" EntitySet="OrderTypes" />
+      <End Role="Order" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Order_Product" Association="gModel.FK_Order_Product">
+      <End Role="Product" EntitySet="Products" />
+      <End Role="Order" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="AccountRole" Association="gModel.AccountRole">
+      <End Role="Account" EntitySet="Accounts" />
+      <End Role="Role" EntitySet="Roles" />
+    </AssociationSet>
+    <AssociationSet Name="GroupRole" Association="gModel.GroupRole">
+      <End Role="Group" EntitySet="Groups" />
+      <End Role="Role" EntitySet="Roles" />
+    </AssociationSet>
+    <AssociationSet Name="Order_OrderStatus" Association="gModel.Order_OrderStatus">
+      <End Role="Order" EntitySet="Orders" />
+      <End Role="OrderStatu" EntitySet="OrderStatus" />
+    </AssociationSet>
+  </EntityContainer>
   <EntityType Name="Account">
     <Key>
       <PropertyRef Name="ID" />
@@ -20,13 +87,13 @@
     <Property Name="ThumbnailLicense" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
     <Property Name="Address" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
     <Property Name="IsActive" Type="Boolean" />
-    <Property Name="TokenFacebook" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="TokenFacebook" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
     <Property Name="IsApprove" Type="Boolean" />
     <Property Name="TokenLogin" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
     <Property Name="ExpireTokenLogin" Type="DateTime" Precision="3" />
     <Property Name="DateCreate" Type="DateTime" Precision="3" />
     <Property Name="Password" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-    <Property Name="DeviceToken" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="DeviceToken" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
     <Property Name="TokenRegister" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
     <Property Name="ExpireTokenRegister" Type="DateTime" Precision="3" />
     <Property Name="Lat" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
@@ -37,12 +104,12 @@
     <Property Name="ProductId" Type="Int32" />
     <Property Name="OrderCount" Type="Int32" />
     <Property Name="Balance" Type="Decimal" Precision="18" Scale="0" />
-    <NavigationProperty Name="Group" Relationship="Self.FK_Account_Group" FromRole="Accounts" ToRole="Groups" />
-    <NavigationProperty Name="OrderCouponAccounts" Relationship="Self.FK_Account_OrderCouponAccount" FromRole="Accounts" ToRole="OrderCouponAccount" />
-    <NavigationProperty Name="Product" Relationship="Self.FK_Account_Product" FromRole="Accounts" ToRole="Product" />
-    <NavigationProperty Name="Orders" Relationship="Self.FK_Order_Buyer" FromRole="Accounts" ToRole="Order" />
-    <NavigationProperty Name="Orders1" Relationship="Self.FK_Order_Receive" FromRole="Accounts" ToRole="Order" />
-    <NavigationProperty Name="Roles" Relationship="Self.AccountRole" FromRole="Accounts" ToRole="Roles" />
+    <NavigationProperty Name="Group" Relationship="gModel.FK_Account_Group" FromRole="Account" ToRole="Group" />
+    <NavigationProperty Name="OrderCouponAccounts" Relationship="gModel.FK_Account_OrderCouponAccount" FromRole="Account" ToRole="OrderCouponAccount" />
+    <NavigationProperty Name="Product" Relationship="gModel.FK_Account_Product" FromRole="Account" ToRole="Product" />
+    <NavigationProperty Name="Orders" Relationship="gModel.FK_Order_Buyer" FromRole="Account" ToRole="Order" />
+    <NavigationProperty Name="Orders1" Relationship="gModel.FK_Order_Receive" FromRole="Account" ToRole="Order" />
+    <NavigationProperty Name="Roles" Relationship="gModel.AccountRole" FromRole="Account" ToRole="Role" />
   </EntityType>
   <EntityType Name="CategoryProd">
     <Key>
@@ -55,7 +122,7 @@
     <Property Name="description" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
     <Property Name="dateCreate" Type="DateTime" Precision="3" />
     <Property Name="isActive" Type="Boolean" />
-    <NavigationProperty Name="Products" Relationship="Self.FK_Product_Cat" FromRole="CategoryProd" ToRole="Product" />
+    <NavigationProperty Name="Products" Relationship="gModel.FK_Product_Cat" FromRole="CategoryProd" ToRole="Product" />
   </EntityType>
   <EntityType Name="Coupon">
     <Key>
@@ -71,7 +138,7 @@
     <Property Name="DateCreate" Type="DateTime" Precision="3" />
     <Property Name="Value" Type="Decimal" Precision="18" Scale="0" />
     <Property Name="Percent" Type="Decimal" Precision="18" Scale="0" />
-    <NavigationProperty Name="OrderCouponAccounts" Relationship="Self.FK_Coupon_OrderCouponAccount" FromRole="Coupons" ToRole="OrderCouponAccount" />
+    <NavigationProperty Name="OrderCouponAccounts" Relationship="gModel.FK_Coupon_OrderCouponAccount" FromRole="Coupon" ToRole="OrderCouponAccount" />
   </EntityType>
   <EntityType Name="Group">
     <Key>
@@ -84,8 +151,8 @@
     <Property Name="DateCreate" Type="DateTime" Precision="3" />
     <Property Name="IDLang" Type="Int32" />
     <Property Name="IsParent" Type="Int32" />
-    <NavigationProperty Name="Accounts" Relationship="Self.FK_Account_Group" FromRole="Groups" ToRole="Accounts" />
-    <NavigationProperty Name="Roles" Relationship="Self.GroupRole" FromRole="Groups" ToRole="Roles" />
+    <NavigationProperty Name="Accounts" Relationship="gModel.FK_Account_Group" FromRole="Group" ToRole="Account" />
+    <NavigationProperty Name="Roles" Relationship="gModel.GroupRole" FromRole="Group" ToRole="Role" />
   </EntityType>
   <EntityType Name="Language">
     <Key>
@@ -118,12 +185,12 @@
     <Property Name="card_number" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
     <Property Name="card_bank" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
     <Property Name="note" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-    <NavigationProperty Name="Account" Relationship="Self.FK_Order_Buyer" FromRole="Order" ToRole="Accounts" />
-    <NavigationProperty Name="Account1" Relationship="Self.FK_Order_Receive" FromRole="Order" ToRole="Accounts" />
-    <NavigationProperty Name="OrderCouponAccounts" Relationship="Self.FK_Order_OrderCouponAccount" FromRole="Order" ToRole="OrderCouponAccount" />
-    <NavigationProperty Name="OrderType" Relationship="Self.FK_Order_OrderType" FromRole="Order" ToRole="OrderType" />
-    <NavigationProperty Name="Product" Relationship="Self.FK_Order_Product" FromRole="Order" ToRole="Product" />
-    <NavigationProperty Name="OrderStatus" Relationship="Self.Order_OrderStatus" FromRole="Order" ToRole="OrderStatus" />
+    <NavigationProperty Name="Account" Relationship="gModel.FK_Order_Buyer" FromRole="Order" ToRole="Account" />
+    <NavigationProperty Name="Account1" Relationship="gModel.FK_Order_Receive" FromRole="Order" ToRole="Account" />
+    <NavigationProperty Name="OrderCouponAccounts" Relationship="gModel.FK_Order_OrderCouponAccount" FromRole="Order" ToRole="OrderCouponAccount" />
+    <NavigationProperty Name="OrderType" Relationship="gModel.FK_Order_OrderType" FromRole="Order" ToRole="OrderType" />
+    <NavigationProperty Name="Product" Relationship="gModel.FK_Order_Product" FromRole="Order" ToRole="Product" />
+    <NavigationProperty Name="OrderStatus" Relationship="gModel.Order_OrderStatus" FromRole="Order" ToRole="OrderStatu" />
   </EntityType>
   <EntityType Name="OrderCouponAccount">
     <Key>
@@ -135,9 +202,9 @@
     <Property Name="OrderID" Type="Int32" Nullable="false" />
     <Property Name="CouponID" Type="Int32" Nullable="false" />
     <Property Name="DateCreate" Type="DateTime" Precision="3" />
-    <NavigationProperty Name="Account" Relationship="Self.FK_Account_OrderCouponAccount" FromRole="OrderCouponAccount" ToRole="Accounts" />
-    <NavigationProperty Name="Coupon" Relationship="Self.FK_Coupon_OrderCouponAccount" FromRole="OrderCouponAccount" ToRole="Coupons" />
-    <NavigationProperty Name="Order" Relationship="Self.FK_Order_OrderCouponAccount" FromRole="OrderCouponAccount" ToRole="Order" />
+    <NavigationProperty Name="Account" Relationship="gModel.FK_Account_OrderCouponAccount" FromRole="OrderCouponAccount" ToRole="Account" />
+    <NavigationProperty Name="Coupon" Relationship="gModel.FK_Coupon_OrderCouponAccount" FromRole="OrderCouponAccount" ToRole="Coupon" />
+    <NavigationProperty Name="Order" Relationship="gModel.FK_Order_OrderCouponAccount" FromRole="OrderCouponAccount" ToRole="Order" />
   </EntityType>
   <EntityType Name="OrderStatu">
     <Key>
@@ -149,7 +216,7 @@
     <Property Name="dateCreate" Type="DateTime" Precision="3" />
     <Property Name="dateUpdate" Type="DateTime" Precision="3" />
     <Property Name="isActive" Type="Boolean" />
-    <NavigationProperty Name="Orders" Relationship="Self.Order_OrderStatus" FromRole="OrderStatus" ToRole="Order" />
+    <NavigationProperty Name="Orders" Relationship="gModel.Order_OrderStatus" FromRole="OrderStatu" ToRole="Order" />
   </EntityType>
   <EntityType Name="OrderType">
     <Key>
@@ -159,7 +226,7 @@
     <Property Name="Code" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
     <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
     <Property Name="DateCreate" Type="DateTime" Precision="0" />
-    <NavigationProperty Name="Orders" Relationship="Self.FK_Order_OrderType" FromRole="OrderType" ToRole="Order" />
+    <NavigationProperty Name="Orders" Relationship="gModel.FK_Order_OrderType" FromRole="OrderType" ToRole="Order" />
   </EntityType>
   <EntityType Name="Product">
     <Key>
@@ -177,9 +244,9 @@
     <Property Name="dateDelete" Type="DateTime" Precision="3" />
     <Property Name="isDelete" Type="Boolean" />
     <Property Name="idCatProd" Type="Int32" />
-    <NavigationProperty Name="Accounts" Relationship="Self.FK_Account_Product" FromRole="Product" ToRole="Accounts" />
-    <NavigationProperty Name="CategoryProd" Relationship="Self.FK_Product_Cat" FromRole="Product" ToRole="CategoryProd" />
-    <NavigationProperty Name="Orders" Relationship="Self.FK_Order_Product" FromRole="Product" ToRole="Order" />
+    <NavigationProperty Name="Accounts" Relationship="gModel.FK_Account_Product" FromRole="Product" ToRole="Account" />
+    <NavigationProperty Name="CategoryProd" Relationship="gModel.FK_Product_Cat" FromRole="Product" ToRole="CategoryProd" />
+    <NavigationProperty Name="Orders" Relationship="gModel.FK_Order_Product" FromRole="Product" ToRole="Order" />
   </EntityType>
   <EntityType Name="Resource">
     <Key>
@@ -204,36 +271,36 @@
     <Property Name="DateCreate" Type="DateTime" Precision="3" />
     <Property Name="IDLang" Type="Int32" />
     <Property Name="IsParent" Type="Int32" />
-    <NavigationProperty Name="Accounts" Relationship="Self.AccountRole" FromRole="Roles" ToRole="Accounts" />
-    <NavigationProperty Name="Groups" Relationship="Self.GroupRole" FromRole="Roles" ToRole="Groups" />
+    <NavigationProperty Name="Accounts" Relationship="gModel.AccountRole" FromRole="Role" ToRole="Account" />
+    <NavigationProperty Name="Groups" Relationship="gModel.GroupRole" FromRole="Role" ToRole="Group" />
   </EntityType>
   <EntityType Name="sysdiagram">
     <Key>
       <PropertyRef Name="diagram_id" />
     </Key>
-    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
     <Property Name="principal_id" Type="Int32" Nullable="false" />
     <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="version" Type="Int32" />
     <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
   </EntityType>
   <Association Name="FK_Account_Group">
-    <End Role="Groups" Type="Self.Group" Multiplicity="0..1" />
-    <End Role="Accounts" Type="Self.Account" Multiplicity="*" />
+    <End Type="gModel.Group" Role="Group" Multiplicity="0..1" />
+    <End Type="gModel.Account" Role="Account" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Groups">
+      <Principal Role="Group">
         <PropertyRef Name="ID" />
       </Principal>
-      <Dependent Role="Accounts">
+      <Dependent Role="Account">
         <PropertyRef Name="GroupId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_Account_OrderCouponAccount">
-    <End Role="Accounts" Type="Self.Account" Multiplicity="1" />
-    <End Role="OrderCouponAccount" Type="Self.OrderCouponAccount" Multiplicity="*" />
+    <End Type="gModel.Account" Role="Account" Multiplicity="1" />
+    <End Type="gModel.OrderCouponAccount" Role="OrderCouponAccount" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Accounts">
+      <Principal Role="Account">
         <PropertyRef Name="ID" />
       </Principal>
       <Dependent Role="OrderCouponAccount">
@@ -242,22 +309,22 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_Account_Product">
-    <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
-    <End Role="Accounts" Type="Self.Account" Multiplicity="*" />
+    <End Type="gModel.Product" Role="Product" Multiplicity="0..1" />
+    <End Type="gModel.Account" Role="Account" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Product">
         <PropertyRef Name="id" />
       </Principal>
-      <Dependent Role="Accounts">
+      <Dependent Role="Account">
         <PropertyRef Name="ProductId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_Order_Buyer">
-    <End Role="Accounts" Type="Self.Account" Multiplicity="0..1" />
-    <End Role="Order" Type="Self.Order" Multiplicity="*" />
+    <End Type="gModel.Account" Role="Account" Multiplicity="0..1" />
+    <End Type="gModel.Order" Role="Order" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Accounts">
+      <Principal Role="Account">
         <PropertyRef Name="ID" />
       </Principal>
       <Dependent Role="Order">
@@ -266,10 +333,10 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_Order_Receive">
-    <End Role="Accounts" Type="Self.Account" Multiplicity="0..1" />
-    <End Role="Order" Type="Self.Order" Multiplicity="*" />
+    <End Type="gModel.Account" Role="Account" Multiplicity="0..1" />
+    <End Type="gModel.Order" Role="Order" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Accounts">
+      <Principal Role="Account">
         <PropertyRef Name="ID" />
       </Principal>
       <Dependent Role="Order">
@@ -278,8 +345,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_Product_Cat">
-    <End Role="CategoryProd" Type="Self.CategoryProd" Multiplicity="0..1" />
-    <End Role="Product" Type="Self.Product" Multiplicity="*" />
+    <End Type="gModel.CategoryProd" Role="CategoryProd" Multiplicity="0..1" />
+    <End Type="gModel.Product" Role="Product" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="CategoryProd">
         <PropertyRef Name="id" />
@@ -290,10 +357,10 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_Coupon_OrderCouponAccount">
-    <End Role="Coupons" Type="Self.Coupon" Multiplicity="1" />
-    <End Role="OrderCouponAccount" Type="Self.OrderCouponAccount" Multiplicity="*" />
+    <End Type="gModel.Coupon" Role="Coupon" Multiplicity="1" />
+    <End Type="gModel.OrderCouponAccount" Role="OrderCouponAccount" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Coupons">
+      <Principal Role="Coupon">
         <PropertyRef Name="ID" />
       </Principal>
       <Dependent Role="OrderCouponAccount">
@@ -302,8 +369,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_Order_OrderCouponAccount">
-    <End Role="Order" Type="Self.Order" Multiplicity="1" />
-    <End Role="OrderCouponAccount" Type="Self.OrderCouponAccount" Multiplicity="*" />
+    <End Type="gModel.Order" Role="Order" Multiplicity="1" />
+    <End Type="gModel.OrderCouponAccount" Role="OrderCouponAccount" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Order">
         <PropertyRef Name="id" />
@@ -314,8 +381,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_Order_OrderType">
-    <End Role="OrderType" Type="Self.OrderType" Multiplicity="0..1" />
-    <End Role="Order" Type="Self.Order" Multiplicity="*" />
+    <End Type="gModel.OrderType" Role="OrderType" Multiplicity="0..1" />
+    <End Type="gModel.Order" Role="Order" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="OrderType">
         <PropertyRef Name="ID" />
@@ -326,8 +393,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_Order_Product">
-    <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
-    <End Role="Order" Type="Self.Order" Multiplicity="*" />
+    <End Type="gModel.Product" Role="Product" Multiplicity="0..1" />
+    <End Type="gModel.Order" Role="Order" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Product">
         <PropertyRef Name="id" />
@@ -338,82 +405,15 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="AccountRole">
-    <End Role="Accounts" Type="Self.Account" Multiplicity="*" />
-    <End Role="Roles" Type="Self.Role" Multiplicity="*" />
+    <End Type="gModel.Account" Role="Account" Multiplicity="*" />
+    <End Type="gModel.Role" Role="Role" Multiplicity="*" />
   </Association>
   <Association Name="GroupRole">
-    <End Role="Groups" Type="Self.Group" Multiplicity="*" />
-    <End Role="Roles" Type="Self.Role" Multiplicity="*" />
+    <End Type="gModel.Group" Role="Group" Multiplicity="*" />
+    <End Type="gModel.Role" Role="Role" Multiplicity="*" />
   </Association>
   <Association Name="Order_OrderStatus">
-    <End Role="Order" Type="Self.Order" Multiplicity="*" />
-    <End Role="OrderStatus" Type="Self.OrderStatu" Multiplicity="*" />
+    <End Type="gModel.Order" Role="Order" Multiplicity="*" />
+    <End Type="gModel.OrderStatu" Role="OrderStatu" Multiplicity="*" />
   </Association>
-  <EntityContainer Name="FL_DoctorEntities" annotation:LazyLoadingEnabled="true">
-    <EntitySet Name="Accounts" EntityType="Self.Account" />
-    <EntitySet Name="CategoryProds" EntityType="Self.CategoryProd" />
-    <EntitySet Name="Coupons" EntityType="Self.Coupon" />
-    <EntitySet Name="Groups" EntityType="Self.Group" />
-    <EntitySet Name="Languages" EntityType="Self.Language" />
-    <EntitySet Name="Orders" EntityType="Self.Order" />
-    <EntitySet Name="OrderCouponAccounts" EntityType="Self.OrderCouponAccount" />
-    <EntitySet Name="OrderStatus" EntityType="Self.OrderStatu" />
-    <EntitySet Name="OrderTypes" EntityType="Self.OrderType" />
-    <EntitySet Name="Products" EntityType="Self.Product" />
-    <EntitySet Name="Resources" EntityType="Self.Resource" />
-    <EntitySet Name="Roles" EntityType="Self.Role" />
-    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
-    <AssociationSet Name="FK_Account_Group" Association="Self.FK_Account_Group">
-      <End Role="Groups" EntitySet="Groups" />
-      <End Role="Accounts" EntitySet="Accounts" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Account_OrderCouponAccount" Association="Self.FK_Account_OrderCouponAccount">
-      <End Role="Accounts" EntitySet="Accounts" />
-      <End Role="OrderCouponAccount" EntitySet="OrderCouponAccounts" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Account_Product" Association="Self.FK_Account_Product">
-      <End Role="Product" EntitySet="Products" />
-      <End Role="Accounts" EntitySet="Accounts" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Order_Buyer" Association="Self.FK_Order_Buyer">
-      <End Role="Accounts" EntitySet="Accounts" />
-      <End Role="Order" EntitySet="Orders" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Order_Receive" Association="Self.FK_Order_Receive">
-      <End Role="Accounts" EntitySet="Accounts" />
-      <End Role="Order" EntitySet="Orders" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Product_Cat" Association="Self.FK_Product_Cat">
-      <End Role="CategoryProd" EntitySet="CategoryProds" />
-      <End Role="Product" EntitySet="Products" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Coupon_OrderCouponAccount" Association="Self.FK_Coupon_OrderCouponAccount">
-      <End Role="Coupons" EntitySet="Coupons" />
-      <End Role="OrderCouponAccount" EntitySet="OrderCouponAccounts" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Order_OrderCouponAccount" Association="Self.FK_Order_OrderCouponAccount">
-      <End Role="Order" EntitySet="Orders" />
-      <End Role="OrderCouponAccount" EntitySet="OrderCouponAccounts" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Order_OrderType" Association="Self.FK_Order_OrderType">
-      <End Role="OrderType" EntitySet="OrderTypes" />
-      <End Role="Order" EntitySet="Orders" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Order_Product" Association="Self.FK_Order_Product">
-      <End Role="Product" EntitySet="Products" />
-      <End Role="Order" EntitySet="Orders" />
-    </AssociationSet>
-    <AssociationSet Name="AccountRole" Association="Self.AccountRole">
-      <End Role="Accounts" EntitySet="Accounts" />
-      <End Role="Roles" EntitySet="Roles" />
-    </AssociationSet>
-    <AssociationSet Name="GroupRole" Association="Self.GroupRole">
-      <End Role="Groups" EntitySet="Groups" />
-      <End Role="Roles" EntitySet="Roles" />
-    </AssociationSet>
-    <AssociationSet Name="Order_OrderStatus" Association="Self.Order_OrderStatus">
-      <End Role="Order" EntitySet="Orders" />
-      <End Role="OrderStatus" EntitySet="OrderStatus" />
-    </AssociationSet>
-  </EntityContainer>
 </Schema>
