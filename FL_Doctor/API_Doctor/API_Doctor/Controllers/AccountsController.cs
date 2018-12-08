@@ -283,7 +283,7 @@ namespace API_Doctor.Controllers
             {
                 if (!checkAuth(token))
                 {
-                    return Ok(response.NoAuth("Tài khoản không đúng hoặc không có quyền truy cập. Vui lòng kiểm tra lại."));
+                    return Ok(response.NoAuth( null, "Tài khoản không đúng hoặc không có quyền truy cập. Vui lòng kiểm tra lại."));
                 }
                 var acc = _context.Accounts.SingleOrDefault(x => x.TokenLogin.Equals(token));
                 if (acc != null)
@@ -315,7 +315,7 @@ namespace API_Doctor.Controllers
             {
                 if (!checkAuth(token))
                 {
-                    return Ok(response.NoAuth("Tài khoản không đúng hoặc không có quyền truy cập. Vui lòng kiểm tra lại."));
+                    return Ok(response.NoAuth(null, "Tài khoản không đúng hoặc không có quyền truy cập. Vui lòng kiểm tra lại."));
                 }
                 var tmp = _context.Accounts.SingleOrDefault(x => x.TokenLogin.Contains(token));
                 var acc = req.UpdateAccount(tmp);
@@ -418,7 +418,7 @@ namespace API_Doctor.Controllers
             {
                 if (!checkAuth(token))
                 {
-                    return Ok(response.NoAuth("Tài khoản không đúng hoặc không có quyền truy cập. Vui lòng kiểm tra lại."));
+                    return Ok(response.NoAuth(null, "Tài khoản không đúng hoặc không có quyền truy cập. Vui lòng kiểm tra lại."));
                 }
                 #region Get list doctor with radius
                 double condition_radius = 0;
@@ -426,6 +426,7 @@ namespace API_Doctor.Controllers
                 decimal.TryParse(CMS_Lib.Resource("global_min_fee_doctor"), out global_min_fee_doctor);
                 double.TryParse(CMS_Lib.Resource("global_condition_radius"), out condition_radius);
                 var patient = _context.Accounts.SingleOrDefault(x => x.TokenLogin.Equals(token));
+                var product = _context.Products.SingleOrDefault(x=>x.id == req.MajorCode);
                 //update lat lng patient
                 patient.Lat = req.Lat;
                 patient.Lng = req.Lng;
@@ -434,7 +435,7 @@ namespace API_Doctor.Controllers
                 List<Account> lstDoctor;
                 if (req.MajorCode != null || req.MajorCode > 0)
                 {
-                    lstDoctor = _context.Accounts.Where(x => x.ProductId == req.MajorCode && x.GroupId == 1 && x.Balance >= global_min_fee_doctor && x.IsActive == true && x.IsApprove == true).ToList();
+                    lstDoctor = _context.Accounts.Where(x => x.ProductId == req.MajorCode && x.Balance >= product.price && x.GroupId == 1 && x.Balance >= global_min_fee_doctor &&  x.IsActive == true && x.IsApprove == true).ToList();
                 }
                 else
                 {
@@ -490,7 +491,7 @@ namespace API_Doctor.Controllers
             {
                 if (!checkAuth(token))
                 {
-                    return Ok(response.NoAuth("Tài khoản không đúng hoặc không có quyền truy cập. Vui lòng kiểm tra lại."));
+                    return Ok(response.NoAuth(null, "Tài khoản không đúng hoặc không có quyền truy cập. Vui lòng kiểm tra lại."));
                 }
                 var list = _context.Accounts.Where(x => x.GroupId == 1 && x.IsActive == true && x.GUID.Equals(GUID) && x.IsApprove == true).Select(x => new VM_Res_Account
                 {
@@ -528,7 +529,7 @@ namespace API_Doctor.Controllers
             {
                 if (!checkAuth(token))
                 {
-                    return Ok(response.NoAuth("Tài khoản không đúng hoặc không có quyền truy cập. Vui lòng kiểm tra lại."));
+                    return Ok(response.NoAuth(null, "Tài khoản không đúng hoặc không có quyền truy cập. Vui lòng kiểm tra lại."));
                 }
                 
                 if (!_context.Accounts.Any(x => x.TokenLogin.Contains(token)))
@@ -580,7 +581,7 @@ namespace API_Doctor.Controllers
             {
                 if (!checkAuth(token))
                 {
-                    return Ok(response.NoAuth("Tài khoản không đúng hoặc không có quyền truy cập. Vui lòng kiểm tra lại."));
+                    return Ok(response.NoAuth(null, "Tài khoản không đúng hoặc không có quyền truy cập. Vui lòng kiểm tra lại."));
                 }
                 var acc = _context.Accounts.FirstOrDefault(x=>x.TokenLogin.Equals(token));
                 req.ConvertModelToData(acc);
@@ -627,7 +628,7 @@ namespace API_Doctor.Controllers
             {
                 if (!checkAuth(token))
                 {
-                    return Ok(response.NoAuth("Tài khoản không đúng hoặc không có quyền truy cập. Vui lòng kiểm tra lại."));
+                    return Ok(response.NoAuth(null, "Tài khoản không đúng hoặc không có quyền truy cập. Vui lòng kiểm tra lại."));
                 }
                 var acc = _context.Accounts.SingleOrDefault(x => x.TokenLogin.Equals(token));
                 acc.Thumbnail = CMS_Image.ConvertBase64ToImage(strImg.ImageAvatar, "CardID-" + acc.PhoneNumber + "-" + CMS_Security.MD5(DateTime.Now.ToString()));

@@ -17,6 +17,8 @@ namespace API_Doctor.Models
         public T Data { get; set; }
         public string Message { get; set; }
         public string Version { get; set; }
+        
+
 
         public Response<T> Ok(T o, string msg="", bool status=true)
         {
@@ -43,11 +45,12 @@ namespace API_Doctor.Models
             return this;
         }
 
-        public Response<T> NoAuth(string msg = "")
+        public Response<T> NoAuth(T o, string msg = "")
         {
             this.Code = "401";
             this.Message = msg;
             this.Status = "No Authenication";
+            this.Data = o;
             return this;
         }
     }

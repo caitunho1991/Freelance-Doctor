@@ -50,7 +50,7 @@ namespace API_Doctor.Controllers
             {
                 if (!checkAuth(token))
                 {
-                    return Ok(response.NoAuth("Tài khoản không đúng hoặc không có quyền truy cập. Vui lòng kiểm tra lại."));
+                    return Ok(response.NoAuth(null, "Tài khoản không đúng hoặc không có quyền truy cập. Vui lòng kiểm tra lại."));
                 }
                 List<VM_Order_Respone> res = new List<VM_Order_Respone>();
                 if (this.CheckAccountType(token) == true)
@@ -86,7 +86,7 @@ namespace API_Doctor.Controllers
             {
                 if (!checkAuth(token))
                 {
-                    return Ok(response.NoAuth("Tài khoản không đúng hoặc không có quyền truy cập. Vui lòng kiểm tra lại."));
+                    return Ok(response.NoAuth(null, "Tài khoản không đúng hoặc không có quyền truy cập. Vui lòng kiểm tra lại."));
                 }
                 List<VM_Order_Respone> res = new List<VM_Order_Respone>();
                 if (this.CheckAccountType(token) == true)
@@ -121,7 +121,7 @@ namespace API_Doctor.Controllers
             {
                 if (!checkAuth(token))
                 {
-                    return Ok(response.NoAuth("Tài khoản không đúng hoặc không có quyền truy cập. Vui lòng kiểm tra lại."));
+                    return Ok(response.NoAuth(null, "Tài khoản không đúng hoặc không có quyền truy cập. Vui lòng kiểm tra lại."));
                 }
                 List<VM_Order_Respone> res = new List<VM_Order_Respone>();
                 if (this.CheckAccountType(token) == true)
@@ -156,7 +156,7 @@ namespace API_Doctor.Controllers
             {
                 if (!checkAuth(token))
                 {
-                    return Ok(response.NoAuth("Tài khoản không đúng hoặc không có quyền truy cập. Vui lòng kiểm tra lại."));
+                    return Ok(response.NoAuth(null, "Tài khoản không đúng hoặc không có quyền truy cập. Vui lòng kiểm tra lại."));
                 }
                 List<VM_Order_Respone> res = new List<VM_Order_Respone>();
                 if (this.CheckAccountType(token) == true)
@@ -192,7 +192,7 @@ namespace API_Doctor.Controllers
             {
                 if (!checkAuth(token))
                 {
-                    return Ok(response.NoAuth("Tài khoản không đúng hoặc không có quyền truy cập. Vui lòng kiểm tra lại."));
+                    return Ok(response.NoAuth(null, "Tài khoản không đúng hoặc không có quyền truy cập. Vui lòng kiểm tra lại."));
                 }
                 var idAccount = _context.Accounts.SingleOrDefault(x => x.TokenLogin.Equals(token)).ID;
                 var res = _context.Orders.Where(x => (int)x.idBuyer == idAccount && x.idOrderType == 1 && x.code.Equals(OrderNumber)).Select(x => new VM_Order_Respone
@@ -230,7 +230,7 @@ namespace API_Doctor.Controllers
             {
                 if (!checkAuth(token))
                 {
-                    return Ok(response.NoAuth("Tài khoản không đúng hoặc không có quyền truy cập. Vui lòng kiểm tra lại."));
+                    return Ok(response.NoAuth(null, "Tài khoản không đúng hoặc không có quyền truy cập. Vui lòng kiểm tra lại."));
                 }
                 if (!_context.Accounts.Any(x=>x.GUID.Equals(req.GuidDoctor)))
                 {
@@ -289,7 +289,7 @@ namespace API_Doctor.Controllers
                     o.code = CMS_Security.createTransactionIDString(o.id);
                     o.idOrderStatus = orderStatus.id;
                     _context.SaveChanges();
-                    CMS_Lib.PushNotify(patient.DeviceToken, "PCare", "Lịch hẹn đã được gửi đến bác sỹ.", "patient");
+                    //CMS_Lib.PushNotify(patient.DeviceToken, "PCare", "Lịch hẹn đã được gửi đến bác sỹ.", "patient");
                     CMS_Lib.PushNotify(doctor.DeviceToken, "PCare", "Bạn vừa nhận được một lịch hẹn.", "doctor");
                     var tmp_dateofbirth = ((DateTime)o.dateCreate).ToString("dd/MM/yyyy");
                     var tmp_datecreate = ((DateTime)o.Account.BirthDay).ToString("dd/MM/yyyy");
@@ -330,7 +330,7 @@ namespace API_Doctor.Controllers
 
                 if (!checkAuth(token))
                 {
-                    return Ok(response.NoAuth("Tài khoản không đúng hoặc không có quyền truy cập. Vui lòng kiểm tra lại."));
+                    return Ok(response.NoAuth(null, "Tài khoản không đúng hoặc không có quyền truy cập. Vui lòng kiểm tra lại."));
                 }
                 var idAccount = _context.Accounts.SingleOrDefault(x => x.TokenLogin.Equals(token)).ID;
                 var order = _context.Orders.Where(x => (int)x.idReceive == idAccount && x.idOrderType == 1 && x.code.Equals(OrderNumber)).SingleOrDefault();
@@ -359,7 +359,7 @@ namespace API_Doctor.Controllers
                 var tokenPatient = _context.Accounts.SingleOrDefault(x=>x.ID == order.idBuyer).DeviceToken;
                 var tokenDoctor = _context.Accounts.SingleOrDefault(x => x.ID == order.idReceive).DeviceToken;
                 CMS_Lib.PushNotify(tokenPatient, "PCare", "Lịch hẹn "+order.code+" đã được xác nhận thành công.", "patient");
-                CMS_Lib.PushNotify(tokenDoctor, "PCare", "Lịch hẹn " + order.code + " đã được xác nhận thành công.", "doctor");
+                //CMS_Lib.PushNotify(tokenDoctor, "PCare", "Lịch hẹn " + order.code + " đã được xác nhận thành công.", "doctor");
                 return Ok(responseSingle.Ok(res, "Xác nhận đơn hàng thành công."));
             }
             catch (Exception e)
@@ -382,7 +382,7 @@ namespace API_Doctor.Controllers
             {
                 if (!checkAuth(token))
                 {
-                    return Ok(response.NoAuth("Tài khoản không đúng hoặc không có quyền truy cập. Vui lòng kiểm tra lại."));
+                    return Ok(response.NoAuth(null, "Tài khoản không đúng hoặc không có quyền truy cập. Vui lòng kiểm tra lại."));
                 }
                 var acc = _context.Accounts.SingleOrDefault(x => x.TokenLogin.Equals(token));
                 Order order = new Order();
@@ -426,10 +426,18 @@ namespace API_Doctor.Controllers
                 var account = _context.Accounts.SingleOrDefault(x=>x.ID == order.idReceive);
                 account.Balance = account.Balance + order.totalPay;
                 _context.SaveChanges();
-                var tokenPatient = _context.Accounts.SingleOrDefault(x => x.ID == order.idBuyer).DeviceToken;
-                var tokenDoctor = _context.Accounts.SingleOrDefault(x => x.ID == order.idReceive).DeviceToken;
-                CMS_Lib.PushNotify(tokenPatient, "PCare", "Lịch hẹn " + order.code + " đã được hủy", "patient");
-                CMS_Lib.PushNotify(tokenDoctor, "PCare", "Lịch hẹn " + order.code + " đã được hủy", "doctor");
+                if (acc.GroupId == 1)
+                {
+                    var tokenPatient = _context.Accounts.SingleOrDefault(x => x.ID == order.idBuyer).DeviceToken;
+                    CMS_Lib.PushNotify(tokenPatient, "PCare", "Lịch hẹn " + order.code + " đã được hủy", "patient");
+                }
+                if (acc.GroupId == 2)
+                {
+                    var tokenDoctor = _context.Accounts.SingleOrDefault(x => x.ID == order.idReceive).DeviceToken;
+                    CMS_Lib.PushNotify(tokenDoctor, "PCare", "Lịch hẹn " + order.code + " đã được hủy", "doctor");
+                }
+                
+                
                 return Ok(responseSingle.Ok(res, "Hủy đơn hàng thành công."));
             }
             catch (Exception e)
@@ -453,7 +461,7 @@ namespace API_Doctor.Controllers
                 Response<VN_Response_CashWithDrawal> response = new Response<VN_Response_CashWithDrawal>();
                 if (!checkAuth(token))
                 {
-                    return Ok(response.NoAuth("Tài khoản không đúng hoặc không có quyền truy cập. Vui lòng kiểm tra lại."));
+                    return Ok(response.NoAuth(null, "Tài khoản không đúng hoặc không có quyền truy cập. Vui lòng kiểm tra lại."));
                 }
                 if (!ModelState.IsValid)
                 {
@@ -514,7 +522,7 @@ namespace API_Doctor.Controllers
                Response<VN_Response_CashWithDrawal> response = new Response<VN_Response_CashWithDrawal>();
                 if (!checkAuth(token))
                 {
-                    return Ok(response.NoAuth("Tài khoản không đúng hoặc không có quyền truy cập. Vui lòng kiểm tra lại."));
+                    return Ok(response.NoAuth(null, "Tài khoản không đúng hoặc không có quyền truy cập. Vui lòng kiểm tra lại."));
                 }
                 if (!ModelState.IsValid)
                 {
