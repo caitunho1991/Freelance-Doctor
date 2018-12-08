@@ -18,11 +18,13 @@ namespace API_Doctor.Controllers
         protected Boolean checkAuth(string token)
         {
             var acc = _context.Accounts.SingleOrDefault(x=>x.TokenLogin.Equals(token));
+            int token_time = 0;
+            int.TryParse(CMS_Lib.Resource("cms_token_time"), out token_time);
             if (!string.IsNullOrEmpty(token) && acc != null)
             {
                 if(DateTime.Compare((DateTime)acc.ExpireTokenLogin, DateTime.Now) > 0)
                 {
-                    acc.ExpireTokenLogin = DateTime.Now.AddMinutes(30);
+                    acc.ExpireTokenLogin = DateTime.Now.AddDays(token_time);
                     _context.SaveChanges();
                     return true;
                 }

@@ -87,6 +87,7 @@ namespace API_Doctor.Controllers
         {
             try
             {
+                CMS_Lib.CMS_Logs("API Login", JsonConvert.SerializeObject(req), "N/A");
                 if (!string.IsNullOrEmpty(req.TokenFacebook))
                 {
                     ModelState["req.Username"].Errors.Clear();
@@ -110,8 +111,10 @@ namespace API_Doctor.Controllers
                 {
                     if (acc.ExpireTokenLogin == null || DateTime.Compare((DateTime)acc.ExpireTokenLogin, DateTime.Now) <= 0)
                     {
+                        int token_time = 0;
+                        int.TryParse(CMS_Lib.Resource("cms_token_time"), out token_time);
                         acc.TokenLogin = CMS_Security.GenerateGUID().ToString();
-                        acc.ExpireTokenLogin = DateTime.Now.AddMinutes(10);
+                        acc.ExpireTokenLogin = DateTime.Now.AddDays(token_time);
                         acc.IsActive = true;
                         acc.Lat = req.Lat != null ? req.Lat : "0";
                         acc.Lng = req.Lng != null ? req.Lng : "0";
@@ -170,6 +173,7 @@ namespace API_Doctor.Controllers
         {
             try
             {
+                CMS_Lib.CMS_Logs("API Register", JsonConvert.SerializeObject(req), "");
                 if (!string.IsNullOrEmpty(req.TokenFacebook))
                 {
                     ModelState["req.Email"].Errors.Clear();
@@ -683,7 +687,9 @@ namespace API_Doctor.Controllers
                     {
                         acc.TokenAutoLogin = CMS_Security.SHA1(acc.DeviceToken + "-" + acc.Password + "-" + acc.PhoneNumber);
                         acc.TokenLogin = CMS_Security.GenerateGUID().ToString();
-                        acc.ExpireTokenLogin = DateTime.Now.AddMinutes(10);
+                        int token_time = 0;
+                        int.TryParse(CMS_Lib.Resource("cms_token_time"), out token_time);
+                        acc.ExpireTokenLogin = DateTime.Now.AddDays(token_time);
                         _context.SaveChanges();
                         
                     }

@@ -96,7 +96,7 @@
     </EntitySetMapping>
     <EntitySetMapping Name="Logs">
       <EntityTypeMapping TypeName="gModel.Log">
-        <MappingFragment StoreEntitySet="Logs">
+        <MappingFragment StoreEntitySet="Log">
           <ScalarProperty Name="APIRequest" ColumnName="APIRequest" />
           <ScalarProperty Name="UserRequest" ColumnName="UserRequest" />
           <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />

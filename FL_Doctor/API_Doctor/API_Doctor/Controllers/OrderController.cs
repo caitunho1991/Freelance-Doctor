@@ -1,6 +1,7 @@
 ﻿using API_Doctor.Data;
 using API_Doctor.Helper;
 using API_Doctor.Models;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -228,6 +229,7 @@ namespace API_Doctor.Controllers
         {
             try
             {
+                CMS_Lib.CMS_Logs("API Orer", JsonConvert.SerializeObject(req), "");
                 if (!checkAuth(token))
                 {
                     return Ok(response.NoAuth(null, "Tài khoản không đúng hoặc không có quyền truy cập. Vui lòng kiểm tra lại."));

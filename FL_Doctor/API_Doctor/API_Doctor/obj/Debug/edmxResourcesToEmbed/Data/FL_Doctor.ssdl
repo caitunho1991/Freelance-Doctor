@@ -104,15 +104,15 @@
     <Property Name="Icon" Type="varchar" MaxLength="100" />
     <Property Name="IsActive" Type="bit" />
   </EntityType>
-  <EntityType Name="Logs">
+  <EntityType Name="Log">
     <Key>
       <PropertyRef Name="ID" />
     </Key>
-    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="ContentRequest" Type="text" />
     <Property Name="DateCreated" Type="datetime" />
-    <Property Name="UserRequest" Type="varchar" MaxLength="255" />
-    <Property Name="APIRequest" Type="varchar" MaxLength="255" />
+    <Property Name="UserRequest" Type="nvarchar(max)" />
+    <Property Name="APIRequest" Type="varchar(max)" />
   </EntityType>
   <EntityType Name="Order">
     <Key>
@@ -426,7 +426,7 @@
     <EntitySet Name="GroupRole" EntityType="Self.GroupRole" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Groups" EntityType="Self.Groups" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Languages" EntityType="Self.Languages" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="Logs" EntityType="Self.Logs" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Log" EntityType="Self.Log" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Order_OrderStatus" EntityType="Self.Order_OrderStatus" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="OrderCouponAccount" EntityType="Self.OrderCouponAccount" Schema="dbo" store:Type="Tables" />

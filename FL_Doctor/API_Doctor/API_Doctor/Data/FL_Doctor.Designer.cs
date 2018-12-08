@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'C:\Data\Work\caitunho\Freelance-Doctor\FL_Doctor\API_Doctor\API_Doctor\Data\FL_Doctor.edmx'. 
+﻿// T4 code generation is enabled for model 'F:\Work\Sang Nguyen\Freelance-Doctor\FL_Doctor\API_Doctor\API_Doctor\Data\FL_Doctor.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

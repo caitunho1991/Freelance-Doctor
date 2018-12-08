@@ -29,6 +29,15 @@ namespace API_Doctor.Models
             return this;
         }
 
+        public Response<T> NoAuth(T o, string msg = "")
+        {
+            this.Code = "401";
+            this.Message = msg;
+            this.Status = "No Authenication";
+            this.Data = o;
+            return this;
+        }
+
         public Response<T> BadRequest(string msg = "")
         {
             this.Code = "400";
@@ -45,13 +54,6 @@ namespace API_Doctor.Models
             return this;
         }
 
-        public Response<T> NoAuth(T o, string msg = "")
-        {
-            this.Code = "401";
-            this.Message = msg;
-            this.Status = "No Authenication";
-            this.Data = o;
-            return this;
-        }
+        
     }
 }

@@ -124,6 +124,13 @@ namespace API_Doctor.Helper
                     title = title,
                     badge = 1,
                     type = type
+                },
+                data = new
+                {
+                    body = body,
+                    title = title,
+                    badge = 1,
+                    type = type
                 }
             };
 
@@ -146,6 +153,24 @@ namespace API_Doctor.Helper
                 }
             }
             return result;
+        }
+
+        public static void CMS_Logs(string apiname, string str, string fullname)
+        {
+            try
+            {
+                Log log = new Log();
+                log.ContentRequest = str;
+                log.DateCreated = DateTime.Now;
+                log.UserRequest = fullname;
+                log.APIRequest = apiname;
+                _context.Logs.Add(log);
+                _context.SaveChanges();
+            }
+            catch (Exception e)
+            {
+
+            }
         }
     }
 }
