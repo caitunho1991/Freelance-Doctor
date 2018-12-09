@@ -3,22 +3,23 @@
         <h3>General</h3>
         <ul class="nav side-menu">
             <li>
-                <a href="#"><i class="fa fa-home"></i> Trang chủ <span class="fa fa-chevron-down"></span></a>
+                <a href="#"><i class="fa fa-home"></i> Trang chủ</a>
             </li>
             <li>
-                <a><i class="fa fa-edit"></i> Quản lý tài khoản <span class="fa fa-chevron-down"></span></a>
+                <a><i class="fa fa-user"></i> Quản lý tài khoản <span class="fa fa-chevron-down"></span></a>
                 <ul class="nav child_menu">
-                    <li><a href="#">Tài khoản bác sỹ</a></li>
-                    <li><a href="#">Tài khoản bệnh nhân</a></li>
+                    <li><a href="@Url.Action("Index", "Accounts")">Tài khoản bác sỹ & bệnh nhân</a></li>
+                    <li><a href="@Url.Action("GetListDoctor", "Accounts")">Tài khoản bác sỹ</a></li>
+                    <li><a href="@Url.Action("GetListPatient", "Accounts")">Tài khoản bệnh nhân</a></li>
                 </ul>
             </li>
             <li>
-                <a><i class="fa fa-desktop"></i> Danh mục bác sỹ <span class="fa fa-chevron-down"></span></a>
+                <a><i class="fa fa-desktop"></i> Danh mục bác sỹ</span></a>
             </li>
             <li>
-                <a><i class="fa fa-table"></i> Quản lý đơn hàng <span class="fa fa-chevron-down"></span></a>
+                <a><i class="fa fa-table"></i> Quản lý lịch hẹn <span class="fa fa-chevron-down"></span></a>
                 <ul class="nav child_menu">
-                    <li><a href="#">Đơn đặt hẹn bác sỹ</a></li>
+                    <li><a href="#">Tất cả lịch hẹn bác sỹ</a></li>
                     <li><a href="#">Rút tiền</a></li>
                     <li><a href="#">Nạp tiền</a></li>
                 </ul>

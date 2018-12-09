@@ -2176,6 +2176,10 @@ span.section {
 .form-horizontal .control-label {
     padding-top: 8px
 }
+.form-horizontal .control-label.text-left{
+    text-align: left !important;
+    word-break: break-all;
+}
 .form-control:focus {
     border-color: #CCD0D7;
     box-shadow: none !important
