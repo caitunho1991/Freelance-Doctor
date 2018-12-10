@@ -4,20 +4,21 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="33c00f6053894ba8961186f48d3e26bc" Name="Diagram1">
-        <EntityTypeShape EntityType="gModel.Account" Width="1.5" PointX="3" PointY="4.25" />
-        <EntityTypeShape EntityType="gModel.CategoryProd" Width="1.5" PointX="1.5" PointY="14.25" />
-        <EntityTypeShape EntityType="gModel.Coupon" Width="1.5" PointX="6" PointY="10.875" />
-        <EntityTypeShape EntityType="gModel.Group" Width="1.5" PointX="0.75" PointY="7.125" />
-        <EntityTypeShape EntityType="gModel.Language" Width="1.5" PointX="9.75" PointY="1.75" />
-        <EntityTypeShape EntityType="gModel.Order" Width="1.5" PointX="5.25" PointY="0.75" />
-        <EntityTypeShape EntityType="gModel.OrderCouponAccount" Width="1.5" PointX="8.25" PointY="7.25" />
-        <EntityTypeShape EntityType="gModel.OrderStatu" Width="1.5" PointX="7.5" PointY="2.25" />
-        <EntityTypeShape EntityType="gModel.OrderType" Width="1.5" PointX="3" PointY="1.5" />
-        <EntityTypeShape EntityType="gModel.Product" Width="1.5" PointX="0.75" PointY="1.5" />
-        <EntityTypeShape EntityType="gModel.Resource" Width="1.5" PointX="8.75" PointY="10.75" />
-        <EntityTypeShape EntityType="gModel.Role" Width="1.5" PointX="5.25" PointY="7.125" />
-        <EntityTypeShape EntityType="gModel.sysdiagram" Width="1.5" PointX="10.75" PointY="4.75" />
+      <Diagram DiagramId="33c00f6053894ba8961186f48d3e26bc" Name="Diagram1" ZoomLevel="97">
+        <EntityTypeShape EntityType="gModel.Account" Width="1.5" PointX="3" PointY="4.375" />
+        <EntityTypeShape EntityType="gModel.CategoryProd" Width="1.5" PointX="1.5" PointY="14.5" />
+        <EntityTypeShape EntityType="gModel.Coupon" Width="1.5" PointX="6" PointY="11.125" />
+        <EntityTypeShape EntityType="gModel.Group" Width="1.5" PointX="0.75" PointY="7.375" />
+        <EntityTypeShape EntityType="gModel.Language" Width="1.5" PointX="9.75" PointY="2" />
+        <EntityTypeShape EntityType="gModel.Log" Width="1.5" PointX="8.75" PointY="11" />
+        <EntityTypeShape EntityType="gModel.Order" Width="1.5" PointX="5.25" PointY="1" />
+        <EntityTypeShape EntityType="gModel.OrderCouponAccount" Width="1.5" PointX="8.25" PointY="7.5" />
+        <EntityTypeShape EntityType="gModel.OrderStatu" Width="1.5" PointX="7.5" PointY="2.5" />
+        <EntityTypeShape EntityType="gModel.OrderType" Width="1.5" PointX="3" PointY="0.75" />
+        <EntityTypeShape EntityType="gModel.Product" Width="1.5" PointX="0.75" PointY="1.75" />
+        <EntityTypeShape EntityType="gModel.Resource" Width="1.5" PointX="10.75" PointY="5" />
+        <EntityTypeShape EntityType="gModel.Role" Width="1.5" PointX="5.25" PointY="7.375" />
+        <EntityTypeShape EntityType="gModel.sysdiagram" Width="1.5" PointX="10.75" PointY="9" />
         <AssociationConnector Association="gModel.FK_Account_Group" />
         <AssociationConnector Association="gModel.FK_Account_OrderCouponAccount" />
         <AssociationConnector Association="gModel.FK_Account_Product" />

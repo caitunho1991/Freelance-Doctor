@@ -157,9 +157,36 @@
                                                 <!-- -->
                                                 @if (item.Product != null && item.IsApprove == false)
                                                 {
-                                                    <a href="@Url.Action("ApproveDoctor", "Accounts", new { GUID=item.GUID, Action="" })">
+                                                    <a data-toggle="modal" data-target="#approve-@item.ID">
                                                         <span class="btn btn-danger btn-xs"><i class="fa fa-check"></i> Approve</span>
                                                     </a>
+                                                    <!-- View Detail-->
+                                                    <div id="approve-@item.ID" class="modal fade" role="dialog">
+                                                        <div class="modal-dialog">
+
+                                                            <!-- Modal content-->
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                                    <h2 class="modal-title text-center">Thông báo</h2>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <p class="text-center">Vui lòng xác nhận tài khoản.</p>
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <ul class="list-inline text-center">
+                                                                        <li>
+                                                                            <a class="btn btn-success" href=""><i class="fa fa-check"></i> Xác nhận</a>
+                                                                        </li>
+                                                                        <li>
+                                                                            <a class="btn btn-danger" data-dismiss="modal"><i class="fa fa-times"></i> Hủy bỏ</a>
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- -->
                                                 }
                                             </td>
                                         </tr>

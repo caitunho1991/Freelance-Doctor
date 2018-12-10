@@ -60,15 +60,15 @@
                                             <td>
                                                 @if (item.isActive == true)
                                                 {
-                                                    <span class="btn btn-success btn-xs"><i class="fa fa-check"></i> Online</span>
+                                                    <span class="btn btn-success btn-xs"><i class="fa fa-check"></i> Active</span>
                                                 }
                                                 else
                                                 {
-                                                    <span class="btn btn-danger btn-xs"><i class="fa fa-times"></i> Offline</span>
+                                                    <span class="btn btn-danger btn-xs"><i class="fa fa-times"></i> De-active</span>
                                                 }
                                             </td>
                                             <td>
-                                                <a data-toggle="modal" data-target="#acc-@item.ID">
+                                                <a data-toggle="modal" data-target="#acc-@item.id">
                                                     <span class="btn btn-primary btn-xs"><i class="fa fa-eye"></i> View</span>
                                                 </a>
                                             </td>
