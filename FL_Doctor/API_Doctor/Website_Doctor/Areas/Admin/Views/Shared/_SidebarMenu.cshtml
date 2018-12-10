@@ -19,9 +19,9 @@
             <li>
                 <a><i class="fa fa-table"></i> Quản lý lịch hẹn <span class="fa fa-chevron-down"></span></a>
                 <ul class="nav child_menu">
-                    <li><a href="#">Tất cả lịch hẹn bác sỹ</a></li>
-                    <li><a href="#">Rút tiền</a></li>
-                    <li><a href="#">Nạp tiền</a></li>
+                    <li><a href="@Url.Action("GetListTransactions", "Orders")">Tất cả lịch hẹn bác sỹ</a></li>
+                    <li><a href="@Url.Action("GetListCashWithDrawal", "Orders")">Rút tiền</a></li>
+                    <li><a href="@Url.Action("GetListRecharge", "Orders")">Nạp tiền</a></li>
                 </ul>
             </li>
             <li>

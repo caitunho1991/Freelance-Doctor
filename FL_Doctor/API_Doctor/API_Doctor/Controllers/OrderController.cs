@@ -473,6 +473,8 @@ namespace API_Doctor.Controllers
                 if (account.Group.Code.Equals("doctor"))
                 {
                     var order = req.ConvertModel();
+                    order.idBuyer = account.ID;
+                    order.idReceive = 1;
                     order.idOrderType = 2;
                     if (order.totalPay <= 0)
                     {
@@ -484,6 +486,8 @@ namespace API_Doctor.Controllers
                     }
                     _context.Orders.Add(order);
                     account.Balance = account.Balance - order.totalPay;
+                    var orderStatus = _context.OrderStatus.SingleOrDefault(x => x.code.Contains("cashwithdrawal_create"));
+                    order.OrderStatus.Add(orderStatus);
                     _context.SaveChanges();
                     order.code = CMS_Security.createTransactionIDString(order.id);
                     _context.SaveChanges();
@@ -544,6 +548,8 @@ namespace API_Doctor.Controllers
                         return Ok(response.BadRequest("Số tiền nạp phải lớn hơn 0. Xin vui lòng kiểm tra lại"));
                     }
                     _context.Orders.Add(order);
+                    var orderStatus = _context.OrderStatus.SingleOrDefault(x => x.code.Contains("recharge_create"));
+                    order.OrderStatus.Add(orderStatus);
                     _context.SaveChanges();
                     order.code = CMS_Security.createTransactionIDString(order.id);
                     _context.SaveChanges();

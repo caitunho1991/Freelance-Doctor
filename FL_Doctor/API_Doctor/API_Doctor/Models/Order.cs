@@ -69,7 +69,7 @@ namespace API_Doctor.Models
             order.discount = 0;
             order.totalPay = order.total - order.discount;
             order.note = this.Note;
-            order.idOrderStatus = 3;
+            order.idOrderStatus = 4;
             order.dateCreate = DateTime.Now;
             return order;
         }

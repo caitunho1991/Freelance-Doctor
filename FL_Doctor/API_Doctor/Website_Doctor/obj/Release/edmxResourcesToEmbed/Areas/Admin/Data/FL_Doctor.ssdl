@@ -1,0 +1,492 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="gModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="AccountRole">
+    <Key>
+      <PropertyRef Name="IDAccount" />
+      <PropertyRef Name="IDRole" />
+    </Key>
+    <Property Name="IDAccount" Type="int" Nullable="false" />
+    <Property Name="IDRole" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Accounts">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="GUID" Type="varchar" MaxLength="100" />
+    <Property Name="LastName" Type="nvarchar" MaxLength="100" />
+    <Property Name="FirstName" Type="nvarchar" MaxLength="100" />
+    <Property Name="FullName" Type="nvarchar" MaxLength="200" />
+    <Property Name="Sex" Type="int" />
+    <Property Name="Email" Type="varchar" MaxLength="100" />
+    <Property Name="IDCard" Type="varchar" MaxLength="100" />
+    <Property Name="PhoneNumber" Type="varchar" MaxLength="100" />
+    <Property Name="VerifyCode" Type="varchar" MaxLength="100" />
+    <Property Name="BirthDay" Type="datetime" />
+    <Property Name="Thumbnail" Type="varchar" MaxLength="100" />
+    <Property Name="ThumbnailIDCard" Type="varchar" MaxLength="100" />
+    <Property Name="ThumbnailLicense" Type="varchar" MaxLength="100" />
+    <Property Name="Address" Type="nvarchar" MaxLength="100" />
+    <Property Name="IsActive" Type="bit" />
+    <Property Name="TokenFacebook" Type="text" />
+    <Property Name="IsApprove" Type="bit" />
+    <Property Name="TokenLogin" Type="varchar" MaxLength="100" />
+    <Property Name="ExpireTokenLogin" Type="datetime" />
+    <Property Name="DateCreate" Type="datetime" />
+    <Property Name="Password" Type="varchar" MaxLength="100" />
+    <Property Name="DeviceToken" Type="text" />
+    <Property Name="TokenRegister" Type="varchar" MaxLength="100" />
+    <Property Name="ExpireTokenRegister" Type="datetime" />
+    <Property Name="Lat" Type="varchar" MaxLength="100" />
+    <Property Name="Lng" Type="varchar" MaxLength="100" />
+    <Property Name="VerifyPhone" Type="bit" />
+    <Property Name="VerifyEmail" Type="bit" />
+    <Property Name="GroupId" Type="int" />
+    <Property Name="ProductId" Type="int" />
+    <Property Name="OrderCount" Type="int" />
+    <Property Name="Balance" Type="decimal" Precision="18" Scale="0" />
+  </EntityType>
+  <EntityType Name="CategoryProd">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="code" Type="varchar" MaxLength="100" />
+    <Property Name="thumbnail" Type="varchar" MaxLength="100" />
+    <Property Name="shortDesc" Type="nvarchar" MaxLength="100" />
+    <Property Name="description" Type="nvarchar" MaxLength="100" />
+    <Property Name="dateCreate" Type="datetime" />
+    <Property Name="isActive" Type="bit" />
+  </EntityType>
+  <EntityType Name="Coupons">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="100" />
+    <Property Name="Description" Type="nvarchar(max)" />
+    <Property Name="Code" Type="varchar" MaxLength="100" />
+    <Property Name="Count" Type="int" />
+    <Property Name="DateStart" Type="datetime" />
+    <Property Name="DateEnd" Type="datetime" />
+    <Property Name="DateCreate" Type="datetime" />
+    <Property Name="Value" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="Percent" Type="decimal" Precision="18" Scale="0" />
+  </EntityType>
+  <EntityType Name="GroupRole">
+    <Key>
+      <PropertyRef Name="IDGroup" />
+      <PropertyRef Name="IDRole" />
+    </Key>
+    <Property Name="IDGroup" Type="int" Nullable="false" />
+    <Property Name="IDRole" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Groups">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="100" />
+    <Property Name="Code" Type="varchar" MaxLength="100" />
+    <Property Name="IsActive" Type="bit" />
+    <Property Name="DateCreate" Type="datetime" />
+    <Property Name="IDLang" Type="int" />
+    <Property Name="IsParent" Type="int" />
+  </EntityType>
+  <EntityType Name="Languages">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Code" Type="varchar" MaxLength="100" />
+    <Property Name="Name" Type="nvarchar" MaxLength="100" />
+    <Property Name="Icon" Type="varchar" MaxLength="100" />
+    <Property Name="IsActive" Type="bit" />
+  </EntityType>
+  <EntityType Name="Order">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="code" Type="varchar" MaxLength="100" />
+    <Property Name="idOrderType" Type="int" />
+    <Property Name="idOrderStatus" Type="int" />
+    <Property Name="total" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="discount" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="totalPay" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="buyerEndingBalance" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="receiveEndingBalance" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="dateCreate" Type="datetime" />
+    <Property Name="idBuyer" Type="int" />
+    <Property Name="idReceive" Type="int" />
+    <Property Name="idProduct" Type="int" />
+    <Property Name="card_fullname" Type="nvarchar" MaxLength="100" />
+    <Property Name="card_number" Type="varchar" MaxLength="100" />
+    <Property Name="card_bank" Type="nvarchar" MaxLength="100" />
+    <Property Name="note" Type="nvarchar" MaxLength="255" />
+  </EntityType>
+  <EntityType Name="Order_OrderStatus">
+    <Key>
+      <PropertyRef Name="idOrder" />
+      <PropertyRef Name="idOrderStatus" />
+    </Key>
+    <Property Name="idOrder" Type="int" Nullable="false" />
+    <Property Name="idOrderStatus" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="OrderCouponAccount">
+    <Key>
+      <PropertyRef Name="AccountID" />
+      <PropertyRef Name="OrderID" />
+      <PropertyRef Name="CouponID" />
+    </Key>
+    <Property Name="AccountID" Type="int" Nullable="false" />
+    <Property Name="OrderID" Type="int" Nullable="false" />
+    <Property Name="CouponID" Type="int" Nullable="false" />
+    <Property Name="DateCreate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="OrderStatus">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="code" Type="varchar" MaxLength="100" />
+    <Property Name="name" Type="nvarchar" MaxLength="100" />
+    <Property Name="dateCreate" Type="datetime" />
+    <Property Name="dateUpdate" Type="datetime" />
+    <Property Name="isActive" Type="bit" />
+  </EntityType>
+  <EntityType Name="OrderType">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="Code" Type="varchar" MaxLength="100" />
+    <Property Name="Name" Type="nvarchar" MaxLength="100" />
+    <Property Name="DateCreate" Type="date" />
+  </EntityType>
+  <EntityType Name="Product">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="code" Type="varchar" MaxLength="100" />
+    <Property Name="name" Type="nvarchar" MaxLength="100" />
+    <Property Name="thumbnail" Type="varchar" MaxLength="100" />
+    <Property Name="shortDesc" Type="nvarchar" MaxLength="100" />
+    <Property Name="description" Type="nvarchar" MaxLength="100" />
+    <Property Name="price" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="dateCreate" Type="datetime" />
+    <Property Name="isActive" Type="bit" />
+    <Property Name="dateDelete" Type="datetime" />
+    <Property Name="isDelete" Type="bit" />
+    <Property Name="idCatProd" Type="int" />
+  </EntityType>
+  <EntityType Name="Resources">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Code" Type="varchar" MaxLength="100" />
+    <Property Name="Name" Type="nvarchar" MaxLength="100" />
+    <Property Name="Value" Type="nvarchar" MaxLength="100" />
+    <Property Name="IDLang" Type="int" />
+    <Property Name="IsActive" Type="bit" />
+    <Property Name="IsParent" Type="int" />
+  </EntityType>
+  <EntityType Name="Roles">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="100" />
+    <Property Name="Code" Type="varchar" MaxLength="100" />
+    <Property Name="IsActive" Type="bit" />
+    <Property Name="DateCreate" Type="datetime" />
+    <Property Name="IDLang" Type="int" />
+    <Property Name="IsParent" Type="int" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <Association Name="FK_Account_Group">
+    <End Role="Groups" Type="Self.Groups" Multiplicity="0..1" />
+    <End Role="Accounts" Type="Self.Accounts" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Groups">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Accounts">
+        <PropertyRef Name="GroupId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Account_OrderCouponAccount">
+    <End Role="Accounts" Type="Self.Accounts" Multiplicity="1" />
+    <End Role="OrderCouponAccount" Type="Self.OrderCouponAccount" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Accounts">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="OrderCouponAccount">
+        <PropertyRef Name="AccountID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Account_Product">
+    <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
+    <End Role="Accounts" Type="Self.Accounts" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Accounts">
+        <PropertyRef Name="ProductId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AccountRole_Accounts">
+    <End Role="Accounts" Type="Self.Accounts" Multiplicity="1" />
+    <End Role="AccountRole" Type="Self.AccountRole" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Accounts">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="AccountRole">
+        <PropertyRef Name="IDAccount" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AccountRole_Roles">
+    <End Role="Roles" Type="Self.Roles" Multiplicity="1" />
+    <End Role="AccountRole" Type="Self.AccountRole" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Roles">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="AccountRole">
+        <PropertyRef Name="IDRole" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Coupon_OrderCouponAccount">
+    <End Role="Coupons" Type="Self.Coupons" Multiplicity="1" />
+    <End Role="OrderCouponAccount" Type="Self.OrderCouponAccount" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Coupons">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="OrderCouponAccount">
+        <PropertyRef Name="CouponID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_GroupRole_Groups">
+    <End Role="Groups" Type="Self.Groups" Multiplicity="1" />
+    <End Role="GroupRole" Type="Self.GroupRole" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Groups">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="GroupRole">
+        <PropertyRef Name="IDGroup" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_GroupRole_Roles">
+    <End Role="Roles" Type="Self.Roles" Multiplicity="1" />
+    <End Role="GroupRole" Type="Self.GroupRole" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Roles">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="GroupRole">
+        <PropertyRef Name="IDRole" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Order_Buyer">
+    <End Role="Accounts" Type="Self.Accounts" Multiplicity="0..1" />
+    <End Role="Order" Type="Self.Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Accounts">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Order">
+        <PropertyRef Name="idBuyer" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Order_OrderCouponAccount">
+    <End Role="Order" Type="Self.Order" Multiplicity="1" />
+    <End Role="OrderCouponAccount" Type="Self.OrderCouponAccount" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Order">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="OrderCouponAccount">
+        <PropertyRef Name="OrderID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Order_OrderStatus_1">
+    <End Role="Order" Type="Self.Order" Multiplicity="1" />
+    <End Role="Order_OrderStatus" Type="Self.Order_OrderStatus" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Order">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Order_OrderStatus">
+        <PropertyRef Name="idOrder" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Order_OrderStatus_2">
+    <End Role="OrderStatus" Type="Self.OrderStatus" Multiplicity="1" />
+    <End Role="Order_OrderStatus" Type="Self.Order_OrderStatus" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="OrderStatus">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Order_OrderStatus">
+        <PropertyRef Name="idOrderStatus" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Order_OrderType">
+    <End Role="OrderType" Type="Self.OrderType" Multiplicity="0..1" />
+    <End Role="Order" Type="Self.Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="OrderType">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Order">
+        <PropertyRef Name="idOrderType" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Order_Product">
+    <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
+    <End Role="Order" Type="Self.Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Order">
+        <PropertyRef Name="idProduct" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Order_Receive">
+    <End Role="Accounts" Type="Self.Accounts" Multiplicity="0..1" />
+    <End Role="Order" Type="Self.Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Accounts">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Order">
+        <PropertyRef Name="idReceive" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Product_Cat">
+    <End Role="CategoryProd" Type="Self.CategoryProd" Multiplicity="0..1" />
+    <End Role="Product" Type="Self.Product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CategoryProd">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Product">
+        <PropertyRef Name="idCatProd" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="gModelStoreContainer">
+    <EntitySet Name="AccountRole" EntityType="Self.AccountRole" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Accounts" EntityType="Self.Accounts" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CategoryProd" EntityType="Self.CategoryProd" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Coupons" EntityType="Self.Coupons" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="GroupRole" EntityType="Self.GroupRole" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Groups" EntityType="Self.Groups" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Languages" EntityType="Self.Languages" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Order_OrderStatus" EntityType="Self.Order_OrderStatus" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="OrderCouponAccount" EntityType="Self.OrderCouponAccount" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="OrderStatus" EntityType="Self.OrderStatus" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="OrderType" EntityType="Self.OrderType" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Resources" EntityType="Self.Resources" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Account_Group" Association="Self.FK_Account_Group">
+      <End Role="Groups" EntitySet="Groups" />
+      <End Role="Accounts" EntitySet="Accounts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Account_OrderCouponAccount" Association="Self.FK_Account_OrderCouponAccount">
+      <End Role="Accounts" EntitySet="Accounts" />
+      <End Role="OrderCouponAccount" EntitySet="OrderCouponAccount" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Account_Product" Association="Self.FK_Account_Product">
+      <End Role="Product" EntitySet="Product" />
+      <End Role="Accounts" EntitySet="Accounts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AccountRole_Accounts" Association="Self.FK_AccountRole_Accounts">
+      <End Role="Accounts" EntitySet="Accounts" />
+      <End Role="AccountRole" EntitySet="AccountRole" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AccountRole_Roles" Association="Self.FK_AccountRole_Roles">
+      <End Role="Roles" EntitySet="Roles" />
+      <End Role="AccountRole" EntitySet="AccountRole" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Coupon_OrderCouponAccount" Association="Self.FK_Coupon_OrderCouponAccount">
+      <End Role="Coupons" EntitySet="Coupons" />
+      <End Role="OrderCouponAccount" EntitySet="OrderCouponAccount" />
+    </AssociationSet>
+    <AssociationSet Name="FK_GroupRole_Groups" Association="Self.FK_GroupRole_Groups">
+      <End Role="Groups" EntitySet="Groups" />
+      <End Role="GroupRole" EntitySet="GroupRole" />
+    </AssociationSet>
+    <AssociationSet Name="FK_GroupRole_Roles" Association="Self.FK_GroupRole_Roles">
+      <End Role="Roles" EntitySet="Roles" />
+      <End Role="GroupRole" EntitySet="GroupRole" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Order_Buyer" Association="Self.FK_Order_Buyer">
+      <End Role="Accounts" EntitySet="Accounts" />
+      <End Role="Order" EntitySet="Order" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Order_OrderCouponAccount" Association="Self.FK_Order_OrderCouponAccount">
+      <End Role="Order" EntitySet="Order" />
+      <End Role="OrderCouponAccount" EntitySet="OrderCouponAccount" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Order_OrderStatus_1" Association="Self.FK_Order_OrderStatus_1">
+      <End Role="Order" EntitySet="Order" />
+      <End Role="Order_OrderStatus" EntitySet="Order_OrderStatus" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Order_OrderStatus_2" Association="Self.FK_Order_OrderStatus_2">
+      <End Role="OrderStatus" EntitySet="OrderStatus" />
+      <End Role="Order_OrderStatus" EntitySet="Order_OrderStatus" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Order_OrderType" Association="Self.FK_Order_OrderType">
+      <End Role="OrderType" EntitySet="OrderType" />
+      <End Role="Order" EntitySet="Order" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Order_Product" Association="Self.FK_Order_Product">
+      <End Role="Product" EntitySet="Product" />
+      <End Role="Order" EntitySet="Order" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Order_Receive" Association="Self.FK_Order_Receive">
+      <End Role="Accounts" EntitySet="Accounts" />
+      <End Role="Order" EntitySet="Order" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Product_Cat" Association="Self.FK_Product_Cat">
+      <End Role="CategoryProd" EntitySet="CategoryProd" />
+      <End Role="Product" EntitySet="Product" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
