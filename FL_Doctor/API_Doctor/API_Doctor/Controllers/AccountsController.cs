@@ -107,6 +107,10 @@ namespace API_Doctor.Controllers
                 else{
                     acc = _context.Accounts.Where(x => x.TokenFacebook.Contains(req.TokenFacebook)).Where(x => x.GroupId == GroupId).SingleOrDefault();
                 }
+                if (acc.Group.Code.Equals("doctor") && acc.IsApprove==false)
+                {
+                    return Ok(response.BadRequest("Tài khoản đang chờ xác nhận trong vòng 24h. "));
+                }
                 if (acc != null )
                 {
                     if (acc.ExpireTokenLogin == null || DateTime.Compare((DateTime)acc.ExpireTokenLogin, DateTime.Now) <= 0)
@@ -264,7 +268,15 @@ namespace API_Doctor.Controllers
                         MajorName = x.Product.name,
                         TokenAutoLogin = tmpToken
                     }).SingleOrDefault();
-                    return Ok(response.Ok(dataResponse, "Đăng ký tài khoản thành công."));
+                    if (acc.IsApprove == false)
+                    {
+                        return Ok(response.Ok(dataResponse, "Đăng ký tài khoản thành công và đang chờ xác nhận."));
+                    }
+                    else
+                    {
+                        return Ok(response.Ok(dataResponse, "Đăng ký tài khoản thành công."));
+                    }
+                    
                 }
                 
             }

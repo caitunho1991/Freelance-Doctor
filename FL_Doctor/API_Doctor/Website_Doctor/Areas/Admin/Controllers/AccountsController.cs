@@ -27,8 +27,8 @@ namespace Website_Doctor.Areas.Admin.Controllers
             return View("Index", accounts);
         }
         
-        [HttpPost]
-        public ActionResult ApproveDoctor(string GUID, string Action)
+        [HttpGet]
+        public ActionResult ApproveDoctor(string GUID)
         {
             var doctor = _context.Accounts.SingleOrDefault(x=>x.GUID.Equals(GUID) && x.IsApprove == false);
             if(doctor != null)
@@ -36,10 +36,16 @@ namespace Website_Doctor.Areas.Admin.Controllers
                 doctor.IsApprove = true;
                 _context.SaveChanges();
                 TempData["MsgErr"] = "Tài khoản đã được xác thực. Vui lòng kiểm tra lại.";
-                return RedirectToAction(Action);
+                return RedirectToAction("Index");
             }
             TempData["MsgErr"] = "Tài khoản không có hoặc đã được xác thực. Vui lòng kiểm tra lại.";
-            return RedirectToAction(Action);
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public ActionResult Login()
+        {
+            return View();
         }
     }
 }

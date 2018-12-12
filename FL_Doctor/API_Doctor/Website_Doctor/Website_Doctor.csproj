@@ -164,7 +164,7 @@
     <Compile Include="Areas\Admin\Controllers\DashboardController.cs" />
     <Compile Include="Areas\Admin\Controllers\OrdersController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProductsController.cs" />
-    <Compile Include="Areas\Admin\Controllers\SettingController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ResourcesController.cs" />
     <Compile Include="Areas\Admin\Data\Account.cs">
       <DependentUpon>FL_Doctor.tt</DependentUpon>
     </Compile>
@@ -219,6 +219,8 @@
     <Compile Include="Areas\Admin\Data\sysdiagram.cs">
       <DependentUpon>FL_Doctor.tt</DependentUpon>
     </Compile>
+    <Compile Include="Areas\Admin\Models\VM_Products.cs" />
+    <Compile Include="Areas\Admin\Models\VM_Resources.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -239,6 +241,7 @@
     <Content Include="Areas\Admin\Views\Accounts\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Products\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Orders\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Products\CreateOrEdit.cshtml" />
     <None Include="Areas\Admin\Views\Shared\_SidebarMenu.cshtml" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
@@ -264,6 +267,7 @@
     <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Admin\Views\Dashboard\Index.cshtml" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -4545,9 +4549,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Areas\Admin\Views\Base\" />
     <Folder Include="Areas\Admin\Views\Coupon\" />
+    <Folder Include="Areas\Admin\Views\Resources\" />
     <Folder Include="Areas\Admin\Views\Settings\" />
     <Folder Include="Models\" />
   </ItemGroup>

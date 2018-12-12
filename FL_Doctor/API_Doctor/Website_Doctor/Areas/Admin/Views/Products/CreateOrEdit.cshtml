@@ -1,0 +1,102 @@
+﻿@using Website_Doctor.Areas.Admin.Models
+@model VM_Products
+@{
+    ViewBag.Title = "CreateOrEdit";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="right_col" role="main">
+    <div class="">
+        <div class="page-title">
+            <div class="title_left">
+                <h3>Users <small>Some examples to get you started</small></h3>
+            </div>
+            <div class="title_right">
+                <div class="col-md-5 col-sm-5 col-xs-12 row pull-right top_search">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search for...">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button">Go!</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>Default Example <small>Users</small></h2>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        @using (Html.BeginForm("CreateOrEdit", "Products", FormMethod.Post, new { @class = "form-horizontal" }))
+                        {
+                            if (Model != null)
+                            {
+                                @Html.HiddenFor(x => x.ID)
+                                @Html.HiddenFor(x => x.Delete)
+                            }
+                            <div class="form-group">
+                                <label class="control-label col-sm-3 col-xs-12">Tên chuyên khoa khám bệnh:</label>
+                                <div class="col-sm-6 col-xs-12">
+                                    @Html.TextBoxFor(x => x.Name, new { @class = "form-control", placeholder = "Chuyên khoa khám bệnh" })
+                                    @Html.ValidationMessageFor(x => x.Name, string.Empty, new { @class = "label label-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-3 col-xs-12">Mã chuyên khoa khám bệnh:</label>
+                                <div class="col-sm-6 col-xs-12">
+                                    @Html.TextBoxFor(x => x.Code, new { @class = "form-control", placeholder = "Mã chuyên khoa khám bệnh" })
+                                    @Html.ValidationMessageFor(x => x.Code, string.Empty, new { @class = "label label-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-3 col-xs-12">Mô tả chuyên khoa khám bệnh:</label>
+                                <div class="col-sm-6 col-xs-12">
+                                    @Html.TextBoxFor(x => x.Desc, new { @class = "form-control", placeholder = "Chuyên khoa khám bệnh" })
+                                    @Html.ValidationMessageFor(x => x.Desc, string.Empty, new { @class = "label label-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-3 col-xs-12">Phí khám bệnh:</label>
+                                <div class="col-sm-6 col-xs-12">
+                                    @Html.TextBoxFor(x => x.Fee, new { @class = "form-control", placeholder = "vd: 10,000 vnd" })
+                                    @Html.ValidationMessageFor(x => x.Fee, string.Empty, new { @class = "label label-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-3 col-xs-12">Active: </label>
+                                <div class="col-sm-6 col-xs-12">
+                                    @if (Model != null && Model.Active == true)
+                                    {
+                                        @Html.CheckBoxFor(x => x.Active, new { @checked = "checked" })
+                                    }
+                                    else
+                                    {
+                                        @Html.CheckBoxFor(x => x.Active)
+                                    }
+                                </div>
+                            </div>
+                            <div class="form-group text-center">
+                                <div class="col-sm-9 col-xs-12">
+                                    @if (Model.Delete != true)
+                                    {
+                                        <button type="submit" class="btn btn-success">
+                                            <i class="fa fa-save"></i> Lưu lại
+                                        </button>
+                                    }
+                                    <a class="btn btn-danger" href="@Url.Action("Index", "Products")">
+                                        <i class="fa fa-times"></i> Hủy bỏ
+                                    </a>
+                                </div>
+                            </div>
+
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
