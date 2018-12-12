@@ -226,10 +226,14 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\AccountsController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\BlogsController.cs" />
     <Compile Include="Controllers\CouponController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Data\Account.cs">
+      <DependentUpon>FL_Doctor.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\Blog.cs">
       <DependentUpon>FL_Doctor.tt</DependentUpon>
     </Compile>
     <Compile Include="Data\CategoryProd.cs">

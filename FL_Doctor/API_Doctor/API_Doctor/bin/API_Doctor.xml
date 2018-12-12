@@ -569,6 +569,24 @@
             <param name="req"></param>
             <returns></returns>
         </member>
+        <member name="M:API_Doctor.Controllers.BlogsController.Policy">
+            <summary>
+            Lấy link nội dung policy
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:API_Doctor.Controllers.BlogsController.Terms">
+            <summary>
+            Lấy link nội dung terms
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:API_Doctor.Controllers.BlogsController.Support">
+            <summary>
+            Lấy link nội dung support
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:API_Doctor.Controllers.CouponController.GetCoupon(System.String,System.String)">
             <summary>
             Lấy thông tin chương trình khuyến mãi

@@ -11,18 +11,21 @@ namespace Website_Doctor.Areas.Admin.Controllers
         // GET: Admin/Accounts
         public ActionResult Index()
         {
+            ViewBag.Title = "Danh sách tài khoản";
             var accounts = _context.Accounts.OrderByDescending(x => x.DateCreate);
             return View("Index", accounts);
         }
 
         public ActionResult GetListDoctor()
         {
+            ViewBag.Title = "Danh sách tài khoản bác sỹ";
             var accounts = _context.Accounts.Where(x=>x.Group.Code.Equals("doctor")).OrderByDescending(x => x.DateCreate);
             return View("Index", accounts);
         }
 
         public ActionResult GetListPatient()
         {
+            ViewBag.Title = "Danh sách tài khoản bệnh nhân";
             var accounts = _context.Accounts.Where(x => x.Group.Code.Equals("patient")).OrderByDescending(x => x.DateCreate);
             return View("Index", accounts);
         }

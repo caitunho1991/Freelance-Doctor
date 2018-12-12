@@ -26,6 +26,7 @@ namespace API_Doctor.Data
         }
     
         public virtual DbSet<Account> Accounts { get; set; }
+        public virtual DbSet<Blog> Blogs { get; set; }
         public virtual DbSet<CategoryProd> CategoryProds { get; set; }
         public virtual DbSet<Coupon> Coupons { get; set; }
         public virtual DbSet<Group> Groups { get; set; }

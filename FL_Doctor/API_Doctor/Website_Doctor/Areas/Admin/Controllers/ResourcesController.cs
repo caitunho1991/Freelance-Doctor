@@ -32,9 +32,9 @@ namespace Website_Doctor.Areas.Admin.Controllers
                 //edit
                 Resource re = _context.Resources.Find(p.ID);
                 re.Name = p.Name;
-                re.Code = p.Code;
                 re.Value = p.Value;
                 re.IsActive = p.Active;
+                _context.SaveChanges();
                 return RedirectToAction("Index");
             }
             else

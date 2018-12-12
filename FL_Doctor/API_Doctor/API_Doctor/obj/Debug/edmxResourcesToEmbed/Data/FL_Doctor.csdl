@@ -2,6 +2,7 @@
 <Schema Namespace="gModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
   <EntityContainer Name="FL_DoctorEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="Accounts" EntityType="gModel.Account" />
+    <EntitySet Name="Blogs" EntityType="gModel.Blog" />
     <EntitySet Name="CategoryProds" EntityType="gModel.CategoryProd" />
     <EntitySet Name="Coupons" EntityType="gModel.Coupon" />
     <EntitySet Name="Groups" EntityType="gModel.Group" />
@@ -112,6 +113,17 @@
     <NavigationProperty Name="Orders" Relationship="gModel.FK_Order_Buyer" FromRole="Account" ToRole="Order" />
     <NavigationProperty Name="Orders1" Relationship="gModel.FK_Order_Receive" FromRole="Account" ToRole="Order" />
     <NavigationProperty Name="Roles" Relationship="gModel.AccountRole" FromRole="Account" ToRole="Role" />
+  </EntityType>
+  <EntityType Name="Blog">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Title" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="ShortDescription" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="DateCreate" Type="DateTime" Precision="3" />
+    <Property Name="Alias" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
   </EntityType>
   <EntityType Name="CategoryProd">
     <Key>

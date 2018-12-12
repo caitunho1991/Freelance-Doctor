@@ -1,0 +1,116 @@
+﻿@using Website_Doctor.Areas.Admin.Data
+@model IQueryable<Resource>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="right_col" role="main">
+    <div class="">
+        <div class="page-title">
+            <div class="title_left">
+                <h3>Users <small>Some examples to get you started</small></h3>
+            </div>
+            <div class="title_right">
+                <div class="col-md-5 col-sm-5 col-xs-12 row pull-right top_search">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search for...">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button">Go!</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>Default Example <small>Users</small></h2>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <table id="datatable" class="table table-striped table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>STT</th>
+                                    <th>Tên Resource</th>
+                                    <th>Mã Resource</th>
+                                    <th>Giá trị</th>
+                                    <td>Trạng thái</td>
+                                    <th></th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                @if (Model.Count() > 0)
+                                {
+                                    var i = 0;
+                                    foreach (var item in Model)
+                                    {
+                                        i++;
+                                        <tr>
+                                            <td>@i</td>
+                                            <td>@item.Name</td>
+                                            <td>@item.Code</td>
+                                            <td>@item.Value</td>
+                                            <td>
+                                                @if (item.IsActive == true)
+                                                {
+                                                    <span class="btn btn-success btn-xs"><i class="fa fa-check"></i> Active</span>
+                                                }
+                                                else
+                                                {
+                                                    <span class="btn btn-danger btn-xs"><i class="fa fa-times"></i> Deactive</span>
+                                                }
+                                            </td>
+                                            <td>
+                                                <a class="btn btn-info btn-xs" href="@Url.Action("Edit", "Resources", new { Code=item.Code })">
+                                                    <i class="fa fa-eye"></i> Chi tiết
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td colspan="7">Không có dữ liệu.</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Thông báo</h4>
+            </div>
+            <div class="modal-body">
+                <p>@TempData["MsgErr"]</p>
+            </div>
+        </div>
+
+    </div>
+</div>
+@section scripts{
+    <script>
+        /****************************************
+         *       Basic Table                   *
+         ****************************************/
+        $('#datatable').DataTable();
+        if (!!@TempData["MsgErr"]) {
+            $("#myModal").modal()
+        }
+    </script>
+}

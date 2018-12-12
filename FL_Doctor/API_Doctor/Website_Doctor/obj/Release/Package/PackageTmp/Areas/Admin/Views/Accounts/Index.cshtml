@@ -1,7 +1,6 @@
 ﻿@using Website_Doctor.Areas.Admin.Data
 @model IQueryable<Account>
 @{
-    ViewBag.Title = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
@@ -9,17 +8,7 @@
     <div class="">
         <div class="page-title">
             <div class="title_left">
-                <h3>Users <small>Some examples to get you started</small></h3>
-            </div>
-            <div class="title_right">
-                <div class="col-md-5 col-sm-5 col-xs-12 row pull-right top_search">
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Search for...">
-                        <span class="input-group-btn">
-                            <button class="btn btn-default" type="button">Go!</button>
-                        </span>
-                    </div>
-                </div>
+                <h3>Quản lý tài khoản</h3>
             </div>
         </div>
         <div class="clearfix"></div>
@@ -27,7 +16,7 @@
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                     <div class="x_title">
-                        <h2>Default Example <small>Users</small></h2>
+                        <h2>@ViewBag.Title</h2>
                         <div class="clearfix"></div>
                     </div>
                     <div class="x_content">
@@ -136,6 +125,18 @@
                                                                     </div>
                                                                     @if (item.Group.Code.Equals("doctor"))
                                                                     {
+                                                                        <div class="row">
+                                                                            <label class="control-label col-sm-5">Chứng chỉ hành nghề:</label>
+                                                                            <label class="control-label col-sm-7 text-left">
+                                                                                <img src="@item.ThumbnailLicense" alt="@item.FullName"/>
+                                                                            </label>
+                                                                        </div>
+                                                                        <div class="row">
+                                                                            <label class="control-label col-sm-5">Chứng minh nhân dân:</label>
+                                                                            <label class="control-label col-sm-7 text-left">
+                                                                                <img src="@item.ThumbnailIDCard" alt="@item.FullName" />
+                                                                            </label>
+                                                                        </div>
                                                                         <div class="row">
                                                                             <label class="control-label col-sm-5">Số dư:</label>
                                                                             <label class="control-label col-sm-7 text-left">@item.Balance</label>

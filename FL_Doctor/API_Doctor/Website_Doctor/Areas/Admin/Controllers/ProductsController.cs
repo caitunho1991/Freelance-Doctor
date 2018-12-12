@@ -13,6 +13,7 @@ namespace Website_Doctor.Areas.Admin.Controllers
         // GET: Admin/Products
         public ActionResult Index()
         {
+            ViewBag.Title = "Danh sách chuyên khoa khám bệnh";
             var product = _context.Products.OrderByDescending(x=>x.dateCreate);
             return View("Index", product);
         }

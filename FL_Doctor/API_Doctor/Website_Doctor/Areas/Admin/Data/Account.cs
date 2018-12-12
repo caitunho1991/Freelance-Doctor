@@ -56,6 +56,7 @@ namespace Website_Doctor.Areas.Admin.Data
         public Nullable<int> ProductId { get; set; }
         public Nullable<int> OrderCount { get; set; }
         public Nullable<decimal> Balance { get; set; }
+        public string TokenAutoLogin { get; set; }
     
         public virtual Group Group { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

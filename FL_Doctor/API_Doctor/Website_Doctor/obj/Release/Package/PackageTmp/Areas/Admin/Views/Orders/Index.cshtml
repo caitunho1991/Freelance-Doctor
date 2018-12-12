@@ -181,7 +181,7 @@
                                                     </div>
                                                 </div>
                                                 <!-- -->
-                                                @if (item.OrderType.Code.Equals("cashwithdrawal") || item.OrderType.Code.Equals("recharge"))
+                                                @if (item.OrderType.Code.Equals("cashwithdrawal") && item.OrderStatus.Count <= 1)
                                                 {
                                                     <a data-toggle="modal" data-target="#approve-@item.id">
                                                         <span class="btn btn-success btn-xs"><i class="fa fa-check"></i> Xác nhận giao dịch</span>
@@ -232,6 +232,68 @@
                                                                     <ul class="list-inline text-center">
                                                                         <li>
                                                                             <a class="btn btn-success" href="@Url.Action("CancelCashWithDrawal", "Orders", new { OrderNumber = item.code })"><i class="fa fa-check"></i> Xác nhận</a>
+                                                                        </li>
+                                                                        <li>
+                                                                            <a class="btn btn-danger" data-dismiss="modal"><i class="fa fa-times"></i> Hủy bỏ</a>
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- -->
+                                                }
+                                                @if (item.OrderType.Code.Equals("recharge") && item.OrderStatus.Count <= 1)
+                                                {
+                                                    <a data-toggle="modal" data-target="#approve-@item.id">
+                                                        <span class="btn btn-success btn-xs"><i class="fa fa-check"></i> Xác nhận giao dịch</span>
+                                                    </a>
+                                                    <!-- View Detail-->
+                                                    <div id="approve-@item.id" class="modal fade" role="dialog">
+                                                        <div class="modal-dialog">
+
+                                                            <!-- Modal content-->
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                                    <h2 class="modal-title text-center">Thông báo</h2>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <p class="text-center">Vui lòng xác nhận giao dịch.</p>
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <ul class="list-inline text-center">
+                                                                        <li>
+                                                                            <a class="btn btn-success" href="@Url.Action("ApproveRecharge", "Orders", new { OrderNumber = item.code })"><i class="fa fa-check"></i> Xác nhận</a>
+                                                                        </li>
+                                                                        <li>
+                                                                            <a class="btn btn-danger" data-dismiss="modal"><i class="fa fa-times"></i> Hủy bỏ</a>
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <a data-toggle="modal" data-target="#cancel-@item.id">
+                                                        <span class="btn btn-danger btn-xs"><i class="fa fa-times"></i> Hủy giao dịch</span>
+                                                    </a>
+                                                    <!-- View Detail-->
+                                                    <div id="cancel-@item.id" class="modal fade" role="dialog">
+                                                        <div class="modal-dialog">
+
+                                                            <!-- Modal content-->
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                                    <h2 class="modal-title text-center">Thông báo</h2>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <p class="text-center">Vui lòng xác nhận giao dịch.</p>
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <ul class="list-inline text-center">
+                                                                        <li>
+                                                                            <a class="btn btn-success" href="@Url.Action("CancelRecharge", "Orders", new { OrderNumber = item.code })"><i class="fa fa-check"></i> Xác nhận</a>
                                                                         </li>
                                                                         <li>
                                                                             <a class="btn btn-danger" data-dismiss="modal"><i class="fa fa-times"></i> Hủy bỏ</a>

@@ -50,6 +50,18 @@
           <Property Name="ProductId" Type="int" />
           <Property Name="OrderCount" Type="int" />
           <Property Name="Balance" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="TokenAutoLogin" Type="text" />
+        </EntityType>
+        <EntityType Name="Blogs">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="255" />
+          <Property Name="ShortDescription" Type="nvarchar" MaxLength="255" />
+          <Property Name="Content" Type="text" />
+          <Property Name="DateCreate" Type="datetime" />
+          <Property Name="Alias" Type="varchar" MaxLength="255" />
         </EntityType>
         <EntityType Name="CategoryProd">
           <Key>
@@ -107,6 +119,16 @@
           <Property Name="Name" Type="nvarchar" MaxLength="100" />
           <Property Name="Icon" Type="varchar" MaxLength="100" />
           <Property Name="IsActive" Type="bit" />
+        </EntityType>
+        <EntityType Name="Log">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ContentRequest" Type="text" />
+          <Property Name="DateCreated" Type="datetime" />
+          <Property Name="UserRequest" Type="nvarchar(max)" />
+          <Property Name="APIRequest" Type="varchar(max)" />
         </EntityType>
         <EntityType Name="Order">
           <Key>
@@ -192,8 +214,8 @@
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Code" Type="varchar" MaxLength="100" />
-          <Property Name="Name" Type="nvarchar" MaxLength="100" />
-          <Property Name="Value" Type="nvarchar" MaxLength="100" />
+          <Property Name="Name" Type="nvarchar" MaxLength="255" />
+          <Property Name="Value" Type="nvarchar" MaxLength="255" />
           <Property Name="IDLang" Type="int" />
           <Property Name="IsActive" Type="bit" />
           <Property Name="IsParent" Type="int" />
@@ -415,11 +437,13 @@
         <EntityContainer Name="gModelStoreContainer">
           <EntitySet Name="AccountRole" EntityType="Self.AccountRole" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Accounts" EntityType="Self.Accounts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Blogs" EntityType="Self.Blogs" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CategoryProd" EntityType="Self.CategoryProd" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Coupons" EntityType="Self.Coupons" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GroupRole" EntityType="Self.GroupRole" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Groups" EntityType="Self.Groups" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Languages" EntityType="Self.Languages" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Log" EntityType="Self.Log" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Order_OrderStatus" EntityType="Self.Order_OrderStatus" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OrderCouponAccount" EntityType="Self.OrderCouponAccount" Schema="dbo" store:Type="Tables" />
@@ -500,10 +524,12 @@
       <Schema Namespace="gModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="FL_DoctorEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Accounts" EntityType="gModel.Account" />
+          <EntitySet Name="Blogs" EntityType="gModel.Blog" />
           <EntitySet Name="CategoryProds" EntityType="gModel.CategoryProd" />
           <EntitySet Name="Coupons" EntityType="gModel.Coupon" />
           <EntitySet Name="Groups" EntityType="gModel.Group" />
           <EntitySet Name="Languages" EntityType="gModel.Language" />
+          <EntitySet Name="Logs" EntityType="gModel.Log" />
           <EntitySet Name="Orders" EntityType="gModel.Order" />
           <EntitySet Name="OrderCouponAccounts" EntityType="gModel.OrderCouponAccount" />
           <EntitySet Name="OrderStatus" EntityType="gModel.OrderStatu" />
@@ -602,12 +628,24 @@
           <Property Name="ProductId" Type="Int32" />
           <Property Name="OrderCount" Type="Int32" />
           <Property Name="Balance" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="TokenAutoLogin" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Group" Relationship="gModel.FK_Account_Group" FromRole="Account" ToRole="Group" />
           <NavigationProperty Name="OrderCouponAccounts" Relationship="gModel.FK_Account_OrderCouponAccount" FromRole="Account" ToRole="OrderCouponAccount" />
           <NavigationProperty Name="Product" Relationship="gModel.FK_Account_Product" FromRole="Account" ToRole="Product" />
           <NavigationProperty Name="Orders" Relationship="gModel.FK_Order_Buyer" FromRole="Account" ToRole="Order" />
           <NavigationProperty Name="Orders1" Relationship="gModel.FK_Order_Receive" FromRole="Account" ToRole="Order" />
           <NavigationProperty Name="Roles" Relationship="gModel.AccountRole" FromRole="Account" ToRole="Role" />
+        </EntityType>
+        <EntityType Name="Blog">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ShortDescription" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="DateCreate" Type="DateTime" Precision="3" />
+          <Property Name="Alias" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="CategoryProd">
           <Key>
@@ -661,6 +699,16 @@
           <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Icon" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="IsActive" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="Log">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ContentRequest" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="DateCreated" Type="DateTime" Precision="3" />
+          <Property Name="UserRequest" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="APIRequest" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Order">
           <Key>
@@ -752,8 +800,8 @@
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Code" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Value" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Value" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="IDLang" Type="Int32" />
           <Property Name="IsActive" Type="Boolean" />
           <Property Name="IsParent" Type="Int32" />
@@ -914,7 +962,7 @@
           <End Type="gModel.Order" Role="Order" Multiplicity="*" />
           <End Type="gModel.OrderStatu" Role="OrderStatu" Multiplicity="*" />
         </Association>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -923,6 +971,7 @@
           <EntitySetMapping Name="Accounts">
             <EntityTypeMapping TypeName="gModel.Account">
               <MappingFragment StoreEntitySet="Accounts">
+                <ScalarProperty Name="TokenAutoLogin" ColumnName="TokenAutoLogin" />
                 <ScalarProperty Name="Balance" ColumnName="Balance" />
                 <ScalarProperty Name="OrderCount" ColumnName="OrderCount" />
                 <ScalarProperty Name="ProductId" ColumnName="ProductId" />
@@ -955,6 +1004,18 @@
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="LastName" ColumnName="LastName" />
                 <ScalarProperty Name="GUID" ColumnName="GUID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Blogs">
+            <EntityTypeMapping TypeName="gModel.Blog">
+              <MappingFragment StoreEntitySet="Blogs">
+                <ScalarProperty Name="Alias" ColumnName="Alias" />
+                <ScalarProperty Name="DateCreate" ColumnName="DateCreate" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="ShortDescription" ColumnName="ShortDescription" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1008,6 +1069,17 @@
                 <ScalarProperty Name="Icon" ColumnName="Icon" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Logs">
+            <EntityTypeMapping TypeName="gModel.Log">
+              <MappingFragment StoreEntitySet="Log">
+                <ScalarProperty Name="APIRequest" ColumnName="APIRequest" />
+                <ScalarProperty Name="UserRequest" ColumnName="UserRequest" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="ContentRequest" ColumnName="ContentRequest" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

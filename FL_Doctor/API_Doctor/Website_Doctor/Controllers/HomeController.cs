@@ -8,23 +8,21 @@ namespace Website_Doctor.Controllers
 {
     public class HomeController : Controller
     {
-        public ActionResult Index()
+        Website_Doctor.Areas.Admin.Data.FL_DoctorEntities _context = new Areas.Admin.Data.FL_DoctorEntities();
+        public ActionResult Policy()
         {
-            return View();
+            var a = _context.Blogs.Find(1);
+            return View("Blogs", a);
         }
-
-        public ActionResult About()
+        public ActionResult Terms()
         {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
+            var a = _context.Blogs.Find(2);
+            return View("Blogs", a);
         }
-
-        public ActionResult Contact()
+        public ActionResult Support()
         {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
+            var a = _context.Blogs.Find(3);
+            return View("Blogs", a);
         }
     }
 }

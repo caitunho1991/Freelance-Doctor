@@ -1,0 +1,82 @@
+﻿@using Website_Doctor.Areas.Admin.Models
+@model VM_Blogs
+@{
+    ViewBag.Title = "CreateOrEdit";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="right_col" role="main">
+    <div class="">
+        <div class="page-title">
+            <div class="title_left">
+                <h3>Users <small>Some examples to get you started</small></h3>
+            </div>
+            <div class="title_right">
+                <div class="col-md-5 col-sm-5 col-xs-12 row pull-right top_search">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search for...">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button">Go!</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>Default Example <small>Users</small></h2>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        @using (Html.BeginForm("CreateOrEdit", "Blogs", FormMethod.Post, new { @class = "form-horizontal" }))
+                        {
+                            if (Model != null)
+                            {
+                                @Html.HiddenFor(x => x.ID)
+                            }
+                            <div class="form-group">
+                                <label class="control-label col-sm-3 col-xs-12">Tiêu đề:</label>
+                                <div class="col-sm-6 col-xs-12">
+                                    @Html.TextBoxFor(x => x.Title, new { @class = "form-control", placeholder = "" })
+                                    @Html.ValidationMessageFor(x => x.Title, string.Empty, new { @class = "label label-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-3 col-xs-12">Mô tả:</label>
+                                <div class="col-sm-6 col-xs-12">
+                                    @Html.TextBoxFor(x => x.ShortDesscription, new { @class = "form-control", placeholder = "Mã chuyên khoa khám bệnh" })
+                                    @Html.ValidationMessageFor(x => x.ShortDesscription, string.Empty, new { @class = "label label-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-3 col-xs-12">Nội dung:</label>
+                                <div class="col-sm-6 col-xs-12">
+                                    @Html.TextAreaFor(x => x.Content, new { @class = "form-control", placeholder = "", id="content" })
+                                    @Html.ValidationMessageFor(x => x.Content, string.Empty, new { @class = "label label-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group text-center">
+                                <div class="col-sm-9 col-xs-12">
+                                    <button type="submit" class="btn btn-success">
+                                        <i class="fa fa-save"></i> Lưu lại
+                                    </button>
+                                    <a class="btn btn-danger" href="@Url.Action("Index", "Blogs")">
+                                        <i class="fa fa-times"></i> Hủy bỏ
+                                    </a>
+                                </div>
+                            </div>
+
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/Theme/ckeditor/ckeditor.js"></script>
+<script>
+    CKEDITOR.replace('content');
+</script>

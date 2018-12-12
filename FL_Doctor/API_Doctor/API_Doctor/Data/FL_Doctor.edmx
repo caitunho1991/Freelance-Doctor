@@ -52,6 +52,17 @@
           <Property Name="Balance" Type="decimal" Precision="18" Scale="0" />
           <Property Name="TokenAutoLogin" Type="text" />
         </EntityType>
+        <EntityType Name="Blogs">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="255" />
+          <Property Name="ShortDescription" Type="nvarchar" MaxLength="255" />
+          <Property Name="Content" Type="text" />
+          <Property Name="DateCreate" Type="datetime" />
+          <Property Name="Alias" Type="varchar" MaxLength="255" />
+        </EntityType>
         <EntityType Name="CategoryProd">
           <Key>
             <PropertyRef Name="id" />
@@ -426,6 +437,7 @@
         <EntityContainer Name="gModelStoreContainer">
           <EntitySet Name="AccountRole" EntityType="Self.AccountRole" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Accounts" EntityType="Self.Accounts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Blogs" EntityType="Self.Blogs" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CategoryProd" EntityType="Self.CategoryProd" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Coupons" EntityType="Self.Coupons" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GroupRole" EntityType="Self.GroupRole" Schema="dbo" store:Type="Tables" />
@@ -512,6 +524,7 @@
       <Schema Namespace="gModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="FL_DoctorEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Accounts" EntityType="gModel.Account" />
+          <EntitySet Name="Blogs" EntityType="gModel.Blog" />
           <EntitySet Name="CategoryProds" EntityType="gModel.CategoryProd" />
           <EntitySet Name="Coupons" EntityType="gModel.Coupon" />
           <EntitySet Name="Groups" EntityType="gModel.Group" />
@@ -622,6 +635,17 @@
           <NavigationProperty Name="Orders" Relationship="gModel.FK_Order_Buyer" FromRole="Account" ToRole="Order" />
           <NavigationProperty Name="Orders1" Relationship="gModel.FK_Order_Receive" FromRole="Account" ToRole="Order" />
           <NavigationProperty Name="Roles" Relationship="gModel.AccountRole" FromRole="Account" ToRole="Role" />
+        </EntityType>
+        <EntityType Name="Blog">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ShortDescription" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="DateCreate" Type="DateTime" Precision="3" />
+          <Property Name="Alias" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="CategoryProd">
           <Key>
@@ -980,6 +1004,18 @@
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="LastName" ColumnName="LastName" />
                 <ScalarProperty Name="GUID" ColumnName="GUID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Blogs">
+            <EntityTypeMapping TypeName="gModel.Blog">
+              <MappingFragment StoreEntitySet="Blogs">
+                <ScalarProperty Name="Alias" ColumnName="Alias" />
+                <ScalarProperty Name="DateCreate" ColumnName="DateCreate" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="ShortDescription" ColumnName="ShortDescription" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

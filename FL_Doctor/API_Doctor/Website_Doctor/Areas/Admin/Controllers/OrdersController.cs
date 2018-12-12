@@ -39,6 +39,7 @@ namespace Website_Doctor.Areas.Admin.Controllers
             {
                 var status = _context.OrderStatus.Single(x => x.code.Equals("cashwithdrawal_confirm"));
                 c.OrderStatus.Add(status);
+                c.idOrderStatus = status.id;
                 _context.SaveChanges();
                 TempData["Err"] = "Xác nhận giao dịch rút tiền thành công.";
                 return RedirectToAction("GetListCashWithDrawal");
@@ -59,6 +60,7 @@ namespace Website_Doctor.Areas.Admin.Controllers
                 c.OrderStatus.Add(status);
                 var client = _context.Accounts.Single(x=>x.ID == c.idBuyer);
                 client.Balance += c.totalPay;
+                c.idOrderStatus = status.id;
                 _context.SaveChanges();
                 TempData["Err"] = "Hủy giao dịch rút tiền thành công.";
                 return RedirectToAction("GetListCashWithDrawal");
@@ -79,6 +81,7 @@ namespace Website_Doctor.Areas.Admin.Controllers
                 c.OrderStatus.Add(status);
                 var client = _context.Accounts.Single(x => x.ID == c.idBuyer);
                 client.Balance += c.totalPay;
+                c.idOrderStatus = status.id;
                 _context.SaveChanges();
                 TempData["Err"] = "Xác nhận giao dịch nạp tiền thành công.";
                 return RedirectToAction("GetListCashWithDrawal");
@@ -97,6 +100,7 @@ namespace Website_Doctor.Areas.Admin.Controllers
             {
                 var status = _context.OrderStatus.Single(x => x.code.Equals("recharge_cancel"));
                 c.OrderStatus.Add(status);
+                c.idOrderStatus = status.id;
                 _context.SaveChanges();
                 TempData["Err"] = "Hủy giao dịch nạp tiền thành công.";
                 return RedirectToAction("GetListCashWithDrawal");

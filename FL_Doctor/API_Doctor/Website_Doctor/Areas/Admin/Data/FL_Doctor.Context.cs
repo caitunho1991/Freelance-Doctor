@@ -26,10 +26,12 @@ namespace Website_Doctor.Areas.Admin.Data
         }
     
         public virtual DbSet<Account> Accounts { get; set; }
+        public virtual DbSet<Blog> Blogs { get; set; }
         public virtual DbSet<CategoryProd> CategoryProds { get; set; }
         public virtual DbSet<Coupon> Coupons { get; set; }
         public virtual DbSet<Group> Groups { get; set; }
         public virtual DbSet<Language> Languages { get; set; }
+        public virtual DbSet<Log> Logs { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<OrderCouponAccount> OrderCouponAccounts { get; set; }
         public virtual DbSet<OrderStatu> OrderStatus { get; set; }

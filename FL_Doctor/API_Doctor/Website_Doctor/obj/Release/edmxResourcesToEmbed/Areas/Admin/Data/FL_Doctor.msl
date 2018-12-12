@@ -4,6 +4,7 @@
     <EntitySetMapping Name="Accounts">
       <EntityTypeMapping TypeName="gModel.Account">
         <MappingFragment StoreEntitySet="Accounts">
+          <ScalarProperty Name="TokenAutoLogin" ColumnName="TokenAutoLogin" />
           <ScalarProperty Name="Balance" ColumnName="Balance" />
           <ScalarProperty Name="OrderCount" ColumnName="OrderCount" />
           <ScalarProperty Name="ProductId" ColumnName="ProductId" />
@@ -36,6 +37,18 @@
           <ScalarProperty Name="FirstName" ColumnName="FirstName" />
           <ScalarProperty Name="LastName" ColumnName="LastName" />
           <ScalarProperty Name="GUID" ColumnName="GUID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Blogs">
+      <EntityTypeMapping TypeName="gModel.Blog">
+        <MappingFragment StoreEntitySet="Blogs">
+          <ScalarProperty Name="Alias" ColumnName="Alias" />
+          <ScalarProperty Name="DateCreate" ColumnName="DateCreate" />
+          <ScalarProperty Name="Content" ColumnName="Content" />
+          <ScalarProperty Name="ShortDescription" ColumnName="ShortDescription" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
           <ScalarProperty Name="ID" ColumnName="ID" />
         </MappingFragment>
       </EntityTypeMapping>
@@ -89,6 +102,17 @@
           <ScalarProperty Name="Icon" ColumnName="Icon" />
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Logs">
+      <EntityTypeMapping TypeName="gModel.Log">
+        <MappingFragment StoreEntitySet="Log">
+          <ScalarProperty Name="APIRequest" ColumnName="APIRequest" />
+          <ScalarProperty Name="UserRequest" ColumnName="UserRequest" />
+          <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+          <ScalarProperty Name="ContentRequest" ColumnName="ContentRequest" />
           <ScalarProperty Name="ID" ColumnName="ID" />
         </MappingFragment>
       </EntityTypeMapping>
