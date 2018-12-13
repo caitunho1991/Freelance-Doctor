@@ -4,6 +4,7 @@
     <EntitySetMapping Name="Accounts">
       <EntityTypeMapping TypeName="gModel.Account">
         <MappingFragment StoreEntitySet="Accounts">
+          <ScalarProperty Name="IsBanned" ColumnName="IsBanned" />
           <ScalarProperty Name="TokenAutoLogin" ColumnName="TokenAutoLogin" />
           <ScalarProperty Name="Balance" ColumnName="Balance" />
           <ScalarProperty Name="OrderCount" ColumnName="OrderCount" />
@@ -44,9 +45,9 @@
     <EntitySetMapping Name="Blogs">
       <EntityTypeMapping TypeName="gModel.Blog">
         <MappingFragment StoreEntitySet="Blogs">
+          <ScalarProperty Name="Content" ColumnName="Content" />
           <ScalarProperty Name="Alias" ColumnName="Alias" />
           <ScalarProperty Name="DateCreate" ColumnName="DateCreate" />
-          <ScalarProperty Name="Content" ColumnName="Content" />
           <ScalarProperty Name="ShortDescription" ColumnName="ShortDescription" />
           <ScalarProperty Name="Title" ColumnName="Title" />
           <ScalarProperty Name="ID" ColumnName="ID" />

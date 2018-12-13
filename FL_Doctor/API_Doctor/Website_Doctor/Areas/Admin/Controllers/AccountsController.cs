@@ -38,10 +38,32 @@ namespace Website_Doctor.Areas.Admin.Controllers
             {
                 doctor.IsApprove = true;
                 _context.SaveChanges();
-                TempData["MsgErr"] = "Tài khoản đã được xác thực. Vui lòng kiểm tra lại.";
+                TempData["MsgErr"] = "Tài khoản đã được xác thực.";
                 return RedirectToAction("Index");
             }
             TempData["MsgErr"] = "Tài khoản không có hoặc đã được xác thực. Vui lòng kiểm tra lại.";
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public ActionResult Banned(string GUID)
+        {
+            var doctor = _context.Accounts.SingleOrDefault(x => x.GUID.Equals(GUID));
+            if (doctor != null)
+            {
+                if (doctor.IsBanned == true)
+                {
+                    doctor.IsBanned = false;
+                }
+                else
+                {
+                    doctor.IsBanned = true;
+                }
+                _context.SaveChanges();
+                TempData["MsgErr"] = "Tài khoản đã bị banned.";
+                return RedirectToAction("Index");
+            }
+            TempData["MsgErr"] = "Tài khoản không có hoặc đã bị banned. Vui lòng kiểm tra lại.";
             return RedirectToAction("Index");
         }
 

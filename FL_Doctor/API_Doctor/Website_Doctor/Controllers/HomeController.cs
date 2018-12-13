@@ -9,7 +9,7 @@ namespace Website_Doctor.Controllers
     public class HomeController : Controller
     {
         Website_Doctor.Areas.Admin.Data.FL_DoctorEntities _context = new Areas.Admin.Data.FL_DoctorEntities();
-        public ActionResult Policy()
+        public ActionResult About()
         {
             var a = _context.Blogs.Find(1);
             return View("Blogs", a);

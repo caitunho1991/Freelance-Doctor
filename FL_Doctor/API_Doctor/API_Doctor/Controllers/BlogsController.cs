@@ -12,17 +12,22 @@ namespace API_Doctor.Controllers
     public class BlogsController : BaseController
     {
         /// <summary>
-        /// Lấy link nội dung policy
+        /// Về chúng tôi
         /// </summary>
         /// <returns></returns>
-        [Route("API/Blogs/Policy")]
+        [Route("API/Blogs/About")]
         [HttpGet]
         public IHttpActionResult Policy()
         {
-            Response<string> response = new Response<string>();
+            Response<VM_Response_Blogs> response = new Response<VM_Response_Blogs>();
             try
             {
-                return Ok(response.Ok("http://" + System.Configuration.ConfigurationManager.AppSettings["domain"] + "/Home/Policy"));
+                var link = "http://" + System.Configuration.ConfigurationManager.AppSettings["domain"] + "/Home/About";
+                VM_Response_Blogs res = _context.Blogs.Where(x => x.ID == 1).Select(x=>new VM_Response_Blogs {
+                    Title = x.Title,
+                    Link = link
+                }).Single();
+                return Ok(response.Ok(res));
                 
             }
             catch (Exception e)
@@ -31,17 +36,23 @@ namespace API_Doctor.Controllers
             }
         }
         /// <summary>
-        /// Lấy link nội dung terms
+        /// Điều khoản điều kiện
         /// </summary>
         /// <returns></returns>
         [Route("API/Blogs/Terms")]
         [HttpGet]
         public IHttpActionResult Terms()
         {
-            Response<string> response = new Response<string>();
+            Response<VM_Response_Blogs> response = new Response<VM_Response_Blogs>();
             try
             {
-                return Ok(response.Ok("http://" + System.Configuration.ConfigurationManager.AppSettings["domain"] + "/Home/Terms"));
+                var link = "http://" + System.Configuration.ConfigurationManager.AppSettings["domain"] + "/Home/Terms";
+                VM_Response_Blogs res = _context.Blogs.Where(x => x.ID == 2).Select(x => new VM_Response_Blogs
+                {
+                    Title = x.Title,
+                    Link = link
+                }).Single();
+                return Ok(response.Ok(res));
 
             }
             catch (Exception e)
@@ -50,18 +61,23 @@ namespace API_Doctor.Controllers
             }
         }
         /// <summary>
-        /// Lấy link nội dung support
+        /// Hướng dẫn sử dụng
         /// </summary>
         /// <returns></returns>
         [Route("API/Blogs/Support")]
         [HttpGet]
         public IHttpActionResult Support()
         {
-            Response<string> response = new Response<string>();
+            Response<VM_Response_Blogs> response = new Response<VM_Response_Blogs>();
             try
             {
-                return Ok(response.Ok("http://" + System.Configuration.ConfigurationManager.AppSettings["domain"] + "/Home/Support"));
-
+                var link = "http://" + System.Configuration.ConfigurationManager.AppSettings["domain"] + "/Home/Support";
+                VM_Response_Blogs res = _context.Blogs.Where(x => x.ID == 1).Select(x => new VM_Response_Blogs
+                {
+                    Title = x.Title,
+                    Link = link
+                }).Single();
+                return Ok(response.Ok(res));
             }
             catch (Exception e)
             {

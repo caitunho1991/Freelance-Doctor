@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Website_Doctor.Areas.Admin.Data;
+using Website_Doctor.Areas.Admin.Helpers;
 using Website_Doctor.Areas.Admin.Models;
 
 namespace Website_Doctor.Areas.Admin.Controllers
@@ -20,6 +21,7 @@ namespace Website_Doctor.Areas.Admin.Controllers
 
         public ActionResult Create()
         {
+            ViewBag.Title = "Tạo mới bài viết";
             return View("CreateOrEdit");
         }
         [HttpPost]
@@ -36,7 +38,7 @@ namespace Website_Doctor.Areas.Admin.Controllers
                 blog.Title = p.Title;
                 blog.ShortDescription = p.ShortDesscription;
                 blog.Content = p.Content;
-                blog.Alias= p.Alias;
+                blog.Alias= CMS_Lib.ConvertString(blog.Title);
                 if (_context.Blogs.Any(x=>x.Alias.Equals(blog.Alias)))
                 {
                     TempData["Err"] = "Mã bài viết đã tồn tại";
@@ -62,6 +64,7 @@ namespace Website_Doctor.Areas.Admin.Controllers
 
         public ActionResult Edit(int ID)
         {
+            ViewBag.Title = "Sửa bài viết";
             var p = _context.Blogs.SingleOrDefault(x => x.ID == ID);
             VM_Blogs blogs = new VM_Blogs();
             blogs = blogs.ConvertDataToModel(p);

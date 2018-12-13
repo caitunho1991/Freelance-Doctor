@@ -107,6 +107,7 @@
     <Property Name="OrderCount" Type="Int32" />
     <Property Name="Balance" Type="Decimal" Precision="18" Scale="0" />
     <Property Name="TokenAutoLogin" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="IsBanned" Type="Boolean" />
     <NavigationProperty Name="Group" Relationship="gModel.FK_Account_Group" FromRole="Account" ToRole="Group" />
     <NavigationProperty Name="OrderCouponAccounts" Relationship="gModel.FK_Account_OrderCouponAccount" FromRole="Account" ToRole="OrderCouponAccount" />
     <NavigationProperty Name="Product" Relationship="gModel.FK_Account_Product" FromRole="Account" ToRole="Product" />
@@ -121,9 +122,9 @@
     <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="Title" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
     <Property Name="ShortDescription" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-    <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
     <Property Name="DateCreate" Type="DateTime" Precision="3" />
     <Property Name="Alias" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="CategoryProd">
     <Key>

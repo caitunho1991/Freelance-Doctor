@@ -238,7 +238,11 @@ namespace API_Doctor.Controllers
                 {
                     return Ok(response.BadRequest("Không tìm thấy thông tin bác sỹ"));
                 }
-                var doctor = _context.Accounts.SingleOrDefault(x => x.GUID.Equals(req.GuidDoctor));
+                var doctor = _context.Accounts.SingleOrDefault(x => x.GUID.Equals(req.GuidDoctor) && x.IsBanned != true);
+                if (doctor == null)
+                {
+                    return Ok(response.BadRequest("Tài khoản bác sỹ đã bị khóa vui lòng kiểm tra lại"));
+                }
                 var patient = _context.Accounts.SingleOrDefault(x=>x.TokenLogin.Equals(token));
                 var coupon = _context.Coupons.SingleOrDefault(x=>x.Code.ToUpper().Equals(req.Coupon.ToUpper()) && x.Count > 0);
                 decimal global_min_fee_doctor = 0;

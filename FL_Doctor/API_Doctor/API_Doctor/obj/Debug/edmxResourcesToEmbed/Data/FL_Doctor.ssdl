@@ -46,6 +46,7 @@
     <Property Name="OrderCount" Type="int" />
     <Property Name="Balance" Type="decimal" Precision="18" Scale="0" />
     <Property Name="TokenAutoLogin" Type="text" />
+    <Property Name="IsBanned" Type="bit" />
   </EntityType>
   <EntityType Name="Blogs">
     <Key>
@@ -54,9 +55,9 @@
     <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Title" Type="nvarchar" MaxLength="255" />
     <Property Name="ShortDescription" Type="nvarchar" MaxLength="255" />
-    <Property Name="Content" Type="text" />
     <Property Name="DateCreate" Type="datetime" />
     <Property Name="Alias" Type="varchar" MaxLength="255" />
+    <Property Name="Content" Type="ntext" />
   </EntityType>
   <EntityType Name="CategoryProd">
     <Key>

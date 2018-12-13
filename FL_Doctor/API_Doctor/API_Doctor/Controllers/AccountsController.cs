@@ -197,9 +197,19 @@ namespace API_Doctor.Controllers
                 }
                 else
                 {
-                    if (_context.Accounts.Any(x => x.Email.ToUpper().Equals(req.Email.ToUpper()) || x.PhoneNumber.Equals(req.PhoneNumber)))
+                    if (req.TypeRegister == 0)
                     {
-                        return Ok(response.Ok(null, "Tài khoản đã tồn tại trong hệ thống. Vui lòng kiểm tra lại email hoặc số điện thoại ", false));
+                        if (_context.Accounts.Any(x => (x.Email.ToUpper().Equals(req.Email.ToUpper()) && x.VerifyEmail == true)))
+                        {
+                            return Ok(response.Ok(null, "Tài khoản đã tồn tại trong hệ thống. Vui lòng kiểm tra lại email hoặc số điện thoại ", false));
+                        }
+                    }
+                    else
+                    {
+                        if (_context.Accounts.Any(x => (x.PhoneNumber.Equals(req.PhoneNumber) && x.VerifyPhone == true)))
+                        {
+                            return Ok(response.Ok(null, "Tài khoản đã tồn tại trong hệ thống. Vui lòng kiểm tra lại email hoặc số điện thoại ", false));
+                        }
                     }
                 }
                 
@@ -249,25 +259,51 @@ namespace API_Doctor.Controllers
                 }
                 else
                 {
-                    var dataResponse = _context.Accounts.Where(x => x.Email.ToUpper().Equals(req.Email.ToUpper()) || x.PhoneNumber.Equals(req.PhoneNumber)).Select(x => new VM_Res_Account_Short
+                    VM_Res_Account_Short dataResponse = new VM_Res_Account_Short();
+                    if (req.TypeRegister == 0)
                     {
-                        FullName = x.FullName,
-                        Token = x.TokenLogin,
-                        IsDoctor = x.GroupId == 1 ? true : false,
-                        FirstName = x.FirstName,
-                        LastName = x.LastName,
-                        IDCardNumber = x.IDCard,
-                        DateOfBirth = DateOfBirth,
-                        Sex = (int)x.Sex,
-                        UserName = string.IsNullOrEmpty(req.Email) == true ? req.PhoneNumber : req.Email,
-                        Active = (bool)x.IsActive,
-                        ImgIdCard = string.IsNullOrEmpty(x.ThumbnailIDCard) == true ? "" : "http://" + HttpContext.Current.Request.Url.Host + "/Uploads/" + x.ThumbnailIDCard,
-                        ImgLicenseId = string.IsNullOrEmpty(x.ThumbnailLicense) == true ? "" : "http://" + HttpContext.Current.Request.Url.Host + "/Uploads/" + x.ThumbnailLicense,
-                        ImgAvatar = string.IsNullOrEmpty(x.Thumbnail) == true ? "" : "http://" + HttpContext.Current.Request.Url.Host + "/Uploads/" + x.Thumbnail,
-                        MajorCode = (int)x.ProductId,
-                        MajorName = x.Product.name,
-                        TokenAutoLogin = tmpToken
-                    }).SingleOrDefault();
+                        dataResponse = _context.Accounts.Where(x => x.Email.ToUpper().Equals(req.Email.ToUpper()) && x.VerifyEmail == true).Select(x => new VM_Res_Account_Short
+                        {
+                            FullName = x.FullName,
+                            Token = x.TokenLogin,
+                            IsDoctor = x.GroupId == 1 ? true : false,
+                            FirstName = x.FirstName,
+                            LastName = x.LastName,
+                            IDCardNumber = x.IDCard,
+                            DateOfBirth = DateOfBirth,
+                            Sex = (int)x.Sex,
+                            UserName = string.IsNullOrEmpty(req.Email) == true ? req.PhoneNumber : req.Email,
+                            Active = (bool)x.IsActive,
+                            ImgIdCard = string.IsNullOrEmpty(x.ThumbnailIDCard) == true ? "" : "http://" + HttpContext.Current.Request.Url.Host + "/Uploads/" + x.ThumbnailIDCard,
+                            ImgLicenseId = string.IsNullOrEmpty(x.ThumbnailLicense) == true ? "" : "http://" + HttpContext.Current.Request.Url.Host + "/Uploads/" + x.ThumbnailLicense,
+                            ImgAvatar = string.IsNullOrEmpty(x.Thumbnail) == true ? "" : "http://" + HttpContext.Current.Request.Url.Host + "/Uploads/" + x.Thumbnail,
+                            MajorCode = (int)x.ProductId,
+                            MajorName = x.Product.name,
+                            TokenAutoLogin = tmpToken
+                        }).SingleOrDefault();
+                    }
+                    else
+                    {
+                        dataResponse = _context.Accounts.Where(x => x.PhoneNumber.Equals(req.PhoneNumber) && x.VerifyPhone == true).Select(x => new VM_Res_Account_Short
+                        {
+                            FullName = x.FullName,
+                            Token = x.TokenLogin,
+                            IsDoctor = x.GroupId == 1 ? true : false,
+                            FirstName = x.FirstName,
+                            LastName = x.LastName,
+                            IDCardNumber = x.IDCard,
+                            DateOfBirth = DateOfBirth,
+                            Sex = (int)x.Sex,
+                            UserName = string.IsNullOrEmpty(req.Email) == true ? req.PhoneNumber : req.Email,
+                            Active = (bool)x.IsActive,
+                            ImgIdCard = string.IsNullOrEmpty(x.ThumbnailIDCard) == true ? "" : "http://" + HttpContext.Current.Request.Url.Host + "/Uploads/" + x.ThumbnailIDCard,
+                            ImgLicenseId = string.IsNullOrEmpty(x.ThumbnailLicense) == true ? "" : "http://" + HttpContext.Current.Request.Url.Host + "/Uploads/" + x.ThumbnailLicense,
+                            ImgAvatar = string.IsNullOrEmpty(x.Thumbnail) == true ? "" : "http://" + HttpContext.Current.Request.Url.Host + "/Uploads/" + x.Thumbnail,
+                            MajorCode = (int)x.ProductId,
+                            MajorName = x.Product.name,
+                            TokenAutoLogin = tmpToken
+                        }).SingleOrDefault();
+                    }
                     if (acc.IsApprove == false)
                     {
                         return Ok(response.Ok(dataResponse, "Đăng ký tài khoản thành công và đang chờ xác nhận."));
@@ -451,11 +487,11 @@ namespace API_Doctor.Controllers
                 List<Account> lstDoctor;
                 if (req.MajorCode != null || req.MajorCode > 0)
                 {
-                    lstDoctor = _context.Accounts.Where(x => x.ProductId == req.MajorCode && x.Balance >= product.price && x.GroupId == 1 && x.Balance >= global_min_fee_doctor &&  x.IsActive == true && x.IsApprove == true).ToList();
+                    lstDoctor = _context.Accounts.Where(x => x.ProductId == req.MajorCode && x.Balance >= product.price && x.GroupId == 1 && x.Balance >= global_min_fee_doctor &&  x.IsActive == true && x.IsApprove == true && x.IsBanned != true).ToList();
                 }
                 else
                 {
-                    lstDoctor = _context.Accounts.Where(x => x.GroupId == 1 && x.Balance > global_min_fee_doctor && x.IsActive == true && x.IsApprove == true).ToList();
+                    lstDoctor = _context.Accounts.Where(x => x.GroupId == 1 && x.Balance > global_min_fee_doctor && x.IsActive == true && x.IsApprove == true && x.IsBanned != true).ToList();
                 }
                 List<Account> tmp = new List<Account>();
                 var radius = 0.0;

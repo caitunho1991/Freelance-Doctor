@@ -57,6 +57,7 @@ namespace API_Doctor.Data
         public Nullable<int> OrderCount { get; set; }
         public Nullable<decimal> Balance { get; set; }
         public string TokenAutoLogin { get; set; }
+        public Nullable<bool> IsBanned { get; set; }
     
         public virtual Group Group { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

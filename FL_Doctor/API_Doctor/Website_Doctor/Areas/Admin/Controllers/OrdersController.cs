@@ -11,24 +11,28 @@ namespace Website_Doctor.Areas.Admin.Controllers
         // GET: Admin/Orders
         public ActionResult Index()
         {
+            ViewBag.Title = "Danh sách giao dịch";
             return View();
         }
 
         public  ActionResult GetListTransactions()
         {
-            var transactions = _context.Orders.Where(x=>x.OrderType.Code.Equals("order_doctor"));
+            ViewBag.Title = "Danh sách giao dịch đặt hẹn";
+            var transactions = _context.Orders.Where(x=>x.OrderType.Code.Equals("order_doctor")).OrderByDescending(x=>x.dateCreate);
             return View("Index", transactions);
         }
 
         public ActionResult GetListCashWithDrawal()
         {
-            var cashwithdrawal = _context.Orders.Where(x=>x.OrderType.Code.Equals("cashwithdrawal"));
+            ViewBag.Title = "Danh sách giao dịch rút tiền";
+            var cashwithdrawal = _context.Orders.Where(x=>x.OrderType.Code.Equals("cashwithdrawal")).OrderByDescending(x => x.dateCreate);
             return View("Index", cashwithdrawal);
         }
 
         public ActionResult GetListRecharge()
         {
-            var recharge = _context.Orders.Where(x=>x.OrderType.Code.Equals("recharge"));
+            ViewBag.Title = "Danh sách giao dịch nạp tiền";
+            var recharge = _context.Orders.Where(x=>x.OrderType.Code.Equals("recharge")).OrderByDescending(x => x.dateCreate);
             return View("Index", recharge);
         }
 

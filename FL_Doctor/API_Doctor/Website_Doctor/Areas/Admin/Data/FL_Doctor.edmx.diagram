@@ -5,7 +5,7 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="09389efe9ec64b7ea5af0cd14fb00fa1" Name="Diagram1">
-        <EntityTypeShape EntityType="gModel.Account" Width="1.5" PointX="3" PointY="4.375" />
+        <EntityTypeShape EntityType="gModel.Account" Width="1.5" PointX="3" PointY="4.25" />
         <EntityTypeShape EntityType="gModel.Blog" Width="1.5" PointX="9.75" PointY="2" />
         <EntityTypeShape EntityType="gModel.CategoryProd" Width="1.5" PointX="1.5" PointY="14.5" />
         <EntityTypeShape EntityType="gModel.Coupon" Width="1.5" PointX="6" PointY="11.125" />

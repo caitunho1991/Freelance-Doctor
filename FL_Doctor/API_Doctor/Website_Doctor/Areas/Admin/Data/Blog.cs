@@ -17,8 +17,8 @@ namespace Website_Doctor.Areas.Admin.Data
         public int ID { get; set; }
         public string Title { get; set; }
         public string ShortDescription { get; set; }
-        public string Content { get; set; }
         public Nullable<System.DateTime> DateCreate { get; set; }
         public string Alias { get; set; }
+        public string Content { get; set; }
     }
 }
