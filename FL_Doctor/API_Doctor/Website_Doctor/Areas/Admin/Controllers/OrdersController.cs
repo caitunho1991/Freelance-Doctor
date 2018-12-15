@@ -11,12 +11,20 @@ namespace Website_Doctor.Areas.Admin.Controllers
         // GET: Admin/Orders
         public ActionResult Index()
         {
+            if (this.CheckAuth() == false)
+            {
+                return RedirectToAction("Login", "Accounts");
+            }
             ViewBag.Title = "Danh sách giao dịch";
             return View();
         }
 
         public  ActionResult GetListTransactions()
         {
+            if (this.CheckAuth() == false)
+            {
+                return RedirectToAction("Login", "Accounts");
+            }
             ViewBag.Title = "Danh sách giao dịch đặt hẹn";
             var transactions = _context.Orders.Where(x=>x.OrderType.Code.Equals("order_doctor")).OrderByDescending(x=>x.dateCreate);
             return View("Index", transactions);
@@ -24,6 +32,10 @@ namespace Website_Doctor.Areas.Admin.Controllers
 
         public ActionResult GetListCashWithDrawal()
         {
+            if (this.CheckAuth() == false)
+            {
+                return RedirectToAction("Login", "Accounts");
+            }
             ViewBag.Title = "Danh sách giao dịch rút tiền";
             var cashwithdrawal = _context.Orders.Where(x=>x.OrderType.Code.Equals("cashwithdrawal")).OrderByDescending(x => x.dateCreate);
             return View("Index", cashwithdrawal);
@@ -31,6 +43,10 @@ namespace Website_Doctor.Areas.Admin.Controllers
 
         public ActionResult GetListRecharge()
         {
+            if (this.CheckAuth() == false)
+            {
+                return RedirectToAction("Login", "Accounts");
+            }
             ViewBag.Title = "Danh sách giao dịch nạp tiền";
             var recharge = _context.Orders.Where(x=>x.OrderType.Code.Equals("recharge")).OrderByDescending(x => x.dateCreate);
             return View("Index", recharge);
@@ -38,6 +54,10 @@ namespace Website_Doctor.Areas.Admin.Controllers
 
         public ActionResult ApproveCashWithDrawal(string OrderNumber)
         {
+            if (this.CheckAuth() == false)
+            {
+                return RedirectToAction("Login", "Accounts");
+            }
             var c = _context.Orders.Single(x=>x.code.Equals(OrderNumber));
             if (c.OrderStatus.Count == 1)
             {
@@ -57,6 +77,10 @@ namespace Website_Doctor.Areas.Admin.Controllers
 
         public ActionResult CancelCashWithDrawal(string OrderNumber)
         {
+            if (this.CheckAuth() == false)
+            {
+                return RedirectToAction("Login", "Accounts");
+            }
             var c = _context.Orders.Single(x => x.code.Equals(OrderNumber));
             if (c.OrderStatus.Count == 1)
             {
@@ -78,6 +102,10 @@ namespace Website_Doctor.Areas.Admin.Controllers
 
         public ActionResult ApproveRecharge(string OrderNumber)
         {
+            if (this.CheckAuth() == false)
+            {
+                return RedirectToAction("Login", "Accounts");
+            }
             var c = _context.Orders.Single(x => x.code.Equals(OrderNumber));
             if (c.OrderStatus.Count == 1)
             {
@@ -99,6 +127,10 @@ namespace Website_Doctor.Areas.Admin.Controllers
 
         public ActionResult CancelRecharge(string OrderNumber)
         {
+            if (this.CheckAuth() == false)
+            {
+                return RedirectToAction("Login", "Accounts");
+            }
             var c = _context.Orders.Single(x => x.code.Equals(OrderNumber));
             if (c.OrderStatus.Count == 1)
             {

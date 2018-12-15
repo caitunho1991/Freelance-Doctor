@@ -6,11 +6,15 @@ using System.Web.Mvc;
 
 namespace Website_Doctor.Areas.Admin.Controllers
 {
-    public class DashboardController : Controller
+    public class DashboardController : BaseController
     {
         // GET: Admin/Dashboard
         public ActionResult Index()
         {
+            if (this.CheckAuth() == false)
+            {
+                return RedirectToAction("Login", "Accounts");
+            }
             return View();
         }
     }

@@ -128,7 +128,7 @@
                                                                         <div class="row">
                                                                             <label class="control-label col-sm-5">Chứng chỉ hành nghề:</label>
                                                                             <label class="control-label col-sm-7 text-left">
-                                                                                <img src="@item.ThumbnailLicense" alt="@item.FullName"/>
+                                                                                <img src="@item.ThumbnailLicense" alt="@item.FullName" />
                                                                             </label>
                                                                         </div>
                                                                         <div class="row">
@@ -145,11 +145,14 @@
                                                                             <label class="control-label col-sm-5">Số lượt đặt hẹn:</label>
                                                                             <label class="control-label col-sm-7 text-left">@item.OrderCount</label>
                                                                         </div>
+
+                                                                        <div class="row">
+                                                                            <label class="control-label col-sm-5">Banned tài khoản:</label>
+                                                                            <label class="control-label col-sm-7 text-left">
+                                                                                <a href="@Url.Action("Banned", "Accounts", new { GUID = item.GUID })" class="btn btn-danger btn-xs"> Banned</a>
+                                                                            </label>
+                                                                        </div>
                                                                     }
-                                                                    <div class="row">
-                                                                        <label class="control-label col-sm-5">Token Device:</label>
-                                                                        <label class="control-label col-sm-7 text-left">@item.DeviceToken</label>
-                                                                    </div>
                                                                 </form>
                                                             </div>
                                                         </div>

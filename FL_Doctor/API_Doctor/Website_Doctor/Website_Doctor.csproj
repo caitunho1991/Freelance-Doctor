@@ -161,9 +161,11 @@
     <Compile Include="Areas\Admin\Controllers\AccountsController.cs" />
     <Compile Include="Areas\Admin\Controllers\BaseController.cs" />
     <Compile Include="Areas\Admin\Controllers\BlogsController.cs" />
+    <Compile Include="Areas\Admin\Controllers\CommonController.cs" />
     <Compile Include="Areas\Admin\Controllers\CouponController.cs" />
     <Compile Include="Areas\Admin\Controllers\DashboardController.cs" />
     <Compile Include="Areas\Admin\Controllers\OrdersController.cs" />
+    <Compile Include="Areas\Admin\Controllers\PCareAuth.cs" />
     <Compile Include="Areas\Admin\Controllers\ProductsController.cs" />
     <Compile Include="Areas\Admin\Controllers\ResourcesController.cs" />
     <Compile Include="Areas\Admin\Data\Account.cs">
@@ -227,6 +229,7 @@
       <DependentUpon>FL_Doctor.tt</DependentUpon>
     </Compile>
     <Compile Include="Areas\Admin\Helpers\CMS_Lib.cs" />
+    <Compile Include="Areas\Admin\Models\VM_Accounts.cs" />
     <Compile Include="Areas\Admin\Models\VM_Blogs.cs" />
     <Compile Include="Areas\Admin\Models\VM_Products.cs" />
     <Compile Include="Areas\Admin\Models\VM_Resources.cs" />
@@ -255,6 +258,11 @@
     <Content Include="Areas\Admin\Views\Resources\CreateOrEdit.cshtml" />
     <Content Include="Areas\Admin\Views\Blogs\CreateOrEdit.cshtml" />
     <Content Include="Areas\Admin\Views\Blogs\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Accounts\Login.cshtml" />
+    <Content Include="Areas\Admin\Views\Common\HeadProfile.cshtml" />
+    <Content Include="Areas\Admin\Views\Common\NavMenu.cshtml" />
+    <Content Include="Areas\Admin\Views\Accounts\CreateOrEdit.cshtml" />
+    <Content Include="Areas\Admin\Views\Accounts\ChangePassword.cshtml" />
     <None Include="Areas\Admin\Views\Shared\_SidebarMenu.cshtml" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />

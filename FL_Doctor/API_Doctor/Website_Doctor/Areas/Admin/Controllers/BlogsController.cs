@@ -14,19 +14,39 @@ namespace Website_Doctor.Areas.Admin.Controllers
         // GET: Admin/Products
         public ActionResult Index()
         {
+            if (this.CheckAuth() == false)
+            {
+                return RedirectToAction("Login", "Accounts");
+            }
             ViewBag.Title = "Danh sách bài viết";
             var blogs = _context.Blogs.OrderByDescending(x => x.DateCreate);
             return View("Index", blogs);
         }
 
-        public ActionResult Create()
+        public ActionResult CreateOrEdit(int? ID)
         {
+            if (this.CheckAuth() == false)
+            {
+                return RedirectToAction("Login", "Accounts");
+            }
+            if (ID != null && ID > 0)
+            {
+                ViewBag.Title = "Sửa bài viết";
+                var p = _context.Blogs.SingleOrDefault(x => x.ID == ID);
+                VM_Blogs blogs = new VM_Blogs();
+                blogs = blogs.ConvertDataToModel(p);
+                return View("CreateOrEdit", blogs);
+            }
             ViewBag.Title = "Tạo mới bài viết";
             return View("CreateOrEdit");
         }
         [HttpPost]
-        public ActionResult CreateOrEdit(VM_Blogs p)
+        public ActionResult CreateOrEdit(string GUID, VM_Blogs p)
         {
+            if (this.CheckAuth() == false)
+            {
+                return RedirectToAction("Login", "Accounts");
+            }
             if (!ModelState.IsValid)
             {
                 return View("CreateOrEdit", p);
@@ -60,15 +80,6 @@ namespace Website_Doctor.Areas.Admin.Controllers
                 _context.SaveChanges();
                 return RedirectToAction("Index");
             }
-        }
-
-        public ActionResult Edit(int ID)
-        {
-            ViewBag.Title = "Sửa bài viết";
-            var p = _context.Blogs.SingleOrDefault(x => x.ID == ID);
-            VM_Blogs blogs = new VM_Blogs();
-            blogs = blogs.ConvertDataToModel(p);
-            return View("CreateOrEdit", blogs);
         }
     }
 }

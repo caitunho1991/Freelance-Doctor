@@ -10,16 +10,6 @@
             <div class="title_left">
                 <h3>Quản lý chuyên khoa khám bệnh</h3>
             </div>
-            <div class="title_right">
-                <div class="col-md-5 col-sm-5 col-xs-12 row pull-right top_search">
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Search for...">
-                        <span class="input-group-btn">
-                            <button class="btn btn-default" type="button">Go!</button>
-                        </span>
-                    </div>
-                </div>
-            </div>
         </div>
         <div class="clearfix"></div>
         <div class="row">
@@ -27,6 +17,9 @@
                 <div class="x_panel">
                     <div class="x_title">
                         <h2>@ViewBag.Title</h2>
+                        <a href="@Url.Action("Create","Products")" class="btn btn-success pull-right">
+                            <i class="glyphicon glyphicon-plus"></i> Tạo mới
+                        </a>
                         <div class="clearfix"></div>
                     </div>
                     <div class="x_content">

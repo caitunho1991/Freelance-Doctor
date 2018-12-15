@@ -12,19 +12,39 @@ namespace Website_Doctor.Areas.Admin.Controllers
     {
         public ActionResult Index()
         {
+            if (this.CheckAuth() == false)
+            {
+                return RedirectToAction("Login", "Accounts");
+            }
             ViewBag.Title = "Danh sách resource";
             var product = _context.Resources.OrderByDescending(x => x.ID);
             return View("Index", product);
         }
 
-        public ActionResult Create()
+        public ActionResult CreateOrEdit(string Code)
         {
+            if (this.CheckAuth() == false)
+            {
+                return RedirectToAction("Login", "Accounts");
+            }
+            if (!string.IsNullOrEmpty(Code))
+            {
+                ViewBag.Title = "Sử resource";
+                var p = _context.Resources.SingleOrDefault(x => x.Code.Equals(Code));
+                VM_Resources re = new VM_Resources();
+                re = re.ConvertDataToModel(p);
+                return View("CreateOrEdit", re);
+            }
             ViewBag.Title = "Tạo mới resource";
             return View("CreateOrEdit");
         }
         [HttpPost]
         public ActionResult CreateOrEdit(VM_Resources p)
         {
+            if (this.CheckAuth() == false)
+            {
+                return RedirectToAction("Login", "Accounts");
+            }
             if (!ModelState.IsValid)
             {
                 return View("CreateOrEdit", p);
@@ -53,15 +73,6 @@ namespace Website_Doctor.Areas.Admin.Controllers
                 return RedirectToAction("Index");
             }
 
-        }
-
-        public ActionResult Edit(string Code)
-        {
-            ViewBag.Title = "Sử resource";
-            var p = _context.Resources.SingleOrDefault(x => x.Code.Equals(Code));
-            VM_Resources re = new VM_Resources();
-            re = re.ConvertDataToModel(p);
-            return View("CreateOrEdit", re);
         }
     }
 }

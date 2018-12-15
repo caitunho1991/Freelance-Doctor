@@ -13,18 +13,37 @@ namespace Website_Doctor.Areas.Admin.Controllers
         // GET: Admin/Products
         public ActionResult Index()
         {
+            if (this.CheckAuth() == false)
+            {
+                return RedirectToAction("Login", "Accounts");
+            }
             ViewBag.Title = "Danh sách chuyên khoa khám bệnh";
             var product = _context.Products.OrderByDescending(x=>x.dateCreate);
             return View("Index", product);
         }
 
-        public ActionResult Create()
+        public ActionResult CreateOrEdit(string Code)
         {
+            if (this.CheckAuth() == false)
+            {
+                return RedirectToAction("Login", "Accounts");
+            }
+            if (!string.IsNullOrEmpty(Code))
+            {
+                var p = _context.Products.SingleOrDefault(x => x.code.Equals(Code));
+                VM_Products prod = new VM_Products();
+                prod = prod.ConvertDataToModel(p);
+                return View("CreateOrEdit", prod);
+            }
             return View("CreateOrEdit");
         }
         [HttpPost]
         public ActionResult CreateOrEdit(VM_Products p)
         {
+            if (this.CheckAuth() == false)
+            {
+                return RedirectToAction("Login", "Accounts");
+            }
             if (!ModelState.IsValid)
             {
                 return View("CreateOrEdit",p);
@@ -56,17 +75,13 @@ namespace Website_Doctor.Areas.Admin.Controllers
             
         }
 
-        public ActionResult Edit(string Code)
-        {
-            var p = _context.Products.SingleOrDefault(x => x.code.Equals(Code));
-            VM_Products prod = new VM_Products();
-            prod = prod.ConvertDataToModel(p);
-            return View("CreateOrEdit", prod);
-        }
-
         [HttpGet]
         public ActionResult Delete(string code)
         {
+            if (this.CheckAuth() == false)
+            {
+                return RedirectToAction("Login", "Accounts");
+            }
             try
             {
                 var prod = _context.Products.SingleOrDefault(x => x.code.Equals(code));
