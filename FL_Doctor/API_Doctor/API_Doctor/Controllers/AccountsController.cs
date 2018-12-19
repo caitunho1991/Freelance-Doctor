@@ -685,7 +685,7 @@ namespace API_Doctor.Controllers
                     return Ok(response.NoAuth(null, "Tài khoản không đúng hoặc không có quyền truy cập. Vui lòng kiểm tra lại."));
                 }
                 var acc = _context.Accounts.SingleOrDefault(x => x.TokenLogin.Equals(token));
-                acc.Thumbnail = CMS_Image.ConvertBase64ToImage(strImg.ImageAvatar, "CardID-" + acc.PhoneNumber + "-" + CMS_Security.MD5(DateTime.Now.ToString()));
+                acc.Thumbnail = CMS_Image.ConvertBase64ToImage(strImg.ImageAvatar, "CardID_" + acc.IDCard + "_" + CMS_Security.MD5(DateTime.Now.ToString()));
                 _context.SaveChanges();
                 var DateOfBirth = ((DateTime)acc.BirthDay).ToString("dd/MM/yyyy");
                 var dataResponse = _context.Accounts.Where(x => x.TokenLogin.Equals(token)).Select(x => new VM_Res_Account_Short
