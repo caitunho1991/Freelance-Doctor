@@ -24,7 +24,7 @@ namespace API_Doctor.Helper
             {
                 if (_context.Resources.Any(x=>x.Code.Equals(key)))
                 {
-                    var tmp = _context.Resources.FirstOrDefault(x => x.Code.Equals(key));
+                    var tmp = _context.Resources.Where(x => x.Code.Equals(key)).Single();
                     return _context.Resources.FirstOrDefault(x=>x.Code.ToLower().Equals(key.ToLower())).Value;
                 }
                 return "";

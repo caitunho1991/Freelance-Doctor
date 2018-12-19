@@ -28,13 +28,13 @@
     <Property Name="ThumbnailLicense" Type="varchar" MaxLength="100" />
     <Property Name="Address" Type="nvarchar" MaxLength="100" />
     <Property Name="IsActive" Type="bit" />
-    <Property Name="TokenFacebook" Type="varchar" MaxLength="100" />
+    <Property Name="TokenFacebook" Type="text" />
     <Property Name="IsApprove" Type="bit" />
     <Property Name="TokenLogin" Type="varchar" MaxLength="100" />
     <Property Name="ExpireTokenLogin" Type="datetime" />
     <Property Name="DateCreate" Type="datetime" />
     <Property Name="Password" Type="varchar" MaxLength="100" />
-    <Property Name="DeviceToken" Type="varchar" MaxLength="100" />
+    <Property Name="DeviceToken" Type="text" />
     <Property Name="TokenRegister" Type="varchar" MaxLength="100" />
     <Property Name="ExpireTokenRegister" Type="datetime" />
     <Property Name="Lat" Type="varchar" MaxLength="100" />
@@ -45,6 +45,19 @@
     <Property Name="ProductId" Type="int" />
     <Property Name="OrderCount" Type="int" />
     <Property Name="Balance" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="TokenAutoLogin" Type="text" />
+    <Property Name="IsBanned" Type="bit" />
+  </EntityType>
+  <EntityType Name="Blogs">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Title" Type="nvarchar" MaxLength="255" />
+    <Property Name="ShortDescription" Type="nvarchar" MaxLength="255" />
+    <Property Name="DateCreate" Type="datetime" />
+    <Property Name="Alias" Type="varchar" MaxLength="255" />
+    <Property Name="Content" Type="ntext" />
   </EntityType>
   <EntityType Name="CategoryProd">
     <Key>
@@ -102,6 +115,16 @@
     <Property Name="Name" Type="nvarchar" MaxLength="100" />
     <Property Name="Icon" Type="varchar" MaxLength="100" />
     <Property Name="IsActive" Type="bit" />
+  </EntityType>
+  <EntityType Name="Log">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ContentRequest" Type="text" />
+    <Property Name="DateCreated" Type="datetime" />
+    <Property Name="UserRequest" Type="nvarchar(max)" />
+    <Property Name="APIRequest" Type="varchar(max)" />
   </EntityType>
   <EntityType Name="Order">
     <Key>
@@ -187,8 +210,8 @@
     </Key>
     <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Code" Type="varchar" MaxLength="100" />
-    <Property Name="Name" Type="nvarchar" MaxLength="100" />
-    <Property Name="Value" Type="nvarchar" MaxLength="100" />
+    <Property Name="Name" Type="nvarchar" MaxLength="255" />
+    <Property Name="Value" Type="nvarchar" MaxLength="255" />
     <Property Name="IDLang" Type="int" />
     <Property Name="IsActive" Type="bit" />
     <Property Name="IsParent" Type="int" />
@@ -410,11 +433,13 @@
   <EntityContainer Name="gModelStoreContainer">
     <EntitySet Name="AccountRole" EntityType="Self.AccountRole" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Accounts" EntityType="Self.Accounts" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Blogs" EntityType="Self.Blogs" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="CategoryProd" EntityType="Self.CategoryProd" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Coupons" EntityType="Self.Coupons" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="GroupRole" EntityType="Self.GroupRole" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Groups" EntityType="Self.Groups" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Languages" EntityType="Self.Languages" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Log" EntityType="Self.Log" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Order_OrderStatus" EntityType="Self.Order_OrderStatus" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="OrderCouponAccount" EntityType="Self.OrderCouponAccount" Schema="dbo" store:Type="Tables" />

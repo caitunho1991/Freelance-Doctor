@@ -473,7 +473,6 @@ C:\Data\Work\caitunho\Freelance-Doctor\FL_Doctor\API_Doctor\Website_Doctor\obj\D
 C:\Data\Work\caitunho\Freelance-Doctor\FL_Doctor\API_Doctor\Website_Doctor\obj\Debug\Website_Doctor.csproj.CopyComplete
 C:\Data\Work\caitunho\Freelance-Doctor\FL_Doctor\API_Doctor\Website_Doctor\obj\Debug\Website_Doctor.dll
 C:\Data\Work\caitunho\Freelance-Doctor\FL_Doctor\API_Doctor\Website_Doctor\obj\Debug\Website_Doctor.pdb
-F:\Work\Freelance\Doctor\API\Freelance-Doctor\FL_Doctor\API_Doctor\Website_Doctor\bin\EntityFramework.dll
 F:\Work\Freelance\Doctor\API\Freelance-Doctor\FL_Doctor\API_Doctor\Website_Doctor\bin\ApplicationInsights.config
 F:\Work\Freelance\Doctor\API\Freelance-Doctor\FL_Doctor\API_Doctor\Website_Doctor\bin\Website_Doctor.dll.config
 F:\Work\Freelance\Doctor\API\Freelance-Doctor\FL_Doctor\API_Doctor\Website_Doctor\bin\Website_Doctor.dll
@@ -525,6 +524,7 @@ F:\Work\Freelance\Doctor\API\Freelance-Doctor\FL_Doctor\API_Doctor\Website_Docto
 F:\Work\Freelance\Doctor\API\Freelance-Doctor\FL_Doctor\API_Doctor\Website_Doctor\bin\roslyn\VBCSCompiler.exe
 F:\Work\Freelance\Doctor\API\Freelance-Doctor\FL_Doctor\API_Doctor\Website_Doctor\bin\roslyn\VBCSCompiler.exe.config
 F:\Work\Freelance\Doctor\API\Freelance-Doctor\FL_Doctor\API_Doctor\Website_Doctor\bin\Antlr3.Runtime.dll
+F:\Work\Freelance\Doctor\API\Freelance-Doctor\FL_Doctor\API_Doctor\Website_Doctor\bin\EntityFramework.dll
 F:\Work\Freelance\Doctor\API\Freelance-Doctor\FL_Doctor\API_Doctor\Website_Doctor\bin\EntityFramework.SqlServer.dll
 F:\Work\Freelance\Doctor\API\Freelance-Doctor\FL_Doctor\API_Doctor\Website_Doctor\bin\Microsoft.AI.Agent.Intercept.dll
 F:\Work\Freelance\Doctor\API\Freelance-Doctor\FL_Doctor\API_Doctor\Website_Doctor\bin\Microsoft.AI.DependencyCollector.dll

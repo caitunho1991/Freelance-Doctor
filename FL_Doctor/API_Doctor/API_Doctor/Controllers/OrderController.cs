@@ -44,7 +44,7 @@ namespace API_Doctor.Controllers
         /// <param name="token"></param>
         /// <returns></returns>
         [HttpGet]
-        [Route("API/Order/{token}")]
+        [Route("Order/{token}")]
         public IHttpActionResult GetListOrder(string token)
         {
             try
@@ -80,7 +80,7 @@ namespace API_Doctor.Controllers
         /// <param name="token"></param>
         /// <returns></returns>
         [HttpGet]
-        [Route("API/Order/GetListOrderConfirm/{token}")]
+        [Route("Order/GetListOrderConfirm/{token}")]
         public IHttpActionResult GetListOrderConfirm(string token)
         {
             try
@@ -115,7 +115,7 @@ namespace API_Doctor.Controllers
         /// <param name="token"></param>
         /// <returns></returns>
         [HttpGet]
-        [Route("API/Order/GetListOrderCancel/{token}")]
+        [Route("Order/GetListOrderCancel/{token}")]
         public IHttpActionResult GetListOrderCancel(string token)
         {
             try
@@ -150,7 +150,7 @@ namespace API_Doctor.Controllers
         /// <param name="token"></param>
         /// <returns></returns>
         [HttpGet]
-        [Route("API/Order/GetListOrderNotConfirm/{token}")]
+        [Route("Order/GetListOrderNotConfirm/{token}")]
         public IHttpActionResult GetListOrderNotConfirm(string token)
         {
             try
@@ -186,7 +186,7 @@ namespace API_Doctor.Controllers
         /// <param name="token"></param>
         /// <returns></returns>
         [HttpGet]
-        [Route("API/Order/{OrderNumber}/{token}")]
+        [Route("Order/{OrderNumber}/{token}")]
         public IHttpActionResult GetOrder(string OrderNumber, string token)
         {
             try
@@ -224,7 +224,7 @@ namespace API_Doctor.Controllers
         /// <param name="token"></param>
         /// <returns></returns>
         [HttpPost]
-        [Route("API/Order/{token}")]
+        [Route("Order/{token}")]
         public IHttpActionResult Order(VM_Order req, string token)
         {
             try
@@ -328,7 +328,7 @@ namespace API_Doctor.Controllers
         /// <param name="token"></param>
         /// <returns></returns>
         [HttpPut]
-        [Route("API/Order/Confirm/{OrderNumber}/{token}")]
+        [Route("Order/Confirm/{OrderNumber}/{token}")]
         public IHttpActionResult ConfirmOrder(string OrderNumber ,string token)
         {
             try
@@ -381,7 +381,7 @@ namespace API_Doctor.Controllers
         /// <param name="token"></param>
         /// <returns></returns>
         [HttpPut]
-        [Route("API/Order/Cancel/{OrderNumber}/{token}")]
+        [Route("Order/Cancel/{OrderNumber}/{token}")]
         public IHttpActionResult CancelOrder(string OrderNumber, string token)
         {
             try
@@ -459,7 +459,7 @@ namespace API_Doctor.Controllers
         /// <param name="token"></param>
         /// <returns></returns>
         [HttpPost]
-        [Route("API/Order/CashWithDrawal/{token}")]
+        [Route("Order/CashWithDrawal/{token}")]
         public IHttpActionResult CashWithDrawal(VM_CashWithDrawal req, string token)
         {
             try
@@ -524,7 +524,7 @@ namespace API_Doctor.Controllers
         /// <param name="token"></param>
         /// <returns></returns>
         [HttpPost]
-        [Route("API/Order/Recharge/{token}")]
+        [Route("Order/Recharge/{token}")]
         public IHttpActionResult Recharge(string token)
         {
             try

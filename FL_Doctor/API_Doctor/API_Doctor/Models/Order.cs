@@ -51,12 +51,13 @@ namespace API_Doctor.Models
 
         public VM_CashWithDrawal()
         {
+            FL_DoctorEntities _context = new FL_DoctorEntities();
             decimal total = 0;
-            decimal.TryParse(CMS_Lib.Resource("global_card_fee"), out total);
-            this.Card_FullName = CMS_Lib.Resource("global_card_fullname");
-            this.Card_Number = CMS_Lib.Resource("global_card_number");
-            this.Card_Bank = CMS_Lib.Resource("global_card_bank");
-            this.Note = CMS_Lib.Resource("global_card_note");
+            decimal.TryParse(_context.Resources.FirstOrDefault(x => x.Code.Equals("global_card_fee")).Value, out total);
+            this.Card_FullName = _context.Resources.FirstOrDefault(x => x.Code.Equals("global_card_fullname")).Value;
+            this.Card_Number = _context.Resources.FirstOrDefault(x => x.Code.Equals("global_card_number")).Value;
+            this.Card_Bank = _context.Resources.FirstOrDefault(x => x.Code.Equals("global_card_bank")).Value;
+            this.Note = _context.Resources.FirstOrDefault(x => x.Code.Equals("global_card_note")).Value;
             this.Total = total;
         }
         public Order ConvertModel()

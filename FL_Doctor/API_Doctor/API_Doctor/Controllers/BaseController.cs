@@ -14,6 +14,7 @@ namespace API_Doctor.Controllers
     {
         public FL_DoctorEntities _context = new FL_DoctorEntities();
         public CMS_Email email = new CMS_Email();
+        public string domain = System.Configuration.ConfigurationManager.AppSettings["domain"];
 
         protected Boolean checkAuth(string token)
         {

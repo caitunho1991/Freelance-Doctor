@@ -25,7 +25,7 @@ namespace API_Doctor.Controllers
         /// </summary>
         /// <param name="token"></param>
         /// <returns></returns>
-        [Route("API/GetBalance/{token}")]
+        [Route("GetBalance/{token}")]
         [HttpGet]
         public IHttpActionResult GetBalance(string token)
         {
@@ -55,9 +55,9 @@ namespace API_Doctor.Controllers
                         Active = (bool)x.IsActive,
                         Balance = (decimal)x.Balance,
                         DisplayBalance = displayBalance,
-                        ImgIdCard = string.IsNullOrEmpty(x.ThumbnailIDCard) == true ? ""  : "http://" + HttpContext.Current.Request.Url.Host + "/Uploads/" + x.ThumbnailIDCard,
-                        ImgLicenseId = string.IsNullOrEmpty(x.ThumbnailLicense) == true ? "" : "http://" + HttpContext.Current.Request.Url.Host + "/Uploads/" + x.ThumbnailLicense,
-                        ImgAvatar = string.IsNullOrEmpty(x.Thumbnail) == true ? "" : "http://" + HttpContext.Current.Request.Url.Host + "/Uploads/" + x.Thumbnail,
+                        ImgIdCard = string.IsNullOrEmpty(x.ThumbnailIDCard) == true ? ""  : domain + "/Uploads/" + x.ThumbnailIDCard,
+                        ImgLicenseId = string.IsNullOrEmpty(x.ThumbnailLicense) == true ? "" : domain + "/Uploads/" + x.ThumbnailLicense,
+                        ImgAvatar = string.IsNullOrEmpty(x.Thumbnail) == true ? "" : domain + "/Uploads/" + x.Thumbnail,
                         MajorCode = (int)x.ProductId
                     }).SingleOrDefault();
                     return Ok(response.Ok(res, "Lấy số dư tài khoản thành công."));
@@ -81,7 +81,7 @@ namespace API_Doctor.Controllers
         /// 5.IsDoctor = true => account doctor
         /// </param>
         /// <returns></returns>
-        [Route("API/Accounts/Login")]
+        [Route("Accounts/Login")]
         [HttpPost]
         public IHttpActionResult Login(VM_Account_Login req)
         {
@@ -149,9 +149,9 @@ namespace API_Doctor.Controllers
                         Sex = (int)x.Sex,
                         UserName = req.Username,
                         Active = (bool)x.IsActive,
-                        ImgIdCard = string.IsNullOrEmpty(x.ThumbnailIDCard) == true ? "" : "http://" + HttpContext.Current.Request.Url.Host + "/Uploads/" + x.ThumbnailIDCard,
-                        ImgLicenseId = string.IsNullOrEmpty(x.ThumbnailLicense) == true ? "" : "http://" + HttpContext.Current.Request.Url.Host + "/Uploads/" + x.ThumbnailLicense,
-                        ImgAvatar = string.IsNullOrEmpty(x.Thumbnail) == true ? "" : "http://" + HttpContext.Current.Request.Url.Host + "/Uploads/" + x.Thumbnail,
+                        ImgIdCard = string.IsNullOrEmpty(x.ThumbnailIDCard) == true ? "" : domain + "/Uploads/" + x.ThumbnailIDCard,
+                        ImgLicenseId = string.IsNullOrEmpty(x.ThumbnailLicense) == true ? "" : domain + "/Uploads/" + x.ThumbnailLicense,
+                        ImgAvatar = string.IsNullOrEmpty(x.Thumbnail) == true ? "" : domain + "/Uploads/" + x.Thumbnail,
                         MajorCode = x.ProductId,
                         MajorName = x.Product.name,
                         TokenAutoLogin = tmpToken
@@ -171,7 +171,7 @@ namespace API_Doctor.Controllers
         /// </summary>
         /// <param name="req"></param>
         /// <returns></returns>
-        [Route("API/Accounts/Register")]
+        [Route("Accounts/Register")]
         [HttpPost]
         public IHttpActionResult Register(VM_Account_Register req)
         {
@@ -248,9 +248,9 @@ namespace API_Doctor.Controllers
                         Sex = (int)x.Sex,
                         UserName = string.IsNullOrEmpty(req.Email) == true ? req.PhoneNumber : req.Email,
                         Active = (bool)x.IsActive,
-                        ImgIdCard = string.IsNullOrEmpty(x.ThumbnailIDCard) == true ? "" : "http://" + HttpContext.Current.Request.Url.Host + "/Uploads/" + x.ThumbnailIDCard,
-                        ImgLicenseId = string.IsNullOrEmpty(x.ThumbnailLicense) == true ? "" : "http://" + HttpContext.Current.Request.Url.Host + "/Uploads/" + x.ThumbnailLicense,
-                        ImgAvatar = string.IsNullOrEmpty(x.Thumbnail) == true ? "" : "http://" + HttpContext.Current.Request.Url.Host + "/Uploads/" + x.Thumbnail,
+                        ImgIdCard = string.IsNullOrEmpty(x.ThumbnailIDCard) == true ? "" : domain + "/Uploads/" + x.ThumbnailIDCard,
+                        ImgLicenseId = string.IsNullOrEmpty(x.ThumbnailLicense) == true ? "" : domain + "/Uploads/" + x.ThumbnailLicense,
+                        ImgAvatar = string.IsNullOrEmpty(x.Thumbnail) == true ? "" : domain + "/Uploads/" + x.Thumbnail,
                         MajorCode = (int)x.ProductId,
                         MajorName = x.Product.name,
                         TokenAutoLogin = tmpToken
@@ -274,9 +274,9 @@ namespace API_Doctor.Controllers
                             Sex = (int)x.Sex,
                             UserName = string.IsNullOrEmpty(req.Email) == true ? req.PhoneNumber : req.Email,
                             Active = (bool)x.IsActive,
-                            ImgIdCard = string.IsNullOrEmpty(x.ThumbnailIDCard) == true ? "" : "http://" + HttpContext.Current.Request.Url.Host + "/Uploads/" + x.ThumbnailIDCard,
-                            ImgLicenseId = string.IsNullOrEmpty(x.ThumbnailLicense) == true ? "" : "http://" + HttpContext.Current.Request.Url.Host + "/Uploads/" + x.ThumbnailLicense,
-                            ImgAvatar = string.IsNullOrEmpty(x.Thumbnail) == true ? "" : "http://" + HttpContext.Current.Request.Url.Host + "/Uploads/" + x.Thumbnail,
+                            ImgIdCard = string.IsNullOrEmpty(x.ThumbnailIDCard) == true ? "" : domain + "/Uploads/" + x.ThumbnailIDCard,
+                            ImgLicenseId = string.IsNullOrEmpty(x.ThumbnailLicense) == true ? "" : domain + "/Uploads/" + x.ThumbnailLicense,
+                            ImgAvatar = string.IsNullOrEmpty(x.Thumbnail) == true ? "" : domain + "/Uploads/" + x.Thumbnail,
                             MajorCode = (int)x.ProductId,
                             MajorName = x.Product.name,
                             TokenAutoLogin = tmpToken
@@ -296,9 +296,9 @@ namespace API_Doctor.Controllers
                             Sex = (int)x.Sex,
                             UserName = string.IsNullOrEmpty(req.Email) == true ? req.PhoneNumber : req.Email,
                             Active = (bool)x.IsActive,
-                            ImgIdCard = string.IsNullOrEmpty(x.ThumbnailIDCard) == true ? "" : "http://" + HttpContext.Current.Request.Url.Host + "/Uploads/" + x.ThumbnailIDCard,
-                            ImgLicenseId = string.IsNullOrEmpty(x.ThumbnailLicense) == true ? "" : "http://" + HttpContext.Current.Request.Url.Host + "/Uploads/" + x.ThumbnailLicense,
-                            ImgAvatar = string.IsNullOrEmpty(x.Thumbnail) == true ? "" : "http://" + HttpContext.Current.Request.Url.Host + "/Uploads/" + x.Thumbnail,
+                            ImgIdCard = string.IsNullOrEmpty(x.ThumbnailIDCard) == true ? "" : domain + "/Uploads/" + x.ThumbnailIDCard,
+                            ImgLicenseId = string.IsNullOrEmpty(x.ThumbnailLicense) == true ? "" : domain + "/Uploads/" + x.ThumbnailLicense,
+                            ImgAvatar = string.IsNullOrEmpty(x.Thumbnail) == true ? "" : domain + "/Uploads/" + x.Thumbnail,
                             MajorCode = (int)x.ProductId,
                             MajorName = x.Product.name,
                             TokenAutoLogin = tmpToken
@@ -328,7 +328,7 @@ namespace API_Doctor.Controllers
         /// <param name="token"></param>
         /// <returns></returns>
         [HttpPost]
-        [Route("API/Accounts/Logout/{token}")]
+        [Route("Accounts/Logout/{token}")]
         public IHttpActionResult LogOut(string token)
         {
             try
@@ -360,7 +360,7 @@ namespace API_Doctor.Controllers
         /// <param name="token"></param>
         /// <returns></returns>
         [HttpPut]
-        [Route("API/Accounts/UpdateProfile/{token}")]
+        [Route("Accounts/UpdateProfile/{token}")]
         public IHttpActionResult UpdateProfile(VM_Account_Register req, string token)
         {
             try
@@ -385,9 +385,9 @@ namespace API_Doctor.Controllers
                     Sex = (int)x.Sex,
                     UserName = string.IsNullOrEmpty(x.Email) == true ? x.PhoneNumber : x.Email,
                     Active = (bool) x.IsActive,
-                    ImgIdCard = string.IsNullOrEmpty(x.ThumbnailIDCard) == true ? "" : "http://" + HttpContext.Current.Request.Url.Host + "/Uploads/" + x.ThumbnailIDCard,
-                    ImgLicenseId = string.IsNullOrEmpty(x.ThumbnailLicense) == true ? "" : "http://" + HttpContext.Current.Request.Url.Host + "/Uploads/" + x.ThumbnailLicense,
-                    ImgAvatar = string.IsNullOrEmpty(x.Thumbnail) == true ? "" : "http://" + HttpContext.Current.Request.Url.Host + "/Uploads/" + x.Thumbnail,
+                    ImgIdCard = string.IsNullOrEmpty(x.ThumbnailIDCard) == true ? "" : domain + "/Uploads/" + x.ThumbnailIDCard,
+                    ImgLicenseId = string.IsNullOrEmpty(x.ThumbnailLicense) == true ? "" : domain + "/Uploads/" + x.ThumbnailLicense,
+                    ImgAvatar = string.IsNullOrEmpty(x.Thumbnail) == true ? "" : domain + "/Uploads/" + x.Thumbnail,
                     MajorCode = (int)x.ProductId,
                     MajorName = x.Product.name
                 }).SingleOrDefault();
@@ -405,7 +405,7 @@ namespace API_Doctor.Controllers
         ///// <param name="token"></param>
         ///// <returns></returns>
         //[HttpGet]
-        //[Route("API/GetListDoctor/{token}")]
+        //[Route("GetListDoctor/{token}")]
         //public IHttpActionResult GetListAccount(string token)
         //{
         //    try
@@ -441,12 +441,12 @@ namespace API_Doctor.Controllers
         //            Fee = x.Product.price.ToString(),
         //            Lat = x.Lat,
         //            Lng = x.Lng,
-        //            ThumbnailUrl = string.IsNullOrEmpty(x.Thumbnail) == true ? "" : "http://" + HttpContext.Current.Request.Url.Host + "/Uploads/" + x.Thumbnail,
+        //            ThumbnailUrl = string.IsNullOrEmpty(x.Thumbnail) == true ? "" : domain + "/Uploads/" + x.Thumbnail,
         //            OrderCount = (int)x.OrderCount,
         //            GUID = x.GUID,
         //            MajorCode = x.Product.id,
-        //            ThumbnailIDCard = string.IsNullOrEmpty(x.ThumbnailIDCard) == true ? "" : "http://" + HttpContext.Current.Request.Url.Host + "/Uploads/" + x.ThumbnailIDCard,
-        //            ThumbnailLicense = string.IsNullOrEmpty(x.ThumbnailLicense) == true ? "" : "http://" + HttpContext.Current.Request.Url.Host + "/Uploads/" + x.ThumbnailLicense,
+        //            ThumbnailIDCard = string.IsNullOrEmpty(x.ThumbnailIDCard) == true ? "" : domain + "/Uploads/" + x.ThumbnailIDCard,
+        //            ThumbnailLicense = string.IsNullOrEmpty(x.ThumbnailLicense) == true ? "" : domain + "/Uploads/" + x.ThumbnailLicense,
         //            Radius = condition_radius
         //        }).ToList();
         //        return Ok(responseAccount.Ok(list, "Lấy danh sách bác sỹ thành công."));
@@ -463,7 +463,7 @@ namespace API_Doctor.Controllers
         /// <param name="token"></param>
         /// <returns></returns>
         [HttpPost]
-        [Route("API/GetListDoctor/{token}")]
+        [Route("GetListDoctor/{token}")]
         public IHttpActionResult GetListAccountWithType(VM_Req_GetDoctor req, string token)
         {
             try
@@ -475,8 +475,10 @@ namespace API_Doctor.Controllers
                 #region Get list doctor with radius
                 double condition_radius = 0;
                 decimal global_min_fee_doctor = 0;
-                decimal.TryParse(CMS_Lib.Resource("global_min_fee_doctor"), out global_min_fee_doctor);
-                double.TryParse(CMS_Lib.Resource("global_condition_radius"), out condition_radius);
+                var flag = _context.Resources.FirstOrDefault(x => x.Code.Equals("global_min_fee_doctor")).Value;
+                decimal.TryParse(flag, out global_min_fee_doctor);
+                flag = _context.Resources.FirstOrDefault(x => x.Code.Equals("global_condition_radius")).Value;
+                double.TryParse(flag, out condition_radius);
                 var patient = _context.Accounts.SingleOrDefault(x => x.TokenLogin.Equals(token));
                 var product = _context.Products.SingleOrDefault(x=>x.id == req.MajorCode);
                 //update lat lng patient
@@ -513,12 +515,12 @@ namespace API_Doctor.Controllers
                     Fee = x.Product.price.ToString(),
                     Lat = x.Lat,
                     Lng = x.Lng,
-                    ThumbnailUrl = string.IsNullOrEmpty(x.Thumbnail) == true ? "" : "http://" + HttpContext.Current.Request.Url.Host + "/Uploads/" + x.Thumbnail,
+                    ThumbnailUrl = string.IsNullOrEmpty(x.Thumbnail) == true ? "" : domain + "/Uploads/" + x.Thumbnail,
                     OrderCount = (int)x.OrderCount,
                     GUID = x.GUID,
                     MajorCode = x.Product.id,
-                    ThumbnailIDCard = string.IsNullOrEmpty(x.ThumbnailIDCard) == true ? "" : "http://" + HttpContext.Current.Request.Url.Host + "/Uploads/" + x.ThumbnailIDCard,
-                    ThumbnailLicense = string.IsNullOrEmpty(x.ThumbnailLicense) == true ? "" : "http://" + HttpContext.Current.Request.Url.Host + "/Uploads/" + x.ThumbnailLicense,
+                    ThumbnailIDCard = string.IsNullOrEmpty(x.ThumbnailIDCard) == true ? "" : domain + "/Uploads/" + x.ThumbnailIDCard,
+                    ThumbnailLicense = string.IsNullOrEmpty(x.ThumbnailLicense) == true ? "" : domain + "/Uploads/" + x.ThumbnailLicense,
                     Radius = condition_radius
                 }).ToList();
                 return Ok(responseAccount.Ok(list, "Lấy danh sách bác sỹ thành công."));
@@ -536,7 +538,7 @@ namespace API_Doctor.Controllers
         /// <param name="token"></param>
         /// <returns></returns>
         [HttpGet]
-        [Route("API/GetDoctor/GUID/{token}")]
+        [Route("GetDoctor/GUID/{token}")]
         public IHttpActionResult GetDoctor(string GUID, string token)
         {
             try
@@ -552,12 +554,12 @@ namespace API_Doctor.Controllers
                     Fee = x.Product.price.ToString(),
                     Lat = x.Lat,
                     Lng = x.Lng,
-                    ThumbnailUrl = string.IsNullOrEmpty(x.Thumbnail) == true ? "" : "http://" + HttpContext.Current.Request.Url.Host + "/Uploads/" + x.Thumbnail,
+                    ThumbnailUrl = string.IsNullOrEmpty(x.Thumbnail) == true ? "" : domain + "/Uploads/" + x.Thumbnail,
                     OrderCount = (int)x.OrderCount,
                     GUID = x.GUID,
                     MajorCode = x.Product.id,
-                    ThumbnailIDCard = string.IsNullOrEmpty(x.ThumbnailIDCard) == true ? "" : "http://" + HttpContext.Current.Request.Url.Host + "/Uploads/" + x.ThumbnailIDCard,
-                    ThumbnailLicense = string.IsNullOrEmpty(x.ThumbnailLicense) == true ? "" : "http://" + HttpContext.Current.Request.Url.Host + "/Uploads/" + x.ThumbnailLicense
+                    ThumbnailIDCard = string.IsNullOrEmpty(x.ThumbnailIDCard) == true ? "" : domain + "/Uploads/" + x.ThumbnailIDCard,
+                    ThumbnailLicense = string.IsNullOrEmpty(x.ThumbnailLicense) == true ? "" : domain + "/Uploads/" + x.ThumbnailLicense
                 }).ToList();
                 return Ok(responseAccount.Ok(list, "Lấy thông tin bác sỹ thành công"));
             }
@@ -574,7 +576,7 @@ namespace API_Doctor.Controllers
         /// <param name="token"></param>
         /// <returns></returns>
         [HttpPut]
-        [Route("API/Accounts/ChangePassword/{token}")]
+        [Route("Accounts/ChangePassword/{token}")]
         public IHttpActionResult ChangePassword(string Password, string token)
         {
             try
@@ -605,9 +607,9 @@ namespace API_Doctor.Controllers
                     Sex = (int)x.Sex,
                     UserName = string.IsNullOrEmpty(x.Email) == true ? x.PhoneNumber : x.Email,
                     Active = (bool) x.IsActive,
-                    ImgIdCard = string.IsNullOrEmpty(x.ThumbnailIDCard) == true ? "" : "http://" + HttpContext.Current.Request.Url.Host + "/Uploads/" + x.ThumbnailIDCard,
-                    ImgLicenseId = string.IsNullOrEmpty(x.ThumbnailLicense) == true ? "" : "http://" + HttpContext.Current.Request.Url.Host + "/Uploads/" + x.ThumbnailLicense,
-                    ImgAvatar = string.IsNullOrEmpty(x.Thumbnail) == true ? "" : "http://" + HttpContext.Current.Request.Url.Host + "/Uploads/" + x.Thumbnail,
+                    ImgIdCard = string.IsNullOrEmpty(x.ThumbnailIDCard) == true ? "" : domain + "/Uploads/" + x.ThumbnailIDCard,
+                    ImgLicenseId = string.IsNullOrEmpty(x.ThumbnailLicense) == true ? "" : domain + "/Uploads/" + x.ThumbnailLicense,
+                    ImgAvatar = string.IsNullOrEmpty(x.Thumbnail) == true ? "" : domain + "/Uploads/" + x.Thumbnail,
                     MajorCode = x.ProductId,
                     MajorName = x.Product.name
                 }).SingleOrDefault();
@@ -626,7 +628,7 @@ namespace API_Doctor.Controllers
         /// <param name="token"></param>
         /// <returns></returns>
         [HttpPut]
-        [Route("API/Accounts/ChangeStatusDoctor/{token}")]
+        [Route("Accounts/ChangeStatusDoctor/{token}")]
         public IHttpActionResult ChangeStatusDoctor(VM_Req_Status_Doctor req, string token)
         {
             try
@@ -651,9 +653,9 @@ namespace API_Doctor.Controllers
                     Sex = (int)x.Sex,
                     UserName = string.IsNullOrEmpty(x.Email) == true ? x.PhoneNumber : x.Email,
                     Active = (bool) x.IsActive,
-                    ImgIdCard = string.IsNullOrEmpty(x.ThumbnailIDCard) == true ? "" : "http://" + HttpContext.Current.Request.Url.Host + "/Uploads/" + x.ThumbnailIDCard,
-                    ImgLicenseId = string.IsNullOrEmpty(x.ThumbnailLicense) == true ? "" : "http://" + HttpContext.Current.Request.Url.Host + "/Uploads/" + x.ThumbnailLicense,
-                    ImgAvatar = string.IsNullOrEmpty(x.Thumbnail) == true ? "" : "http://" + HttpContext.Current.Request.Url.Host + "/Uploads/" + x.Thumbnail,
+                    ImgIdCard = string.IsNullOrEmpty(x.ThumbnailIDCard) == true ? "" : domain + "/Uploads/" + x.ThumbnailIDCard,
+                    ImgLicenseId = string.IsNullOrEmpty(x.ThumbnailLicense) == true ? "" : domain + "/Uploads/" + x.ThumbnailLicense,
+                    ImgAvatar = string.IsNullOrEmpty(x.Thumbnail) == true ? "" : domain + "/Uploads/" + x.Thumbnail,
                     MajorCode = x.ProductId,
                     MajorName = x.Product.name
                 }).SingleOrDefault();
@@ -673,7 +675,7 @@ namespace API_Doctor.Controllers
         /// <param name="token"></param>
         /// <returns></returns>
         [HttpPut]
-        [Route("API/Accounts/UpdateImage/{token}")]
+        [Route("Accounts/UpdateImage/{token}")]
         public IHttpActionResult UploadImg(VM_Account_Thumb strImg, string token)
         {
             try
@@ -698,9 +700,9 @@ namespace API_Doctor.Controllers
                     Sex = (int)x.Sex,
                     UserName = string.IsNullOrEmpty(x.Email) == true ? x.PhoneNumber : x.Email,
                     Active = (bool)x.IsActive,
-                    ImgIdCard = string.IsNullOrEmpty(x.ThumbnailIDCard) == true ? "" : "http://" + HttpContext.Current.Request.Url.Host + "/Uploads/" + x.ThumbnailIDCard,
-                    ImgLicenseId = string.IsNullOrEmpty(x.ThumbnailLicense) == true ? "" : "http://" + HttpContext.Current.Request.Url.Host + "/Uploads/" + x.ThumbnailLicense,
-                    ImgAvatar = string.IsNullOrEmpty(x.Thumbnail) == true ? "" : "http://" + HttpContext.Current.Request.Url.Host + "/Uploads/" + x.Thumbnail,
+                    ImgIdCard = string.IsNullOrEmpty(x.ThumbnailIDCard) == true ? "" : domain + "/Uploads/" + x.ThumbnailIDCard,
+                    ImgLicenseId = string.IsNullOrEmpty(x.ThumbnailLicense) == true ? "" : domain + "/Uploads/" + x.ThumbnailLicense,
+                    ImgAvatar = string.IsNullOrEmpty(x.Thumbnail) == true ? "" : domain + "/Uploads/" + x.Thumbnail,
                     MajorCode = x.ProductId,
                     MajorName = x.Product.name
                 }).SingleOrDefault();
@@ -717,7 +719,7 @@ namespace API_Doctor.Controllers
         /// </summary>
         /// <param name="req"></param>
         /// <returns></returns>
-        [Route("API/Accounts/VerifyAccount")]
+        [Route("Accounts/VerifyAccount")]
         [HttpPost]
         public IHttpActionResult VerifyAccount(VM_Account_Req_Verify req)
         {

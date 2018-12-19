@@ -166,8 +166,8 @@ namespace API_Doctor.Models
             acc.PhoneNumber = this.PhoneNumber;
             acc.Sex = this.Sex;
             acc.Thumbnail = null;
-            acc.ThumbnailIDCard = string.IsNullOrEmpty(this.IdCard) == true ? null : CMS_Image.ConvertBase64ToImage(this.IdCard, "CardID-" + this.PhoneNumber);
-            acc.ThumbnailLicense = string.IsNullOrEmpty(this.LicenseId) == true ? null : CMS_Image.ConvertBase64ToImage(this.LicenseId, "LicenseId-" + this.PhoneNumber);
+            acc.ThumbnailIDCard = string.IsNullOrEmpty(this.IdCard) == true ? null : CMS_Image.ConvertBase64ToImage(this.IdCard, "CardID_" + this.PhoneNumber);
+            acc.ThumbnailLicense = string.IsNullOrEmpty(this.LicenseId) == true ? null : CMS_Image.ConvertBase64ToImage(this.LicenseId, "LicenseId_" + this.PhoneNumber);
             
             acc.VerifyCode = null;
             if (this.IsDoctor==true)
@@ -215,8 +215,8 @@ namespace API_Doctor.Models
             acc.IDCard = this.IdCardNumber;
             acc.Sex = this.Sex;
             acc.Thumbnail = null;
-            acc.ThumbnailIDCard = string.IsNullOrEmpty(this.IdCard) == true ? null : CMS_Image.ConvertBase64ToImage(this.IdCard, "CardID-" + this.PhoneNumber);
-            acc.ThumbnailLicense = string.IsNullOrEmpty(this.LicenseId) == true ? null : CMS_Image.ConvertBase64ToImage(this.LicenseId, "LicenseId-" + this.PhoneNumber);
+            acc.ThumbnailIDCard = string.IsNullOrEmpty(this.IdCard) == true ? null : CMS_Image.ConvertBase64ToImage(this.IdCard, "CardID_" + this.PhoneNumber);
+            acc.ThumbnailLicense = string.IsNullOrEmpty(this.LicenseId) == true ? null : CMS_Image.ConvertBase64ToImage(this.LicenseId, "LicenseId_" + this.PhoneNumber);
             return acc;
         }
     }

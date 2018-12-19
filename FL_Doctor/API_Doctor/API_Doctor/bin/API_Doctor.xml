@@ -569,7 +569,7 @@
             <param name="req"></param>
             <returns></returns>
         </member>
-        <member name="M:API_Doctor.Controllers.BlogsController.Policy">
+        <member name="M:API_Doctor.Controllers.BlogsController.About">
             <summary>
             Về chúng tôi
             </summary>

@@ -22,7 +22,7 @@ namespace API_Doctor.Controllers
         /// <param name="IsPercent">IsPercent = true => giá trị giảm giá là %, ngược lại là vnđ</param>
         /// </returns>
         [HttpGet]
-        [Route("API/Coupon/{CouponCode}/{token}")]
+        [Route("Coupon/{CouponCode}/{token}")]
         public IHttpActionResult GetCoupon(string CouponCode, string token)
         {
             try

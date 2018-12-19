@@ -12,29 +12,29 @@ namespace API_Doctor.Controllers
     public class ProductController : BaseController
     {
         #region Example
-        //// GET: api/Product
+        //// GET: Product
         //public IEnumerable<string> Get()
         //{
         //    return new string[] { "value1", "value2" };
         //}
 
-        //// GET: api/Product/5
+        //// GET: Product/5
         //public string Get(int id)
         //{
         //    return "value";
         //}
 
-        //// POST: api/Product
+        //// POST: Product
         //public void Post([FromBody]string value)
         //{
         //}
 
-        //// PUT: api/Product/5
+        //// PUT: Product/5
         //public void Put(int id, [FromBody]string value)
         //{
         //}
 
-        //// DELETE: api/Product/5
+        //// DELETE: Product/5
         //public void Delete(int id)
         //{
         //}
@@ -45,7 +45,7 @@ namespace API_Doctor.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        [Route("API/GetListMajor")]
+        [Route("GetListMajor")]
         public IHttpActionResult GetListMajor()
         {
             try
@@ -66,7 +66,7 @@ namespace API_Doctor.Controllers
 
 
         [HttpPost]
-        [Route("API/Test")]
+        [Route("Test")]
         public IHttpActionResult Test(string deviceToken)
         {
 

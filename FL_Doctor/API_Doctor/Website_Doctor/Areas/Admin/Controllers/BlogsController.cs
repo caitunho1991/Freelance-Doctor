@@ -41,7 +41,7 @@ namespace Website_Doctor.Areas.Admin.Controllers
             return View("CreateOrEdit");
         }
         [HttpPost]
-        public ActionResult CreateOrEdit(string GUID, VM_Blogs p)
+        public ActionResult CreateOrEdit(VM_Blogs p)
         {
             if (this.CheckAuth() == false)
             {
@@ -59,11 +59,6 @@ namespace Website_Doctor.Areas.Admin.Controllers
                 blog.ShortDescription = p.ShortDesscription;
                 blog.Content = p.Content;
                 blog.Alias= CMS_Lib.ConvertString(blog.Title);
-                if (_context.Blogs.Any(x=>x.Alias.Equals(blog.Alias)))
-                {
-                    TempData["Err"] = "Mã bài viết đã tồn tại";
-                    return View("CreateOrEdit", p);
-                }
                 _context.SaveChanges();
                 return RedirectToAction("Index");
             }

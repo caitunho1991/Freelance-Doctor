@@ -16,7 +16,6 @@ namespace Website_Doctor.Areas.Admin.Models
         public string Title { get; set; }
         [Required(ErrorMessage = "Vui lòng nhập mô tả")]
         public string ShortDesscription { get; set; }
-        [Required(ErrorMessage = "Vui lòng nhập nội dung")]
         [AllowHtml]
         public string Content { get; set; }
         public string Alias { get; set; }
