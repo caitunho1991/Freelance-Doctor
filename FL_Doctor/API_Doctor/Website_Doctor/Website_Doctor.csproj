@@ -231,6 +231,7 @@
     <Compile Include="Areas\Admin\Helpers\CMS_Lib.cs" />
     <Compile Include="Areas\Admin\Models\VM_Accounts.cs" />
     <Compile Include="Areas\Admin\Models\VM_Blogs.cs" />
+    <Compile Include="Areas\Admin\Models\VM_Coupons.cs" />
     <Compile Include="Areas\Admin\Models\VM_Products.cs" />
     <Compile Include="Areas\Admin\Models\VM_Resources.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -263,6 +264,8 @@
     <Content Include="Areas\Admin\Views\Common\NavMenu.cshtml" />
     <Content Include="Areas\Admin\Views\Accounts\CreateOrEdit.cshtml" />
     <Content Include="Areas\Admin\Views\Accounts\ChangePassword.cshtml" />
+    <Content Include="Areas\Admin\Views\Coupon\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Coupon\CreateOrEdit.cshtml" />
     <None Include="Areas\Admin\Views\Shared\_SidebarMenu.cshtml" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
@@ -4901,7 +4904,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Views\Base\" />
-    <Folder Include="Areas\Admin\Views\Coupon\" />
     <Folder Include="Areas\Admin\Views\Settings\" />
     <Folder Include="Models\" />
   </ItemGroup>
