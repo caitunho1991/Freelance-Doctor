@@ -70,7 +70,7 @@
                                     @Html.ValidationMessageFor(x => x.Count, string.Empty, new { @class = "label label-danger" })
                                 </div>
                             </div>
-                            if (Model.Value >= 0)
+                            if (Model==null || Model.Value >= 0)
                             {
 
                                 <div class="form-group">
