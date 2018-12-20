@@ -265,7 +265,7 @@ namespace API_Doctor.Controllers
                     _context.SaveChanges();
 
                     //check coupon
-                    if (coupon != null)
+                    if (coupon != null && DateTime.Compare(DateTime.Now, (DateTime)coupon.DateStart) >= 0 && DateTime.Compare((DateTime)coupon.DateEnd, DateTime.Now) >= 0)
                     {
                         if (!_context.OrderCouponAccounts.Any(x => x.AccountID == patient.ID && x.CouponID == coupon.ID))
                         {
