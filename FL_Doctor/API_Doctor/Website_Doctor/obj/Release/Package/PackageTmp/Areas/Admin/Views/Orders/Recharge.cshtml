@@ -1,0 +1,33 @@
+﻿@using Website_Doctor.Areas.Admin.Models
+@model VM_Order_Recharge
+<h3 class="text-center"> Xác nhận giao dịch nạp tiền</h3>
+@using (Html.BeginForm("ApproveRecharge", "Orders", FormMethod.Post, new { @class = "form-horizontal" }))
+{
+    <p>@Html.ValidationSummary()</p>
+    <div class="form-group">
+        <label class="control-label col-sm-3 col-xs-12">Mã giao dịch:</label>
+        <div class="col-sm-9 col-xs-12">
+            @Html.TextBoxFor(x => x.OrderNumber, new { @class = "form-control", placeholder = "Tên mã giảm giá"  })
+            @Html.ValidationMessageFor(x => x.OrderNumber, string.Empty, new { @class = "label label-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-sm-3 col-xs-12">Số tiền giao dichj:</label>
+        <div class="col-sm-9 col-xs-12">
+            @Html.TextBoxFor(x => x.Total, new { @class = "form-control", placeholder = "Mã giảm giá" })
+            @Html.ValidationMessageFor(x => x.Total, string.Empty, new { @class = "label label-danger" })
+        </div>
+    </div>
+    <div class="form-group text-center">
+        <button class="btn btn-success btn-sm" type="submit">Xác nhận</button>
+    </div>
+}
+<style>
+    #fancybox-content{
+        width: 700px;
+    }
+    .form-horizontal {
+        background: #fff;
+    }
+</style>
+

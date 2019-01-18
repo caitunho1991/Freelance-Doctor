@@ -2,6 +2,7 @@
 @model IQueryable<Account>
 @{
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    var domain = System.Configuration.ConfigurationManager.AppSettings["domain"];
 }
 
 <div class="right_col" role="main">
@@ -74,11 +75,14 @@
                                                             </div>
                                                             <div class="modal-body">
                                                                 <form class="form-horizontal">
-                                                                    <div class="row">
-                                                                        <div class="col-xs-12 text-center">
-                                                                            <img class="img-thumbnail" src="@item.Thumbnail" alt="@item.FullName" />
+                                                                    @if (!string.IsNullOrEmpty(item.Thumbnail))
+                                                                    {
+                                                                        <div class="row">
+                                                                            <div class="col-xs-12 text-center">
+                                                                                <img style="max-width: 150px !important" class="img-thumbnail" src="@domain/Uploads/@item.Thumbnail" alt="@item.FullName" />
+                                                                            </div>
                                                                         </div>
-                                                                    </div>
+                                                                    }
                                                                     <div class="row">
                                                                         <label class="control-label col-sm-5">Họ và tên:</label>
                                                                         <label class="control-label col-sm-7 text-left">@item.FullName</label>
@@ -125,18 +129,24 @@
                                                                     </div>
                                                                     @if (item.Group.Code.Equals("doctor"))
                                                                     {
-                                                                        <div class="row">
-                                                                            <label class="control-label col-sm-5">Chứng chỉ hành nghề:</label>
-                                                                            <label class="control-label col-sm-7 text-left">
-                                                                                <img src="@item.ThumbnailLicense" alt="@item.FullName" />
-                                                                            </label>
-                                                                        </div>
-                                                                        <div class="row">
-                                                                            <label class="control-label col-sm-5">Chứng minh nhân dân:</label>
-                                                                            <label class="control-label col-sm-7 text-left">
-                                                                                <img src="@item.ThumbnailIDCard" alt="@item.FullName" />
-                                                                            </label>
-                                                                        </div>
+                                                                        if (!string.IsNullOrEmpty(item.ThumbnailLicense))
+                                                                        {
+                                                                            <div class="row">
+                                                                                <label class="control-label col-sm-5">Chứng chỉ hành nghề:</label>
+                                                                                <label class="control-label col-sm-12 text-left">
+                                                                                    <img style="max-width: 100% !important" src="@domain/Uploads/@item.ThumbnailLicense" alt="@item.FullName" />
+                                                                                </label>
+                                                                            </div>
+                                                                        }
+                                                                        if (!string.IsNullOrEmpty(item.ThumbnailIDCard))
+                                                                        {
+                                                                            <div class="row">
+                                                                                <label class="control-label col-sm-5">Chứng minh nhân dân:</label>
+                                                                                <label class="control-label col-sm-12 text-left">
+                                                                                    <img style="max-width: 100% !important"  src="@domain/Uploads/@item.ThumbnailIDCard" alt="@item.FullName" />
+                                                                                </label>
+                                                                            </div>
+                                                                        }
                                                                         <div class="row">
                                                                             <label class="control-label col-sm-5">Số dư:</label>
                                                                             <label class="control-label col-sm-7 text-left">@item.Balance</label>
@@ -149,7 +159,14 @@
                                                                         <div class="row">
                                                                             <label class="control-label col-sm-5">Banned tài khoản:</label>
                                                                             <label class="control-label col-sm-7 text-left">
-                                                                                <a href="@Url.Action("Banned", "Accounts", new { GUID = item.GUID })" class="btn btn-danger btn-xs"> Banned</a>
+                                                                                @if (item.IsBanned == true)
+                                                                                {
+                                                                                    <a href="@Url.Action("Banned", "Accounts", new { GUID = item.GUID })" class="btn btn-success btn-xs"> On</a>
+                                                                                }
+                                                                                else
+                                                                                {
+                                                                                    <a href="@Url.Action("Banned", "Accounts", new { GUID = item.GUID })" class="btn btn-danger btn-xs"> Off</a>
+                                                                                }
                                                                             </label>
                                                                         </div>
                                                                     }

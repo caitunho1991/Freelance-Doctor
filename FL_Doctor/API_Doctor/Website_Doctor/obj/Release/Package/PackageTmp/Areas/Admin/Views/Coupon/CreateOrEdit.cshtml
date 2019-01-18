@@ -1,0 +1,164 @@
+﻿@using Website_Doctor.Areas.Admin.Models
+@model VM_Coupons
+@{
+    ViewBag.Title = "CreateOrEdit";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="right_col" role="main">
+    <div class="">
+        <div class="page-title">
+            <div class="title_left">
+                <h3>Users <small>Some examples to get you started</small></h3>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>Default Example <small>Users</small></h2>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        @using (Html.BeginForm("CreateOrEdit", "Coupon", FormMethod.Post, new { @class = "form-horizontal" }))
+                        {
+                            <p>@Html.ValidationSummary()</p>
+                            if (Model != null)
+                            {
+                                @Html.HiddenFor(x => x.ID)
+                            }
+                            <div class="form-group">
+                                <label class="control-label col-sm-3 col-xs-12">Tên mã giảm giá:</label>
+                                <div class="col-sm-6 col-xs-12">
+                                    @Html.TextBoxFor(x => x.Name, new { @class = "form-control", placeholder = "Tên mã giảm giá" })
+                                    @Html.ValidationMessageFor(x => x.Name, string.Empty, new { @class = "label label-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-3 col-xs-12">Mã giảm giá:</label>
+                                <div class="col-sm-6 col-xs-12">
+                                    @Html.TextBoxFor(x => x.Code, new { @class = "form-control", placeholder = "Mã giảm giá" })
+                                    @Html.ValidationMessageFor(x => x.Code, string.Empty, new { @class = "label label-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-3 col-xs-12">Mô tả mã giảm giá:</label>
+                                <div class="col-sm-6 col-xs-12">
+                                    @Html.TextBoxFor(x => x.Description, new { @class = "form-control", placeholder = "Chuyên khoa khám bệnh" })
+                                    @*@Html.ValidationMessageFor(x => x.Description, string.Empty, new { @class = "label label-danger" })*@
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-3 col-xs-12">Ngày bắt đầu:</label>
+                                <div class="col-sm-6 col-xs-12">
+                                    @Html.TextBoxFor(x => x.StartDate, new { @class = "form-control date-picker", placeholder = "dd/mm/yyyy" })
+                                    @Html.ValidationMessageFor(x => x.StartDate, string.Empty, new { @class = "label label-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-3 col-xs-12">Ngày kết thúc:</label>
+                                <div class="col-sm-6 col-xs-12">
+                                    @Html.TextBoxFor(x => x.EndDate, new { @class = "form-control  date-picker", placeholder = "dd/mm/yyyy" })
+                                    @Html.ValidationMessageFor(x => x.EndDate, string.Empty, new { @class = "label label-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group c_value">
+                                <label class="control-label col-sm-3 col-xs-12">Số lượt sử dụng:</label>
+                                <div class="col-sm-6 col-xs-12">
+                                    @Html.TextBoxFor(x => x.Count, new { @class = "form-control ", placeholder = "" })
+                                    @Html.ValidationMessageFor(x => x.Count, string.Empty, new { @class = "label label-danger" })
+                                </div>
+                            </div>
+                            if (Model==null || Model.Value >= 0)
+                            {
+
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3 col-xs-12">Giảm giá theo vnd:</label>
+                                    <div class="col-sm-6 col-xs-12">
+                                        <input type="checkbox" class="form-control checkbox" name="CouponType" checked="checked" value="true" />
+                                    </div>
+                                </div>
+                                <div class="form-group c_value">
+                                    <label class="control-label col-sm-3 col-xs-12">Giảm giá (vnd):</label>
+                                    <div class="col-sm-6 col-xs-12">
+                                        @Html.TextBoxFor(x => x.Value, new { @class = "form-control ", placeholder = "" })
+                                        @*@Html.ValidationMessageFor(x => x.Value, string.Empty, new { @class = "label label-danger" })*@
+                                    </div>
+                                </div>
+                                <div class="form-group c_percent hidden">
+                                    <label class="control-label col-sm-3 col-xs-12">Giảm giá (%):</label>
+                                    <div class="col-sm-6 col-xs-12">
+                                        @Html.TextBoxFor(x => x.Percent, new { @class = "form-control ", placeholder = "" })
+                                        @*@Html.ValidationMessageFor(x => x.Percent, string.Empty, new { @class = "label label-danger" })*@
+                                    </div>
+                                </div>
+                            }
+                            else if (Model.Percent >= 0)
+                            {
+
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3 col-xs-12">Giảm giá theo vnd:</label>
+                                    <div class="col-sm-6 col-xs-12">
+                                        <input type="checkbox" class="form-control checkbox" name="CouponType" value="false" />
+                                    </div>
+                                </div>
+                                <div class="form-group c_value hidden">
+                                    <label class="control-label col-sm-3 col-xs-12">Giảm giá (vnd):</label>
+                                    <div class="col-sm-6 col-xs-12">
+                                        @Html.TextBoxFor(x => x.Value, new { @class = "form-control ", placeholder = "" })
+                                        @*@Html.ValidationMessageFor(x => x.Value, string.Empty, new { @class = "label label-danger" })*@
+                                    </div>
+                                </div>
+                                <div class="form-group c_percent">
+                                    <label class="control-label col-sm-3 col-xs-12">Giảm giá (%):</label>
+                                    <div class="col-sm-6 col-xs-12">
+                                        @Html.TextBoxFor(x => x.Percent, new { @class = "form-control ", placeholder = "" })
+                                        @*@Html.ValidationMessageFor(x => x.Percent, string.Empty, new { @class = "label label-danger" })*@
+                                    </div>
+                                </div>
+                            }
+                            <div class="form-group text-center">
+                                <div class="col-sm-9 col-xs-12">
+                                    <button type="submit" class="btn btn-success">
+                                        <i class="fa fa-save"></i> Lưu lại
+                                    </button>
+                                    <a class="btn btn-danger" href="@Url.Action("Index", "Coupon")">
+                                        <i class="fa fa-times"></i> Hủy bỏ
+                                    </a>
+                                </div>
+                            </div>
+
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Theme/vendors/moment/min/moment.min.js"></script>
+<script src="~/Theme/vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
+<script>
+    $(function () {
+        $('.date-picker').daterangepicker({
+            singleDatePicker: true,
+            showDropdowns: true,
+            minYear: 1901,
+            maxYear: parseInt(moment().format('YYYY'), 10),
+        });
+        $("input.checkbox").on("click", function () {
+            if ($(this).prop("checked") == true) {
+                $(this).val(true);
+                $(".c_value").removeClass("hidden");
+                $(".c_percent").addClass("hidden");
+            }
+            else {
+                $(this).val(false);
+                $(".c_percent").removeClass("hidden");
+                $(".c_value").addClass("hidden");
+            }
+        });
+
+    });
+</script>

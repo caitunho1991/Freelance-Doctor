@@ -9,6 +9,9 @@
                 <a href="@Url.Action("Index", "Blogs")"><i class="fa fa-newspaper-o"></i> Quản lý bài viết</a>
             </li>
             <li>
+                <a href="@Url.Action("Profile", "Accounts")"><i class="fa fa-user"></i> Tạo tài khoản quản trị viên</span></a>
+            </li>
+            <li>
                 <a><i class="fa fa-user"></i> Quản lý tài khoản <span class="fa fa-chevron-down"></span></a>
                 <ul class="nav child_menu">
                     <li><a href="@Url.Action("Index", "Accounts")">Tài khoản bác sỹ & bệnh nhân</a></li>
@@ -23,7 +26,7 @@
                 <a href="@Url.Action("Index", "Coupon")"><i class="fa fa-barcode"></i> Quản lý Coupon</span></a>
             </li>
             <li>
-                <a><i class="fa fa-cart-plus"></i> Quản lý lịch hẹn <span class="fa fa-chevron-down"></span></a>
+                <a><i class="fa fa-cart-plus"></i> Quản lý giao dịch <span class="fa fa-chevron-down"></span></a>
                 <ul class="nav child_menu">
                     <li><a href="@Url.Action("GetListTransactions", "Orders")">Tất cả lịch hẹn bác sỹ</a></li>
                     <li><a href="@Url.Action("GetListCashWithDrawal", "Orders")">Rút tiền</a></li>

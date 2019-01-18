@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Website_Doctor.Areas.Admin.Models;
 
 namespace Website_Doctor.Areas.Admin.Controllers
 {
@@ -100,19 +101,32 @@ namespace Website_Doctor.Areas.Admin.Controllers
             }
         }
 
-        public ActionResult ApproveRecharge(string OrderNumber)
+        [HttpGet]
+        public ActionResult GetOrderRecharge(string orderNumber)
+        {
+            var order = _context.Orders.Where(x => x.OrderType.Code.Equals("recharge") && x.code.Equals(orderNumber)).Select(x=> new VM_Order_Recharge {
+                OrderNumber = x.code,
+                Total = (decimal)x.totalPay
+            }).Single();
+            return PartialView("Recharge", order);
+        }
+
+        [HttpPost]
+        public ActionResult ApproveRecharge(VM_Order_Recharge rc)
         {
             if (this.CheckAuth() == false)
             {
                 return RedirectToAction("Login", "Accounts");
             }
-            var c = _context.Orders.Single(x => x.code.Equals(OrderNumber));
+            var c = _context.Orders.Single(x => x.code.Equals(rc.OrderNumber));
             if (c.OrderStatus.Count == 1)
             {
                 var status = _context.OrderStatus.Single(x => x.code.Equals("recharge_confirm"));
                 c.OrderStatus.Add(status);
+                c.total = rc.Total;
+                c.totalPay = rc.Total;
                 var client = _context.Accounts.Single(x => x.ID == c.idBuyer);
-                client.Balance += c.totalPay;
+                client.Balance += rc.Total;
                 c.idOrderStatus = status.id;
                 _context.SaveChanges();
                 TempData["Err"] = "Xác nhận giao dịch nạp tiền thành công.";

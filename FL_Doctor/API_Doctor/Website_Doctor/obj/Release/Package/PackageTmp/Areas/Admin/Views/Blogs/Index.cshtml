@@ -17,7 +17,7 @@
                 <div class="x_panel">
                     <div class="x_title">
                         <h2>@ViewBag.Title</h2>
-                        <a href="@Url.Action("Create", "Blogs")" class="btn btn-success pull-right">
+                        <a href="@Url.Action("CreateOrEdit", "Blogs")" class="btn btn-success pull-right">
                             <i class="glyphicon glyphicon-plus"></i> Tạo mới
                         </a>
                         <div class="clearfix"></div>
@@ -49,7 +49,7 @@
                                             <td>@item.ShortDescription</td>
                                             <td>@item.DateCreate</td>
                                             <td>
-                                                <a class="btn btn-info btn-xs" href="@Url.Action("Edit", "Blogs", new { ID=item.ID })">
+                                                <a class="btn btn-info btn-xs" href="@Url.Action("CreateOrEdit", "Blogs", new { ID=item.ID })">
                                                     <i class="fa fa-eye"></i> Chi tiết
                                                 </a>
                                             </td>

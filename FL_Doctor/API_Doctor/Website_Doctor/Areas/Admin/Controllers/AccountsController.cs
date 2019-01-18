@@ -5,6 +5,7 @@ using System.Net;
 using System.Security.Cryptography;
 using System.Web;
 using System.Web.Mvc;
+using Website_Doctor.Areas.Admin.Data;
 using Website_Doctor.Areas.Admin.Helpers;
 using Website_Doctor.Areas.Admin.Models;
 
@@ -106,8 +107,8 @@ namespace Website_Doctor.Areas.Admin.Controllers
             a.Password = CMS_Lib.MD5(a.Password);
             if (_context.Accounts.Any(x=>x.Email == a.Username && x.VerifyEmail == true && x.Password.Equals(a.Password)))
             {
-                var acc = _context.Accounts.Single(x => x.Email == a.Username && x.VerifyEmail == true && x.ID == 1);
-                if (acc.ID == 1)
+                var acc = _context.Accounts.Single(x => x.Email == a.Username && x.VerifyEmail == true && x.Group.Code.Equals("admin"));
+                if (acc.ID != null)
                 {
                     if (Request.Cookies["TokenLogin"] != null)
                     {
@@ -150,13 +151,16 @@ namespace Website_Doctor.Areas.Admin.Controllers
             return RedirectToAction("Login", "Accounts");
         }
 
-        public ActionResult Profile(int ID)
+        public ActionResult Profile(int? ID)
         {
-            ViewBag.Title = "Thông tin tài khoản";
-            var acc = _context.Accounts.Single(x => x.ID==ID);
-            VM_Account_Edit a = new VM_Account_Edit();
-            a = a.ConvertDataToModel(acc);
-            return View("CreateOrEdit", a);
+            if(ID != null && ID > 0){
+                ViewBag.Title = "Thông tin tài khoản";
+                var acc = _context.Accounts.Single(x => x.ID == ID);
+                VM_Account_Edit a = new VM_Account_Edit();
+                a = a.ConvertDataToModel(acc);
+                return View("CreateOrEdit", a);
+            }
+            return View("CreateOrEdit");
         }
         [HttpPost]
         public ActionResult Profile(VM_Account_Edit a)
@@ -165,13 +169,36 @@ namespace Website_Doctor.Areas.Admin.Controllers
             {
                 return View("CreateOrEdit", a);
             }
-            var acc = _context.Accounts.Find(a.ID);
-            acc.FirstName = a.FirstName;
-            acc.LastName = a.LastName;
-            acc.FullName = a.LastName + " " + a.FirstName;
-            acc.Sex = a.Sex;
-            acc.BirthDay = a.DateOfBirth;
-            _context.SaveChanges();
+            if (a.ID != null && a.ID > 0)
+            {
+                var acc = _context.Accounts.Find(a.ID);
+                acc.FirstName = a.FirstName;
+                acc.LastName = a.LastName;
+                acc.FullName = a.LastName + " " + a.FirstName;
+                acc.Sex = a.Sex;
+                acc.BirthDay = a.DateOfBirth;
+                _context.SaveChanges();
+            }
+            else
+            {
+                var acc = new Account();
+                acc.GUID = CMS_Lib.GenerateGUID();
+                acc.IsActive = true;
+                acc.IsApprove = true;
+                acc.FirstName = a.FirstName;
+                acc.LastName = a.LastName;
+                acc.FullName = a.LastName + " " + a.FirstName;
+                acc.Sex = a.Sex;
+                acc.Email = a.Email;
+                acc.PhoneNumber = a.PhoneNumber;
+                acc.VerifyEmail = true;
+                acc.Password = CMS_Lib.MD5("@Abc1234!");
+                acc.BirthDay = a.DateOfBirth;
+                var group = _context.Groups.Single(x=>x.Code.Equals("admin")).ID;
+                acc.GroupId = group;
+                _context.Accounts.Add(acc);
+                _context.SaveChanges();
+            }
             return RedirectToAction("Index", "Dashboard");
         }
 

@@ -17,7 +17,7 @@
                 <div class="x_panel">
                     <div class="x_title">
                         <h2>@ViewBag.Title</h2>
-                        <a href="@Url.Action("Create","Products")" class="btn btn-success pull-right">
+                        <a href="@Url.Action("CreateOrEdit","Products")" class="btn btn-success pull-right">
                             <i class="glyphicon glyphicon-plus"></i> Tạo mới
                         </a>
                         <div class="clearfix"></div>
@@ -68,7 +68,7 @@
                                                 }
                                             </td>
                                             <td>
-                                                <a href="@Url.Action("Edit","Products", new { code = item.code})">
+                                                <a href="@Url.Action("CreateOrEdit","Products", new { code = item.code})">
                                                     <span class="btn btn-primary btn-xs"><i class="fa fa-eye"></i> Chi tiết</span>
                                                 </a>
                                                 @if (item.isDelete != true)
